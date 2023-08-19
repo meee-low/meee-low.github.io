@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "title": "py_flags",
+    "description": "CLI flags parser for python.",
+    "skills": [
+      "Object-Oriented Programming (OOP)",
+      "strict typing in python, using mypy to check",
+      " API design"
+    ],
+    "languagesAndFrameworks": ["python"],
+    "additionalInfo": "",
+    "projectUrl": "https://github.com/meee-low/py_flags",
+    "imagePath": "",
+    "highlighted": true,
+    "hidden": false
+  },
+  {
+    "id": 2,
+    "title": "Automatic Playlists for Spotify",
+    "description": "Grabs tracks and podcast episodes from various sources and merges them in a single playlist. The goal is to approximate a radio station, with different themed blocks.",
+    "skills": ["Direct interaction with RESTful API"],
+    "languagesAndFrameworks": ["python", " spotifyapi"],
+    "additionalInfo": "",
+    "projectUrl": "https://github.com/meee-low/spotify-api",
+    "imagePath": "",
+    "highlighted": false,
+    "hidden": false
+  },
+  {
+    "id": 3,
+    "title": "Web of Marvel Characters",
+    "description": "Visualizes a network of Marvel characters based on their common appearances in the comics.",
+    "skills": [
+      "Web scraping",
+      "Data cleaning and processing",
+      "Graph network visualization"
+    ],
+    "languagesAndFrameworks": ["python", "beautifulsoup", "pandas", "jupyter"],
+    "additionalInfo": "",
+    "projectUrl": "https://github.com/meee-low/web-of-marvel-characters",
+    "imagePath": "",
+    "highlighted": true,
+    "hidden": false
+  },
+  {
+    "id": 4,
+    "title": "portfolio",
+    "description": "The website you are probably reading right now!",
+    "skills": [],
+    "languagesAndFrameworks": ["typescript", "react", "html", "css"],
+    "additionalInfo": "",
+    "projectUrl": "https://github.com/meee-low/new-portfolio",
+    "imagePath": "",
+    "highlighted": false,
+    "hidden": false
+  },
+  {
+    "id": 5,
+    "title": "Exploration of Biases in Critics vs Public Movie Reviews",
+    "description": "",
+    "skills": ["Data analysis"],
+    "languagesAndFrameworks": ["python", "pandas", "jupyter"],
+    "additionalInfo": "",
+    "projectUrl": "",
+    "imagePath": "",
+    "highlighted": true,
+    "hidden": false
+  },
+  {
+    "id": 6,
+    "title": "Other Small Projects",
+    "description": "Projects too small for their own repo. Usually mathematical visualization, competitive programming problems or exploring new programming languages.",
+    "skills": [
+      "Mathematical visualization",
+      "Problem solving and algorithms",
+      "Exploring new tools"
+    ],
+    "languagesAndFrameworks": [
+      "python",
+      "rust",
+      "c++",
+      "golang",
+      "julia",
+      "pygame"
+    ],
+    "additionalInfo": "",
+    "projectUrl": "https://github.com/meee-low/challenges",
+    "imagePath": "",
+    "highlighted": false,
+    "hidden": false
+  },
+  {
+    "id": 7,
+    "title": "MMO Auction Market Tracker",
+    "description": "A spreadsheet that gathers user input on the market prices, graphs trends and recommends actions related to production.",
+    "skills": [
+      "Pivot tables",
+      "Advanced spreadsheet manipulation",
+      "Data visualization",
+      "Operational recommendations"
+    ],
+    "languagesAndFrameworks": ["excel", "google sheets", "google forms"],
+    "additionalInfo": "",
+    "projectUrl": "",
+    "imagePath": "",
+    "highlighted": false,
+    "hidden": false
+  }
+]
