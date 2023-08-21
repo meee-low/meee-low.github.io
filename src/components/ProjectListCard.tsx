@@ -15,11 +15,22 @@ const ProjectListCard: React.FC<{ project: ProjectData }> = ({ project }) => {
     hidden,
   } = project;
 
+  if (hidden) {
+    return <div></div>;
+  }
   return (
     <div className="project">
+      <img src={imagePath} alt={title} />
       <h3>{title}</h3>
       <p>{description}</p>
-      <img src={imagePath} alt={title} />
+      <div>
+        <h4>Skills:</h4>
+        <ul>
+          {skills.map((skill, _) => (
+            <li>{skill}</li>
+          ))}
+        </ul>
+      </div>
       <div>
         <a href={projectUrl}>Code</a>
       </div>
