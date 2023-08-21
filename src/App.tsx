@@ -6,16 +6,20 @@ import Footer from "./components/Footer";
 import FrontPage from "./pages/FrontPage";
 import AboutMe from "./pages/AboutMe";
 
+import "./style/style.css";
+
 function App() {
   return (
     <Router>
       <div className="app">
         <Header />
         <main>
-          <Routes>
-            <Route path="/" element={<FrontPage />} />
-            <Route path="/about" element={<AboutMe />} />
-          </Routes>
+          <div className="content-wrapper">
+            <Routes>
+              <Route path="/" element={<FrontPage />} />
+              <Route path="/about" element={<AboutMe />} />
+            </Routes>
+          </div>
         </main>
         <Footer />
       </div>
