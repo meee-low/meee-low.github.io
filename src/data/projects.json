@@ -6,12 +6,12 @@
     "skills": [
       "Object-Oriented Programming (OOP)",
       "strict typing in python, using mypy to check",
-      " API design"
+      "API design"
     ],
     "languagesAndFrameworks": ["python"],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/py_flags",
-    "imagePath": "",
+    "imagePath": "../../public/img/projects/web-of-marvel.png",
     "highlighted": true,
     "hidden": false
   },
@@ -20,10 +20,10 @@
     "title": "Automatic Playlists for Spotify",
     "description": "Grabs tracks and podcast episodes from various sources and merges them in a single playlist. The goal is to approximate a radio station, with different themed blocks.",
     "skills": ["Direct interaction with RESTful API"],
-    "languagesAndFrameworks": ["python", " spotifyapi"],
+    "languagesAndFrameworks": ["python", "spotifyapi"],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/spotify-api",
-    "imagePath": "",
+    "imagePath": "../../public/img/projects/web-of-marvel.png",
     "highlighted": false,
     "hidden": false
   },
@@ -39,7 +39,7 @@
     "languagesAndFrameworks": ["python", "beautifulsoup", "pandas", "jupyter"],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/web-of-marvel-characters",
-    "imagePath": "",
+    "imagePath": "../../public/img/projects/web-of-marvel.png",
     "highlighted": true,
     "hidden": false
   },
@@ -47,11 +47,11 @@
     "id": 4,
     "title": "portfolio",
     "description": "The website you are probably reading right now!",
-    "skills": [],
+    "skills": ["Front-end design", "Semantic HTML"],
     "languagesAndFrameworks": ["typescript", "react", "html", "css"],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/new-portfolio",
-    "imagePath": "",
+    "imagePath": "../../public/img/projects/web-of-marvel.png",
     "highlighted": false,
     "hidden": false
   },
@@ -62,8 +62,8 @@
     "skills": ["Data analysis"],
     "languagesAndFrameworks": ["python", "pandas", "jupyter"],
     "additionalInfo": "",
-    "projectUrl": "",
-    "imagePath": "",
+    "projectUrl": "https://www.kaggle.com/code/milofd/notebook63f45c9f36",
+    "imagePath": "../../public/img/projects/web-of-marvel.png",
     "highlighted": true,
     "hidden": false
   },
@@ -86,7 +86,7 @@
     ],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/challenges",
-    "imagePath": "",
+    "imagePath": "../../public/img/projects/web-of-marvel.png",
     "highlighted": false,
     "hidden": false
   },
@@ -103,7 +103,7 @@
     "languagesAndFrameworks": ["excel", "google sheets", "google forms"],
     "additionalInfo": "",
     "projectUrl": "",
-    "imagePath": "",
+    "imagePath": "../../public/img/projects/web-of-marvel.png",
     "highlighted": false,
     "hidden": false
   }
