@@ -206,3 +206,62 @@ nav a {
 nav a:hover {
   text-decoration: underline;
 }
+
+/* Image area */
+.project-grid .project .image-area {
+  display: flex;
+  justify-content: center;
+}
+
+/* Codebase icon */
+.carousel div .codebase-icon {
+  width: 32px;
+  height: 32px;
+}
+
+/* Codebase icon */
+#root
+  .app
+  main
+  .content-wrapper
+  .front-page
+  .project-list
+  .project-grid
+  .project
+  div
+  div
+  .codebase-icon {
+  width: 32px !important;
+}
+
+/* Codebase icon */
+.app .front-page .project-list .project-grid .project div div .codebase-icon {
+  height: 32px !important;
+}
+
+/* Codebase icon */
+.project-grid div .codebase-icon {
+  height: 32px;
+}
+
+/* Repo link area */
+.carousel div .repo-link-area {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Repo link area */
+.project-grid div .repo-link-area {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Card content */
+.carousel .project .card-content {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
