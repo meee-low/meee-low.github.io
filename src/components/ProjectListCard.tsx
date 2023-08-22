@@ -22,7 +22,9 @@ const ProjectListCard: React.FC<{ project: ProjectData }> = ({ project }) => {
   }
   return (
     <div className="project">
-      <img src={imagePath} alt={title} />
+      <div className="image-area">
+        <img src={imagePath} alt={title} />
+      </div>
       <h3>{title}</h3>
       <p>{description}</p>
       <div>
