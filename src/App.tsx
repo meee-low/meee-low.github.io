@@ -17,7 +17,7 @@ function App() {
           <div className="content-wrapper">
             <Routes>
               <Route path="/" element={<FrontPage />} />
-              <Route path="/about" element={<AboutMe />} />
+              <Route path="/about-me" element={<AboutMe />} />
             </Routes>
           </div>
         </main>

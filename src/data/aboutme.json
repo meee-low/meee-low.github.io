@@ -10,11 +10,12 @@
     "email": "example.example.com",
     "phone": "+55 (51) 99999-9999"
   },
-
+  "description": ["", ""],
   "interests": [
     "Education",
     "Science and math communication",
     "Algebra, combinatoric game theory, numeric algorithms",
     "Fantasy and comic books"
-  ]
+  ],
+  "closingThoughts": ["", ""]
 }
