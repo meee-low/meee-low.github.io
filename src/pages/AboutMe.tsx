@@ -16,16 +16,23 @@ const AboutMe: React.FC = () => {
     closingThoughts,
   } = myInfo;
 
+  const myLinksCast: Record<string, string> = myLinks;
+
   return (
     <div className="about-me">
       <h1>{myName}</h1>
       <img src={picturePath} alt="My Profile"></img>
       <ul className="mylinks">
-        {/* {myLinks.map((link) => (
-          <li>
-            <a href={link}>link</a>
-          </li>
-        ))} */}
+        {Object.keys(myLinksCast).map((site) => {
+          const siteUrl: string = myLinksCast[site];
+          return (
+            <li key={site}>
+              <a href={siteUrl} target="_blank" rel="noopener noreferrer">
+                {site}
+              </a>
+            </li>
+          );
+        })}
       </ul>
       {/* <ContactCaptcha
         emailCypher={contactInfo.email}

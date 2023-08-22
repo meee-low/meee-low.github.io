@@ -2,15 +2,23 @@
   "myName": "Matheus Ferreira Drumond",
   "picturePath": "",
   "myLinks": {
-    "gitHub": "",
-    "linkedin": "",
-    "resume": ""
+    "GitHub": "https://github.com/meee-low/",
+    "LinkedIn": "https://www.linkedin.com/in/matheus-drumond-9bb38a101/",
+    "Resume": "",
+    "Resume (print-friendly)": ""
   },
   "contactInfo": {
     "email": "example.example.com",
     "phone": "+55 (51) 99999-9999"
   },
-  "description": ["", ""],
+  "description": [
+    "I'm Matheus, a student pursuing a Bachelor's degree in Applied Mathematics at Universidade Federal do Rio Grande do Sul (UFRGS) in Porto Alegre, Brazil.",
+    "My programming journey started at the age of 15, teaching myself Python, which quickly became my go-to language for scripting needs in daily-life. I've also delved deep into its data analytics libraries like pandas, numpy, and matplotlib.",
+    "Beyond Python, I like to try out various programming languages, like TypeScript, Rust, C++, C#, Go, Julia, and APL. Each language offers distinct design and strengths that I find captivating.",
+    "Aside from coding, I'm very passionate about education and science communication, particularly in the realm of Mathematics. I take pleasure in simplifying intricate concepts and sharing them with others. When I'm not immersed in code or tackling theorems, you'll often find me engrossed in the captivating realms of fantasy and comics, learning how to draw or appreciating beautiful design.",
+    "For my future, I have diverse aspirations. Mathematics remains my foremost passion, and I am currently working towards an academic path and becoming a professor. Simultaneously, I'm drawn to the fields of data analysis and software development.",
+    "Within the realm of mathematics, my primary areas of interest encompass Algebra, Combinatorial Game Theory, and numerical algorithms."
+  ],
   "interests": [
     "Education",
     "Science and math communication",
