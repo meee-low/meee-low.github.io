@@ -11,7 +11,7 @@
     "languagesAndFrameworks": ["python"],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/py_flags",
-    "imagePath": "/img/projects/web-of-marvel.png",
+    "imagePath": "/img/projects/py_flags.png",
     "highlighted": true,
     "hidden": false
   },
@@ -45,7 +45,7 @@
   },
   {
     "id": 4,
-    "title": "portfolio",
+    "title": "Portfolio",
     "description": "The website you are probably reading right now!",
     "skills": ["Front-end design", "Semantic HTML"],
     "languagesAndFrameworks": ["typescript", "react", "html", "css"],
@@ -57,13 +57,13 @@
   },
   {
     "id": 5,
-    "title": "Exploration of Biases in Critics vs Public Movie Reviews",
+    "title": "Exploration of Biases in Critics vs. Public Movie Reviews",
     "description": "",
     "skills": ["Data analysis"],
     "languagesAndFrameworks": ["python", "pandas", "jupyter"],
     "additionalInfo": "",
     "projectUrl": "https://www.kaggle.com/code/milofd/notebook63f45c9f36",
-    "imagePath": "/img/projects/web-of-marvel.png",
+    "imagePath": "/img/projects/kaggle-movies-critics-genre.png",
     "highlighted": true,
     "hidden": false
   },
@@ -86,7 +86,7 @@
     ],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/challenges",
-    "imagePath": "/img/projects/web-of-marvel.png",
+    "imagePath": "/img/projects/challenges_mandelbrot.png",
     "highlighted": false,
     "hidden": false
   },
