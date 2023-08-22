@@ -1,9 +1,17 @@
 import React from "react";
 
+import iconmap from "../../data/iconmap.json";
+
+type StrToStrMap = {
+  [key: string]: string;
+};
+
 const CodeLink: React.FC<{ url: string }> = ({ url }) => {
   if (url === "") {
     return <div></div>;
   }
+
+  const iconMapCast: StrToStrMap = iconmap;
 
   const match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/);
 
@@ -21,10 +29,10 @@ const CodeLink: React.FC<{ url: string }> = ({ url }) => {
 
   switch (domain) {
     case "github.com":
-      iconPath = "img/toolbadges/github_transparent.png";
+      iconPath = iconMapCast["GitHub"];
       break;
     case "kaggle.com":
-      iconPath = "img/toolbadges/189_Kaggle-512.webp";
+      iconPath = iconMapCast["Kaggle"];
       break;
     default:
       break;
@@ -43,11 +51,9 @@ const CodeLink: React.FC<{ url: string }> = ({ url }) => {
 
   return (
     <div className="repo-link-area">
+      {message}
       <img className="codebase-icon" src={iconPath} alt="icon"></img>
-      <a href={url}>
-        {message}
-        {domain}
-      </a>
+      <a href={url}>{domain}</a>
     </div>
   );
 };
