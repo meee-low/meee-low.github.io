@@ -38,7 +38,7 @@ const CodeLink: React.FC<{ url: string }> = ({ url }) => {
 
   return (
     <div>
-      <img src={iconPath} alt="icon"></img>
+      <img className="codebase-icon" src={iconPath} alt="icon"></img>
       <a href={url}>Code at: {domain}</a>
     </div>
   );
