@@ -27,12 +27,12 @@ def trim(input_path: Path, in_place: bool = False) -> None:
 def shrink(input_path: Path, max_size: int = 128, in_place: bool = False) -> None:
     with Image.open(input_path) as image:
         width, height = image.size
-        print(width, height)
+        # print(width, height)
 
         while width > max_size and height > max_size:
             width = width // 2
             height = height // 2
-            print(width, height)
+            # print(width, height)
 
         resized_image = image.resize((width, height), Image.Resampling.LANCZOS)
 
@@ -70,10 +70,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    # this_directory = Path(__file__).resolve().parent
-    # target_directory = this_directory.parent.parent / "public" / "img"
-
-    # print(target_directory)
-
-    # main(target_directory)
     main()
