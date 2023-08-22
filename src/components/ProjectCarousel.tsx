@@ -12,7 +12,6 @@ const ProjectCarousel: React.FC = () => {
 
   return (
     <section className="project-carousel">
-      <h2>Highlighted Projects</h2>
       <div className="carousel">
         {highlightedProjects.map((project, index) => (
           <ProjectCarouselSlide key={index} project={project} />
