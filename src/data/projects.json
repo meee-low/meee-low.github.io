@@ -8,7 +8,7 @@
       "strict typing in python, using mypy to check",
       "API design"
     ],
-    "languagesAndFrameworks": ["python"],
+    "languagesAndFrameworks": ["Python"],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/py_flags",
     "imagePath": "/img/projects/py_flags.png",
@@ -20,7 +20,7 @@
     "title": "Automatic Playlists for Spotify",
     "description": "Grabs tracks and podcast episodes from various sources and merges them in a single playlist. The goal is to approximate a radio station, with different themed blocks.",
     "skills": ["Direct interaction with RESTful API"],
-    "languagesAndFrameworks": ["python", "spotifyapi"],
+    "languagesAndFrameworks": ["Python", "SpotifyAPI"],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/spotify-api",
     "imagePath": "/img/projects/web-of-marvel.png",
@@ -36,7 +36,12 @@
       "Data cleaning and processing",
       "Graph network visualization"
     ],
-    "languagesAndFrameworks": ["python", "beautifulsoup", "pandas", "jupyter"],
+    "languagesAndFrameworks": [
+      "Python",
+      "BeautifulSoup4",
+      "Pandas",
+      "Jupyter Notebook"
+    ],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/web-of-marvel-characters",
     "imagePath": "/img/projects/web-of-marvel.png",
@@ -47,8 +52,8 @@
     "id": 4,
     "title": "Portfolio",
     "description": "The website you are probably reading right now!",
-    "skills": ["Front-end design", "Semantic HTML"],
-    "languagesAndFrameworks": ["typescript", "react", "html", "css"],
+    "skills": ["Front-end design", "Semantic HTML", "ReCAPTCHA"],
+    "languagesAndFrameworks": ["TypeScript", "React", "HTML", "CSS"],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/new-portfolio",
     "imagePath": "/img/projects/web-of-marvel.png",
@@ -60,7 +65,7 @@
     "title": "Exploration of Biases in Critics vs. Public Movie Reviews",
     "description": "",
     "skills": ["Data analysis"],
-    "languagesAndFrameworks": ["python", "pandas", "jupyter"],
+    "languagesAndFrameworks": ["Python", "Pandas", "Jupyter Notebook"],
     "additionalInfo": "",
     "projectUrl": "https://www.kaggle.com/code/milofd/notebook63f45c9f36",
     "imagePath": "/img/projects/kaggle-movies-critics-genre.png",
@@ -74,15 +79,16 @@
     "skills": [
       "Mathematical visualization",
       "Problem solving and algorithms",
-      "Exploring new tools"
+      "Exploring new tools",
+      "Adapting to new problems and tools"
     ],
     "languagesAndFrameworks": [
-      "python",
-      "rust",
-      "c++",
-      "golang",
-      "julia",
-      "pygame"
+      "Python",
+      "Rust",
+      "C++",
+      "Golang",
+      "Julia",
+      "PyGame"
     ],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/challenges",
@@ -100,7 +106,7 @@
       "Data visualization",
       "Operational recommendations"
     ],
-    "languagesAndFrameworks": ["excel", "google sheets", "google forms"],
+    "languagesAndFrameworks": ["MS Excel", "Google Sheets", "Google Forms"],
     "additionalInfo": "",
     "projectUrl": "",
     "imagePath": "/img/projects/web-of-marvel.png",
