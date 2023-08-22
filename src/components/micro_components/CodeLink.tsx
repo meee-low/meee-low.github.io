@@ -15,7 +15,7 @@ const CodeLink: React.FC<{ url: string }> = ({ url }) => {
 
   const match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/);
 
-  const message = "Code available at: ";
+  const message = "Source code at:";
 
   let domain = "";
   let iconPath = "";
