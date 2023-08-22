@@ -265,3 +265,78 @@ nav a:hover {
   padding-top: 20px;
   padding-bottom: 20px;
 }
+
+/* Tool badge */
+.project-grid li .tool-badge {
+  display: flex;
+  align-items: center;
+}
+
+/* List Item */
+.project-grid .tools li {
+  list-style-type: none;
+}
+
+/* Tools */
+.project-grid .project .tools {
+  list-style-type: none;
+  display: flex;
+  padding-left: 0px;
+  justify-content: space-around;
+}
+
+/* Paragraph */
+.project-grid li p {
+  margin-left: 7px;
+}
+
+/* Link */
+.project-grid div a {
+  padding-left: 7px;
+}
+
+/* Image */
+.project-grid li img {
+  max-width: 32px !important;
+  max-height: 32px !important;
+}
+
+/* Paragraph */
+.app footer p {
+  color: #ffffff;
+}
+
+/* Footer */
+#root .app footer {
+  height: 50px;
+  display: flex;
+  padding-left: 30px;
+}
+
+/* Header */
+#root .app header {
+  padding-left: 40px;
+}
+
+/* Project grid */
+.front-page .project-list .project-grid {
+  align-items: stretch;
+  display: inline-flex;
+}
+
+/* Front page */
+.app main .front-page {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  transform: translatex(0px) translatey(0px);
+}
+
+/* Tools */
+.project-grid .project .tools {
+  flex-wrap: wrap;
+}
+
+/* Link */
+.carousel div a {
+  margin-left: 7px;
+}
