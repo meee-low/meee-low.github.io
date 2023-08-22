@@ -11,7 +11,7 @@
     "languagesAndFrameworks": ["python"],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/py_flags",
-    "imagePath": "../../public/img/projects/web-of-marvel.png",
+    "imagePath": "/img/projects/web-of-marvel.png",
     "highlighted": true,
     "hidden": false
   },
@@ -23,7 +23,7 @@
     "languagesAndFrameworks": ["python", "spotifyapi"],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/spotify-api",
-    "imagePath": "../../public/img/projects/web-of-marvel.png",
+    "imagePath": "/img/projects/web-of-marvel.png",
     "highlighted": false,
     "hidden": false
   },
@@ -39,7 +39,7 @@
     "languagesAndFrameworks": ["python", "beautifulsoup", "pandas", "jupyter"],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/web-of-marvel-characters",
-    "imagePath": "../../public/img/projects/web-of-marvel.png",
+    "imagePath": "/img/projects/web-of-marvel.png",
     "highlighted": true,
     "hidden": false
   },
@@ -51,7 +51,7 @@
     "languagesAndFrameworks": ["typescript", "react", "html", "css"],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/new-portfolio",
-    "imagePath": "../../public/img/projects/web-of-marvel.png",
+    "imagePath": "/img/projects/web-of-marvel.png",
     "highlighted": false,
     "hidden": false
   },
@@ -63,7 +63,7 @@
     "languagesAndFrameworks": ["python", "pandas", "jupyter"],
     "additionalInfo": "",
     "projectUrl": "https://www.kaggle.com/code/milofd/notebook63f45c9f36",
-    "imagePath": "../../public/img/projects/web-of-marvel.png",
+    "imagePath": "/img/projects/web-of-marvel.png",
     "highlighted": true,
     "hidden": false
   },
@@ -86,7 +86,7 @@
     ],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/challenges",
-    "imagePath": "../../public/img/projects/web-of-marvel.png",
+    "imagePath": "/img/projects/web-of-marvel.png",
     "highlighted": false,
     "hidden": false
   },
@@ -103,7 +103,7 @@
     "languagesAndFrameworks": ["excel", "google sheets", "google forms"],
     "additionalInfo": "",
     "projectUrl": "",
-    "imagePath": "../../public/img/projects/web-of-marvel.png",
+    "imagePath": "/img/projects/web-of-marvel.png",
     "highlighted": false,
     "hidden": false
   }
