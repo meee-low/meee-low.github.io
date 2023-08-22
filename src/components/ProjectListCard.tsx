@@ -1,6 +1,8 @@
 import React from "react";
 import ProjectData from "../interfaces/ProjectProps";
 
+import CodeLink from "./micro_components/CodeLink";
+
 const ProjectListCard: React.FC<{ project: ProjectData }> = ({ project }) => {
   const {
     id,
@@ -32,7 +34,8 @@ const ProjectListCard: React.FC<{ project: ProjectData }> = ({ project }) => {
         </ul>
       </div>
       <div>
-        <a href={projectUrl}>Code</a>
+        {/* <a href={projectUrl}>Code</a> */}
+        <CodeLink url={projectUrl}></CodeLink>
       </div>
     </div>
   );
