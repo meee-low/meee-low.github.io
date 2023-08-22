@@ -37,7 +37,7 @@ const CodeLink: React.FC<{ url: string }> = ({ url }) => {
   }
 
   return (
-    <div>
+    <div className="repo-link-area">
       <img className="codebase-icon" src={iconPath} alt="icon"></img>
       <a href={url}>Code at: {domain}</a>
     </div>
