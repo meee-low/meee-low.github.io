@@ -1,7 +1,7 @@
 import React from "react";
 import ProjectData from "../interfaces/ProjectProps";
 
-import "../style/ProjectCarouselSlide.css";
+// import "../style/ProjectCarouselSlide.css";
 import CodeLink from "./micro_components/CodeLink";
 
 const ProjectCarouselSlide: React.FC<{ project: ProjectData }> = ({
