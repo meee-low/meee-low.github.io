@@ -1,100 +1,180 @@
 /* Content wrapper */
-.app main .content-wrapper{
-    border-width:2px;
-    padding-left:2%;
-    padding-right:1.5%;
-   }
+.app main .content-wrapper {
+  border-width: 2px;
+  padding-left: 2%;
+  padding-right: 1.5%;
+}
 
-   /* Header */
-   #root .app header{
-    padding-left:85px;
-    padding-right:58px;
-    padding-top:20px;
-    padding-bottom:20px;
-   }
+/* Header */
+#root .app header {
+  padding-left: 85px;
+  padding-right: 58px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
 
-   /* Project grid */
-   .front-page .project-list .project-grid{
-    text-align:left;
-    padding-left:20px;
-    padding-right:20px;
-    display:flex;
-    column-gap:14px;
-    align-content:flex-start;
-    row-gap:15px;
-    flex-direction:row;
-    flex-wrap:wrap;
-    align-items:flex-start;
-    justify-content:center;
-   }
+/* Project grid */
+.front-page .project-list .project-grid {
+  text-align: left;
+  padding-left: 20px;
+  padding-right: 20px;
+  display: flex;
+  column-gap: 14px;
+  align-content: flex-start;
+  row-gap: 15px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+}
 
-   /* Project */
-   .project-list .project-grid .project{
-    border-style:solid;
-    border-width:2px;
-    box-shadow:0px 0px 6px 0px #000000;
-    max-width:45%;
-    min-width:45%;
-    padding-left:25px;
-    padding-right:25px;
-    padding-top:25px;
-    padding-bottom:25px;
-   }
+/* Project */
+.project-list .project-grid .project {
+  border-style: solid;
+  border-width: 2px;
+  box-shadow: 0px 0px 6px 0px #000000;
+  max-width: 45%;
+  min-width: 45%;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
 
-   /* Project grid */
-   #root .app main .content-wrapper .front-page .project-list .project-grid{
-    grid-template-columns:auto auto !important;
-   }
+/* Project grid */
+#root .app main .content-wrapper .front-page .project-list .project-grid {
+  grid-template-columns: auto auto !important;
+}
 
-   /* Footer */
-   #root .app footer{
-    background-color:#000000;
-   }
+/* Footer */
+#root .app footer {
+  background-color: #000000;
+}
 
-   /* Heading */
-   .front-page .project-list h2{
-    text-align:center;
-    text-shadow:none;
-   }
+/* Heading */
+.front-page .project-list h2 {
+  text-align: center;
+  text-shadow: none;
+}
 
-   /* Front page */
-   .app main .front-page{
-    background-color:#838f83;
-    box-shadow:0px 0px 5px 0px #000000;
-   }
+/* Front page */
+.app main .front-page {
+  background-color: #838f83;
+  box-shadow: 0px 0px 5px 0px #000000;
+}
 
-   /* Project */
-   .project-carousel .carousel .project{
-    display:grid;
-    column-gap:2%;
-   }
+/* Project */
+.project-carousel .carousel .project {
+  display: grid;
+  column-gap: 2%;
+}
 
-   /* Project */
-   #root .app main .content-wrapper .front-page .project-carousel .carousel .project{
-    grid-template-columns:65% auto !important;
-    box-shadow:8px 3px 4px 0px #000000 !important;
-   }
+/* Project */
+#root
+  .app
+  main
+  .content-wrapper
+  .front-page
+  .project-carousel
+  .carousel
+  .project {
+  grid-template-columns: 65% auto !important;
+  box-shadow: 8px 3px 4px 0px #000000 !important;
+}
 
-   /* Card content */
-   .carousel .project .card-content{
-    background-color:#a8a8a8;
-   }
+/* Card content */
+.carousel .project .card-content {
+  background-color: #a8a8a8;
+}
 
-   /* List Item */
-   .header nav li{
-    font-size:25px;
-   }
+/* List Item */
+.header nav li {
+  font-size: 25px;
+}
 
-   /* App */
-   #root .app{
-    transform:translatex(0px) translatey(0px);
-   }
+/* App */
+#root .app {
+  transform: translatex(0px) translatey(0px);
+}
 
-   @media (max-width:768px){
+@media (max-width: 768px) {
+  /* Content wrapper */
+  .app main .content-wrapper {
+    transform: translatex(0px) translatey(0px);
+  }
+}
 
-    /* Content wrapper */
-    .app main .content-wrapper{
-     transform:translatex(0px) translatey(0px);
-    }
+/* Header */
+#root .app header {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
 
-   }
+/* Project */
+#root
+  .app
+  main
+  .content-wrapper
+  .front-page
+  .project-carousel
+  .carousel
+  .project {
+  grid-template-columns: 65% 34% !important;
+}
+
+/* Project */
+.project-carousel .carousel .project {
+  column-gap: 0%;
+}
+
+/* Image */
+.project-grid .project img {
+  display: inline-block;
+}
+
+/* Image */
+#root
+  .app
+  main
+  .content-wrapper
+  .front-page
+  .project-list
+  .project-grid
+  .project
+  img {
+  width: 100% !important;
+}
+
+/* Image */
+#root
+  .app
+  main
+  .content-wrapper
+  .front-page
+  .project-carousel
+  .carousel
+  .project
+  .card-image
+  img {
+  width: 100% !important;
+}
+
+/* Image */
+.project-grid .project img {
+  max-width: 100%;
+  max-height: 300px;
+}
+
+/* Image */
+#root
+  .app
+  main
+  .content-wrapper
+  .front-page
+  .project-list
+  .project-grid
+  .project
+  img {
+  width: auto !important;
+  height: auto !important;
+}
