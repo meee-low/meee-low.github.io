@@ -1,16 +1,26 @@
-import React from 'react';
+import React from "react";
+
+// import "../style/Header.css";
 
 const Header: React.FC = () => {
   return (
-    <header>
+    <header className="header">
       <nav>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about-me">About Me</a></li>
+        <ul className="nav-list">
+          <li>
+            <a href="/" className="nav-link">
+              Projects
+            </a>
+          </li>
+          <li>
+            <a href="/about-me" className="nav-link">
+              About Me
+            </a>
+          </li>
         </ul>
       </nav>
     </header>
   );
-}
+};
 
 export default Header;
