@@ -1,5 +1,6 @@
 from PIL import Image
 from pathlib import Path
+import argparse
 
 CROPPED_SUFFIX = "_cropped.png"
 
@@ -27,7 +28,6 @@ def main(target_directory: Path) -> None:
 
 
 if __name__ == "__main__":
-
     this_directory = Path(__file__).resolve().parent
     target_directory = this_directory.parent.parent / "public" / "img"
 
