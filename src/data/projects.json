@@ -11,7 +11,7 @@
     "languagesAndFrameworks": ["Python"],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/py_flags",
-    "imagePath": "/img/projects/py_flags.png",
+    "imagePath": "/img/projects/py_flags_cropped.png",
     "highlighted": true,
     "hidden": false
   },
@@ -23,7 +23,7 @@
     "languagesAndFrameworks": ["Python", "SpotifyAPI"],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/spotify-api",
-    "imagePath": "/img/projects/web-of-marvel.png",
+    "imagePath": "/img/projects/web-of-marvel_cropped.png",
     "highlighted": false,
     "hidden": false
   },
@@ -44,7 +44,7 @@
     ],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/web-of-marvel-characters",
-    "imagePath": "/img/projects/web-of-marvel.png",
+    "imagePath": "/img/projects/web-of-marvel_cropped.png",
     "highlighted": true,
     "hidden": false
   },
@@ -56,7 +56,7 @@
     "languagesAndFrameworks": ["TypeScript", "React", "HTML", "CSS"],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/new-portfolio",
-    "imagePath": "/img/projects/web-of-marvel.png",
+    "imagePath": "/img/projects/web-of-marvel_cropped.png",
     "highlighted": false,
     "hidden": false
   },
@@ -68,7 +68,7 @@
     "languagesAndFrameworks": ["Python", "Pandas", "Jupyter Notebook"],
     "additionalInfo": "",
     "projectUrl": "https://www.kaggle.com/code/milofd/notebook63f45c9f36",
-    "imagePath": "/img/projects/kaggle-movies-critics-genre.png",
+    "imagePath": "/img/projects/kaggle-movies-critics-genre_cropped.png",
     "highlighted": true,
     "hidden": false
   },
@@ -92,7 +92,7 @@
     ],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/challenges",
-    "imagePath": "/img/projects/challenges_mandelbrot.png",
+    "imagePath": "/img/projects/challenges_mandelbrot-removebg-preview_cropped.png",
     "highlighted": false,
     "hidden": false
   },
@@ -109,7 +109,7 @@
     "languagesAndFrameworks": ["MS Excel", "Google Sheets", "Google Forms"],
     "additionalInfo": "",
     "projectUrl": "",
-    "imagePath": "/img/projects/web-of-marvel.png",
+    "imagePath": "/img/projects/web-of-marvel_cropped.png",
     "highlighted": false,
     "hidden": false
   }
