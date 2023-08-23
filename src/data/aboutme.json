@@ -4,8 +4,8 @@
   "myLinks": {
     "GitHub": "https://github.com/meee-low/",
     "LinkedIn": "https://www.linkedin.com/in/matheus-drumond-9bb38a101/",
-    "Resume": "",
-    "Resume (print-friendly)": ""
+    "Resume": "/docs/matheus-ferreira-drumond-resume.pdf",
+    "Resume (print-friendly)": "/docs/matheus-ferreira-drumond-resume-pf.pdf"
   },
   "contactInfo": {
     "email": "example.example.com",
