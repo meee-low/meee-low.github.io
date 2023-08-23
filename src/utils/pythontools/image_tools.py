@@ -70,4 +70,6 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    # with current folder structure:
+    # ..\..\..\public\img
     main()
