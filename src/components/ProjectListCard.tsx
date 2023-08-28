@@ -1,7 +1,8 @@
 import React from "react";
 import ProjectData from "../interfaces/ProjectProps";
 
-import ToolBadge from "./micro_components/ToolBadge";
+// import ToolBadge from "./micro_components/ToolBadge";
+import ToolBadgesWithText from "./micro_components/ToolBadgesWithText";
 import CodeLink from "./micro_components/CodeLink";
 
 const ProjectListCard: React.FC<{ project: ProjectData }> = ({ project }) => {
@@ -28,14 +29,8 @@ const ProjectListCard: React.FC<{ project: ProjectData }> = ({ project }) => {
       </div>
       <h3>{title}</h3>
       <p>{description}</p>
-      <ul className="tools">
-        {languagesAndFrameworks.map((tool) => (
-          <li>
-            <ToolBadge tool={tool} />
-          </li>
-        ))}
-      </ul>
-      <div>
+      <ToolBadgesWithText languagesAndFrameworks={languagesAndFrameworks}/>
+      <div className="skills-area">
         <h4>Skills:</h4>
         <ul>
           {skills.map((skill, _) => (
