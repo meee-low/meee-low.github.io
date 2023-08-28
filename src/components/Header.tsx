@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 
 const Header: React.FC = () => {
   const location = useLocation();
-  console.log(location);
 
   const navBar: Record<string, string> = {
     "/": "Projects",
