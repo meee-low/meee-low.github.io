@@ -20,41 +20,46 @@ const AboutMe: React.FC = () => {
 
   return (
     <div className="about-me">
-      <h1>{myName}</h1>
-      <img src={picturePath} alt="My Profile"></img>
-      <ul className="mylinks">
-        {Object.keys(myLinksCast).map((site) => {
-          const siteUrl: string = myLinksCast[site];
-          return (
-            <li key={site}>
-              <a href={siteUrl} target="_blank" rel="noopener noreferrer">
-                {site}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-      {/* <ContactCaptcha
+      <div className="profile">
+        <h1>{myName}</h1>
+        <img src={picturePath} alt="My Profile"></img>
+        <ul className="mylinks">
+          {Object.keys(myLinksCast).map((site) => {
+            const siteUrl: string = myLinksCast[site];
+            return (
+              <li key={site}>
+                <a href={siteUrl} target="_blank" rel="noopener noreferrer">
+                  {site}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+        {/* <ContactCaptcha
         emailCypher={contactInfo.email}
         phoneCypher={contactInfo.phone}
       /> */}
+      </div>
+
       <div className="description">
-        {description.map((paragraph) => (
-          <p>{paragraph}</p>
-        ))}
-      </div>
-      <div className="interests">
-        <h3>Interests</h3>
-        <ul>
-          {interests.map((interest) => (
-            <li>{interest}</li>
+        <div className="bio">
+          {description.map((paragraph) => (
+            <p>{paragraph}</p>
           ))}
-        </ul>
-      </div>
-      <div>
-        {closingThoughts.map((paragraph) => (
-          <p>{paragraph}</p>
-        ))}
+        </div>
+        <div className="interests">
+          <h3>Interests</h3>
+          <ul>
+            {interests.map((interest) => (
+              <li>{interest}</li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          {closingThoughts.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
       </div>
     </div>
   );

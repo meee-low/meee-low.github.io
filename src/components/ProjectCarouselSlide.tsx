@@ -2,12 +2,13 @@ import React from "react";
 import ProjectData from "../interfaces/ProjectProps";
 
 import CodeLink from "./micro_components/CodeLink";
+import ToolBadgesWithText from "./micro_components/ToolBadgesWithText";
 
-const ProjectCarouselSlide: React.FC<{ project: ProjectData }> = ({
-  project,
-}) => {
+const ProjectCarouselSlide: React.FC<{
+  project: ProjectData;
+  isActive: boolean;
+}> = ({ project, isActive }) => {
   const {
-    id,
     title,
     description,
     skills,
@@ -21,14 +22,15 @@ const ProjectCarouselSlide: React.FC<{ project: ProjectData }> = ({
 
   if (highlighted && !hidden) {
     return (
-      <div className="project">
+      <div className={`project-slide ${isActive ? "active" : ""}`}>
         <div className="card-image">
-          <img src={imagePath} alt={title} />
+          <img src={imagePath} alt={title} className="carousel-image"/>
         </div>
         <div className="card-content">
           <h3>{title}</h3>
+          <ToolBadgesWithText languagesAndFrameworks={languagesAndFrameworks} />
           <p>{description}</p>
-          <div>
+          <div className="skills-area">
             <h4>Skills:</h4>
             <ul>
               {skills.map((skill, index) => (
@@ -36,7 +38,7 @@ const ProjectCarouselSlide: React.FC<{ project: ProjectData }> = ({
               ))}
             </ul>
           </div>
-          <div>
+          <div className="link-area">
             <CodeLink url={projectUrl} />
           </div>
         </div>

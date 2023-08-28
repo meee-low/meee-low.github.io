@@ -1,0 +1,303 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+
+#root .app {
+  font-family: "Roboto";
+  min-height: 95vh;
+  width: 100%;
+  position: relative;
+}
+
+body {
+  margin: 0;
+  background-color: #293636;
+}
+
+/* FOOTER */
+
+main {
+  padding-bottom: 50px; /* needed for the footer */
+}
+
+footer {
+  background-color: #333;
+  color: whitesmoke;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+}
+
+footer .footer-content {
+  padding-left: 30px;
+}
+
+/* HEADER */
+
+header {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: #333;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  justify-content: space-around;
+  overflow: auto;
+}
+
+.header nav li {
+  font-size: 25px;
+  margin-right: 20px;
+}
+
+.nav-link {
+  color: lightgrey;
+  text-decoration: none;
+}
+
+.nav-link.active {
+  color: whitesmoke;
+  text-decoration: underline;
+}
+
+/* MAIN BODY */
+
+main {
+}
+
+/* ABOUT-ME */
+
+.about-me {
+  padding: 30px 30px 0px 30px;
+  display: flex;
+  justify-content: center;
+
+  gap: 20px;
+}
+
+.about-me .profile {
+  background-color: grey;
+  padding: 10px;
+  border: black;
+  border-radius: 2px;
+  border-style: solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.about-me .profile h1 {
+  text-align: center;
+  white-space: nowrap;
+  margin: 20px;
+}
+
+.about-me .profile ul.mylinks {
+  list-style: none;
+  white-space: nowrap;
+  justify-content: space-around;
+}
+
+.about-me .profile .mylinks li {
+  margin-bottom: 5px;
+}
+
+.about-me .description {
+  min-width: 500px;
+  padding: 30px;
+  background-color: lightgrey;
+  border-style: solid;
+  border: black;
+  border-radius: 2px;
+}
+
+@media screen and (max-width: 990px) {
+  .about-me {
+    flex-wrap: wrap;
+  }
+
+  .about-me .profile {
+    width: 100%;
+  }
+}
+
+/* PROJECTS PAGE  */
+
+/* CAROUSEL  */
+
+/* CSS for ProjectCarousel component */
+.project-carousel {
+  position: relative;
+  max-width: 90vw;
+  max-height: 80vh;
+  margin: 0 auto;
+}
+
+.carousel-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-wrapper {
+  display: flex;
+  transition: transform 0.5s ease;
+  width: 100%; /* Ensure the wrapper spans the full width of the container */
+  height: 100%;
+}
+
+/* Styling for ProjectCarouselSlide component */
+.project-slide {
+  flex: 0 0 100%; /* Each slide takes up the full width */
+  padding: 0 10px; /* Add some horizontal padding for spacing between slides */
+  box-sizing: border-box;
+  height: 100%; /* Set a fixed height for each slide */
+  display: flex;
+  flex-direction: row;
+}
+/* Other styles for your slides go here */
+
+/* CSS for carousel controls */
+.carousel-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.carousel-controls button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-controls button:hover {
+  background-color: #0056b3;
+}
+
+.slide-content {
+  display: flex;
+  height: 100%; /* Ensure slide content takes up the full slide height */
+}
+
+/* Other styles for your slides go here */
+
+.carousel-image {
+  max-width: 100%; /* Adjust the width as needed */
+  max-height: 80vh; /* Adjust the height as needed */
+  width: auto;
+  height: 60vh;
+  display: block;
+  margin: 0 auto;
+}
+
+.card-image {
+  background-color: #333;
+  flex: 4;
+  max-height: 100%;
+}
+
+.card-content {
+  background-color: beige;
+  padding: 30px;
+  flex: 1;
+  max-height: 100%;
+  min-width: 300px;
+}
+
+.card-content h3 {
+  text-align: center;
+}
+
+/* PROJECTS LIST  */
+
+.project-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 40px;
+}
+
+.project-list h2 {
+  color: whitesmoke;
+  text-align: center;
+  margin-top: 90px;
+}
+
+.project-grid .project {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: beige;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: space-between;
+  width: 500px;
+  max-width: 40%;
+}
+
+@media screen and (max-width: 990px) {
+  .project-grid .project {
+    width: 100%;
+  }
+}
+
+.project-grid .project .image-area {
+  display: flex;
+  justify-content: center;
+}
+
+.project-grid .project img {
+  max-width: 100%;
+  max-height: 300px;
+}
+
+ul.tools-badge-area-with-text {
+  padding-inline-start: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+  gap: 2px;
+}
+
+li .tool-badge-with-text {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.repo-link-area {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1px;
+}
+
+.badge-icon {
+  /* width: 32px; */
+  height: 32px;
+  width: auto;
+  margin: 0 auto;
+}
+
+.codebase-icon {
+  width: auto;
+  height: 32px;
+  margin: 0 auto;
+}

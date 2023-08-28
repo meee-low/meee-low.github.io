@@ -11,7 +11,7 @@ const ToolBadge: React.FC<{ tool: string }> = ({ tool }) => {
   const toolImgPath = iconMapCast[tool];
 
   return (
-    <div className="tool-badge">
+    <div className="tool-badge-with-text">
       {(tool in iconMapCast)?(<img className="badge-icon" src={toolImgPath} alt="icon"></img>):(<div></div>)}
       <p>{tool}</p>
     </div>

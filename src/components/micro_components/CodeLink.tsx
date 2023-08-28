@@ -50,7 +50,7 @@ const CodeLink: React.FC<{ url: string }> = ({ url }) => {
   }
 
   return (
-    <div className="repo-link-area">
+    <div className="repo-link-area anchor-bottom">
       <p>{message}</p>
       <img className="codebase-icon" src={iconPath} alt="icon"></img>
       <a href={url} target="_blank" rel="noopener noreferrer">

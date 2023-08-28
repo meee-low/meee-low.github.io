@@ -1,21 +1,34 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Header: React.FC = () => {
+  const location = useLocation();
+  console.log(location);
+
+  const navBar: Record<string, string> = {
+    "/": "Projects",
+    "/about-me": "About Me",
+  };
+
   return (
     <header className="header">
       <nav>
         <ul className="nav-list">
-          <li>
-            <Link to="/" className="nav-link">
-              Projects
-            </Link>
-          </li>
-          <li>
-            <Link to="/about-me" className="nav-link">
-              About Me
-            </Link>
-          </li>
+          {Object.keys(navBar).map((path, index) => {
+            const pathLabel: string = navBar[path];
+            return (
+              <li>
+                <Link
+                  to={path}
+                  className={
+                    "nav-link" + (location.pathname === path ? " active" : "")
+                  }
+                >
+                  {pathLabel}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </nav>
     </header>
