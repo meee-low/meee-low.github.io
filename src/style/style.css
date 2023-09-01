@@ -277,7 +277,7 @@ li .tool-badge-with-text {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1px;
+  gap: 5px;
 }
 
 .badge-icon {
@@ -290,5 +290,5 @@ li .tool-badge-with-text {
 .codebase-icon {
   width: auto;
   height: 32px;
-  margin: 0 auto;
+  margin: 0;
 }
