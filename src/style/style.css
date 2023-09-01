@@ -99,13 +99,14 @@ main {
   margin: 20px;
 }
 
-.about-me .profile ul.mylinks {
+.about-me .profile ul {
   list-style: none;
   white-space: nowrap;
   justify-content: space-around;
+  padding: 0;
 }
 
-.about-me .profile .mylinks li {
+.about-me .profile li {
   margin-bottom: 5px;
 }
 

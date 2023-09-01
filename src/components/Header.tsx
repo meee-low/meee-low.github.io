@@ -16,7 +16,7 @@ const Header: React.FC = () => {
           {Object.keys(navBar).map((path, index) => {
             const pathLabel: string = navBar[path];
             return (
-              <li>
+              <li key={pathLabel}>
                 <Link
                   to={path}
                   className={

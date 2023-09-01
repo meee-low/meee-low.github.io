@@ -8,8 +8,8 @@
     "Resume (print-friendly)": "/docs/matheus-ferreira-drumond-resume-pf.pdf"
   },
   "contactInfo": {
-    "email": "example.example.com",
-    "phone": "+55 (51) 99999-9999"
+    "email": "bWF0X2RydW1vbmRAaG90bWFpbC5jb20=",
+    "phone": "KzU1IDUxIDk4MTAxLTY0MDA="
   },
   "description": [
     "I'm Matheus, a student pursuing a Bachelor's degree in Applied Mathematics at Universidade Federal do Rio Grande do Sul (UFRGS) in Porto Alegre, Brazil.",
@@ -25,5 +25,5 @@
     "Algebra, combinatoric game theory, numeric algorithms",
     "Fantasy and comic books"
   ],
-  "closingThoughts": ["", ""]
+  "closingThoughts": [""]
 }

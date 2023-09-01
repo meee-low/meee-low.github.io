@@ -35,29 +35,29 @@ const AboutMe: React.FC = () => {
             );
           })}
         </ul>
-        {/* <ContactCaptcha
-        emailCypher={contactInfo.email}
-        phoneCypher={contactInfo.phone}
-      /> */}
+        <ContactCaptcha
+          emailCypher={contactInfo.email}
+          phoneCypher={contactInfo.phone}
+        />
       </div>
 
       <div className="description">
         <div className="bio">
           {description.map((paragraph) => (
-            <p>{paragraph}</p>
+            <p key={paragraph.slice(0, 10)}>{paragraph}</p>
           ))}
         </div>
         <div className="interests">
           <h3>Interests</h3>
           <ul>
             {interests.map((interest) => (
-              <li>{interest}</li>
+              <li key={interest.slice(0, 5)}>{interest}</li>
             ))}
           </ul>
         </div>
         <div>
           {closingThoughts.map((paragraph) => (
-            <p>{paragraph}</p>
+            <p key={paragraph.slice(0, 5)}>{paragraph}</p>
           ))}
         </div>
       </div>
