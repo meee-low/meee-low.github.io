@@ -222,10 +222,8 @@ main {
 
 .project-grid {
   display: flex;
+  /* grid-template-columns: repeat(auto-fill, minmax(25%, 1fr)); */
   flex-wrap: wrap;
-  align-content: center;
-  justify-items: center;
-  justify-content: center;
   gap: 15px;
   padding: 40px;
 }
@@ -237,24 +235,17 @@ main {
 }
 
 .project-grid .project {
-  display: flex;
-  flex-wrap: wrap;
   background-color: beige;
+  flex: 1;
+  min-width: max(33%, 400px);
   padding: 25px;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
   justify-items: space-between;
-  width: 500px;
-  max-width: 40%;
-}
 
-@media screen and (max-width: 990px) {
-  .project-grid .project {
-    width: 100%;
-  }
 }
-
 .project-grid .project .image-area {
   display: flex;
   justify-content: center;
