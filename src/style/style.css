@@ -167,22 +167,25 @@ main {
 /* CSS for carousel controls */
 .carousel-controls {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   margin-top: 10px;
 }
 
 .carousel-controls button {
-  background-color: #007bff;
-  color: white;
-  border: none;
+  background-color: beige;
+  border-radius: 10px;
+  opacity: 50%;
+  flex: 1;
+  color: black;
+  border: 0;
   padding: 10px 20px;
   margin: 0 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: opacity 0.2s ease;
 }
 
 .carousel-controls button:hover {
-  background-color: #0056b3;
+  opacity: 90%;
 }
 
 .slide-content {

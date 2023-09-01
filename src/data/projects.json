@@ -5,8 +5,8 @@
     "description": "CLI flags parser for python.",
     "skills": [
       "Object-Oriented Programming (OOP)",
-      "strict typing in python, using mypy to check",
-      "API design"
+      "Strict typing in python, using mypy to check",
+      "API design for dev tools"
     ],
     "languagesAndFrameworks": ["Python"],
     "additionalInfo": "",
@@ -17,13 +17,13 @@
   },
   {
     "id": 2,
-    "title": "Automatic Playlists for Spotify",
+  "title": "Better \"Daily Drive\" for Spotify",
     "description": "Grabs tracks and podcast episodes from various sources and merges them in a single playlist. The goal is to approximate a radio station, with different themed blocks.",
     "skills": ["Direct interaction with RESTful API"],
     "languagesAndFrameworks": ["Python", "SpotifyAPI"],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/spotify-api",
-    "imagePath": "/img/projects/web-of-marvel_cropped.png",
+    "imagePath": "/img/projects/betterspotifydailydrive.png",
     "highlighted": false,
     "hidden": false
   },
@@ -56,7 +56,7 @@
     "languagesAndFrameworks": ["TypeScript", "React", "HTML", "CSS"],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/new-portfolio",
-    "imagePath": "/img/projects/web-of-marvel_cropped.png",
+    "imagePath": "/img/projects/youarehere.png",
     "highlighted": false,
     "hidden": false
   },
@@ -109,7 +109,7 @@
     "languagesAndFrameworks": ["MS Excel", "Google Sheets", "Google Forms"],
     "additionalInfo": "",
     "projectUrl": "",
-    "imagePath": "/img/projects/web-of-marvel_cropped.png",
+    "imagePath": "/img/projects/spreadsheeet.png",
     "highlighted": false,
     "hidden": false
   }
