@@ -12,7 +12,7 @@
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/py_flags",
     "imagePath": "/img/projects/py_flags_cropped.png",
-    "highlighted": true,
+    "highlighted": false,
     "hidden": false
   },
   {
@@ -52,7 +52,7 @@
     "id": 4,
     "title": "Portfolio",
     "description": "The website you are probably reading right now!",
-    "skills": ["Front-end design", "Semantic HTML", "ReCAPTCHA"],
+    "skills": ["Front-end design", "Semantic HTML"],
     "languagesAndFrameworks": ["TypeScript", "React", "HTML", "CSS"],
     "additionalInfo": "",
     "projectUrl": "https://github.com/meee-low/new-portfolio",
@@ -88,6 +88,8 @@
       "C++",
       "Golang",
       "Julia",
+      "Matplotlib",
+      "Numpy",
       "PyGame"
     ],
     "additionalInfo": "",
@@ -111,6 +113,23 @@
     "projectUrl": "",
     "imagePath": "/img/projects/spreadsheeet.png",
     "highlighted": false,
+    "hidden": false
+  },
+  {
+    "id": 8,
+    "title": "Jurnalo",
+    "description": "A CLI journal, mood tracker and habit tracker built in Rust (WIP).",
+    "skills": [
+      "ORM - Object Relational Mapping",
+      "Backend development",
+      "SQL Relational Databases",
+      "Serialization and deserialization"
+    ],
+    "languagesAndFrameworks": ["Rust", "Diesel", "Serde", "SQLite"],
+    "additionalInfo": "",
+    "projectUrl": "https://github.com/meee-low/jurnalo/",
+    "imagePath": "/img/projects/jurnalo-mock.png",
+    "highlighted": true,
     "hidden": false
   }
 ]
