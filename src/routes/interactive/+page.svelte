@@ -1,5 +1,5 @@
 <script>
-    import UnderConstruction from "$lib/components/UnderConstruction.svelte";
-
+  import UnderConstruction from "$lib/components/UnderConstruction.svelte";
 </script>
-<UnderConstruction></UnderConstruction>
+
+<a href="interactive/redux-fg">Redux Fighting Game</a>

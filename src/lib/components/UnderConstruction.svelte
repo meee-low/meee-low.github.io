@@ -1,3 +1,3 @@
-<main class="flex min-h-[70vh] md:min-h-[80vh]">
-  <h1 class="m-auto text-center text-3xl font-bold">Under Construction...</h1>
-</main>
+<div class="mt-12 flex h-full items-center justify-center">
+  <h1 class=" text-5xl font-bold">Under Construction...</h1>
+</div>

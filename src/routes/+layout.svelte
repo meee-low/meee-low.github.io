@@ -5,7 +5,7 @@
 </script>
 
 <NavBar></NavBar>
-<main>
+<main class="flex-grow">
   <slot></slot>
 </main>
 <Footer></Footer>
