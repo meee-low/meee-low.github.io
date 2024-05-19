@@ -45,7 +45,9 @@
 </div>
 
 <Modal bind:showModal>
-  <div class="px-[5%] py-6 lg:min-w-[30vw] lg:max-w-[40vw]">
+  <div
+    class="max-h-[90vh] max-w-[80vw] px-[5%] py-6 lg:min-w-[30vw] lg:max-w-[40vw]"
+  >
     <img src={projectInfo.imagePath} alt="" class="mx-auto mb-4 max-h-[40vh]" />
     <h2 class="mb-2 text-center text-xl font-bold">
       {projectInfo.title}

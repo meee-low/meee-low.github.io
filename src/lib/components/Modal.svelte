@@ -11,7 +11,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
 <dialog
-  class="mx-auto p-0 lg:max-w-[80vw] xl:max-w-[60vw]"
+  class="mx-auto overflow-visible p-0 lg:max-w-[80vw] xl:max-w-[60vw]"
   bind:this={dialog}
   on:close={() => (showModal = false)}
   on:click|self={() => dialog.close()}
@@ -20,7 +20,13 @@
   <div on:click|stopPropagation>
     <slot />
     <!-- svelte-ignore a11y-autofocus -->
-    <!-- <button autofocus on:click={() => dialog.close()}>close modal</button> -->
+    <button
+      class="absolute -right-3 -top-3 h-10 w-10 rounded-full border bg-white"
+      autofocus
+      on:click={() => dialog.close()}>
+      <i class="fa-solid fa-xmark"></i>
+      X</button
+    >
   </div>
 </dialog>
 
