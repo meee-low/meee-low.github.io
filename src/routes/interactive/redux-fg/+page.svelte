@@ -1,4 +1,5 @@
 <script lang="ts">
+  import ReduxFgAnnouncer from "$lib/components/games/redux-fg/ReduxFgAnnouncer.svelte";
   import ReduxFgCircle from "$lib/components/games/redux-fg/ReduxFGCircle.svelte";
   import ReduxFghud from "$lib/components/games/redux-fg/ReduxFGHUD.svelte";
   import {
@@ -6,31 +7,54 @@
     handleKeyDown,
     handleKeyUp,
     update,
+    resetRound,
   } from "$lib/components/games/redux-fg/game";
+  import { onMount } from "svelte";
 
   setInterval(() => {
     $gameState = update($gameState);
   }, 1000 / 60);
+
+  onMount(() => resetRound($gameState));
 </script>
 
 <div role="application" class="container mx-auto border">
   <div class="flex items-center">
     <ReduxFghud gameState={$gameState}></ReduxFghud>
   </div>
-  <div class="grid grid-cols-2">
-    <ReduxFgCircle playerState={$gameState.playerOneState}></ReduxFgCircle>
-    <ReduxFgCircle playerState={$gameState.playerTwoState}></ReduxFgCircle>
+  <div class="relative m-4">
+    <div class="grid grid-cols-2">
+      <ReduxFgCircle playerState={$gameState.playerOneState}></ReduxFgCircle>
+      <ReduxFgCircle playerState={$gameState.playerTwoState}></ReduxFgCircle>
+    </div>
+    <ReduxFgAnnouncer></ReduxFgAnnouncer>
   </div>
 </div>
 
-<div>
-  <h2 class="max-w-[100vw]">Debug:</h2>
-  <p>
-    {JSON.stringify($gameState)}
-  </p>
+{#if import.meta.env.MODE === "development"}
+  <div id="debug">
+    <h2 class="max-w-[100vw]">Debug:</h2>
+    <p>
+      {JSON.stringify($gameState)}
+    </p>
+  </div>
+{/if}
+
+<div class="px-[5vw]">
+  <h2>Instructions:</h2>
+  <ul>
+    <li>A, RightArrow: Block (good timing = parry = point for the defender)</li>
+    <li>Tap D or LeftArrow: Feint</li>
+    <li>Hold D or LeftArrow: Attack</li>
+  </ul>
 </div>
 
 <svelte:window
   on:keydown={(e) => handleKeyDown($gameState, e)}
   on:keyup={(e) => handleKeyUp($gameState, e)}
 />
+
+<svelte:head>
+  <title>Redux Fighting Game</title>
+  <meta name="description" content="The world's simplest fighting game." />
+</svelte:head>

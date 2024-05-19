@@ -5,7 +5,7 @@
 
   function stateToColor(state: string): string {
     if (state === "blocking" || state === "blocking-start") {
-      return "bg-red-600";
+      return "bg-red-500";
     } else if (state === "attacking") {
       return "bg-sky-500";
     }

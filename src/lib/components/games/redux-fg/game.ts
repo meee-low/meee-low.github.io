@@ -1,8 +1,9 @@
 import { writable, type Writable } from "svelte/store";
 
-const BLOCK_STAMINA_PENALTY_PER_FRAME = 2;
+const BLOCK_STAMINA_PENALTY_PER_FRAME = 3;
 const BLOCK_STAMINA_PENALTY_ON_HIT = 10;
-const ATTACK_CHARGE_PER_FRAME = 100 / 13;
+const FRAMES_FOR_ATTACK = 14;
+const ATTACK_CHARGE_PER_FRAME = 100 / FRAMES_FOR_ATTACK;
 const BLOCK_STAMINA_RECOVERY_PER_FRAME = BLOCK_STAMINA_PENALTY_PER_FRAME / 10;
 const STARTING_PARRY_FRAMES = 3;
 
@@ -13,6 +14,8 @@ export interface PlayerState {
   blockStamina: number;
   parryFrames: number;
   attackCharge: number;
+  blockForbiddenFramesLeft: number;
+  attackForbiddenFramesLeft: number;
   keysHeld: Set<string>;
 }
 
@@ -22,6 +25,9 @@ export interface GameState {
   globals: {
     roundFrameCount: number;
     roundCount: number;
+    frozenFramesLeft: number;
+    frozenReason: string;
+    paused: boolean;
   };
 }
 
@@ -33,6 +39,8 @@ export let gameState: Writable<GameState> = writable({
     blockStamina: 100,
     attackCharge: 0,
     parryFrames: 0,
+    blockForbiddenFramesLeft: 0,
+    attackForbiddenFramesLeft: 0,
     keysHeld: new Set<string>(),
   },
   playerTwoState: {
@@ -42,11 +50,16 @@ export let gameState: Writable<GameState> = writable({
     blockStamina: 100,
     attackCharge: 0,
     parryFrames: 0,
+    blockForbiddenFramesLeft: 0,
+    attackForbiddenFramesLeft: 0,
     keysHeld: new Set<string>(),
   },
   globals: {
     roundCount: 0,
     roundFrameCount: 0,
+    frozenFramesLeft: 0,
+    frozenReason: "",
+    paused: true,
   },
 });
 
@@ -136,9 +149,14 @@ function calculateStateFromInputs(playerState: PlayerState): PlayerState {
       // If wasn't blocking before, enter parry mode.
       playerState.parryFrames = STARTING_PARRY_FRAMES;
     }
-    if (playerState.blockStamina > 0) {
+    if (
+      playerState.blockStamina > 0 &&
+      playerState.blockForbiddenFramesLeft === 0
+    ) {
       // If still has stamina to block, block.
       playerState.status = "blocking";
+    } else {
+      playerState.status = "neutral";
     }
   }
 
@@ -152,7 +170,16 @@ export function handleKeyEventWrapper(
   event: KeyboardEvent,
   callback: (gameState: GameState, newInput: string) => GameState,
 ): GameState {
-  const relevantKeys = ["a", "A", "d", "D", "ArrowLeft", "ArrowRight"];
+  const relevantKeys = [
+    "a",
+    "A",
+    "d",
+    "D",
+    "ArrowLeft",
+    "ArrowRight",
+    "p",
+    "P",
+  ];
   if (relevantKeys.includes(event.key)) {
     event.preventDefault();
     gameState = callback(gameState, event.key);
@@ -183,6 +210,8 @@ function handleKeyDownInner(gameState: GameState, newInput: string): GameState {
     gameState.playerTwoState.keysHeld.add("atk");
   } else if (newInput === "ArrowRight") {
     gameState.playerTwoState.keysHeld.add("def");
+  } else if (newInput === "p" || newInput === "P") {
+    gameState.globals.paused = !gameState.globals.paused;
   }
   return gameState;
 }
@@ -222,13 +251,16 @@ function chargeDownBlocks(playerState: PlayerState): PlayerState {
       0,
       playerState.blockStamina - BLOCK_STAMINA_PENALTY_PER_FRAME,
     );
-    playerState.parryFrames = Math.max(0, playerState.parryFrames - 1);
+    if (playerState.blockStamina === 0) {
+      playerState.blockForbiddenFramesLeft = 2 * FRAMES_FOR_ATTACK - 1;
+    }
   }
   return playerState;
 }
 
 function regenerateStamina(playerState: PlayerState): PlayerState {
-  if (playerState.status !== "blocking") {
+  //   if (playerState.status !== "blocking" ) {
+  if (playerState.keysHeld.has("atk") || !playerState.keysHeld.has("def")) {
     playerState.blockStamina = Math.min(
       100,
       playerState.blockStamina + BLOCK_STAMINA_RECOVERY_PER_FRAME,
@@ -237,11 +269,28 @@ function regenerateStamina(playerState: PlayerState): PlayerState {
   return playerState;
 }
 
+function tickDownSpecialFrames(playerState: PlayerState): PlayerState {
+  playerState = {
+    ...playerState,
+    parryFrames: Math.max(0, playerState.parryFrames - 1),
+    blockForbiddenFramesLeft: Math.max(
+      0,
+      playerState.blockForbiddenFramesLeft - 1,
+    ),
+    attackForbiddenFramesLeft: Math.max(
+      0,
+      playerState.attackForbiddenFramesLeft - 1,
+    ),
+  };
+  return playerState;
+}
+
 // Reset
 
 function resetPlayerState(playerState: PlayerState): PlayerState {
   playerState = {
     ...playerState,
+    status: "neutral",
     attackCharge: 0,
     blockStamina: 100,
     parryFrames: 0,
@@ -249,7 +298,7 @@ function resetPlayerState(playerState: PlayerState): PlayerState {
   return playerState;
 }
 
-function resetRound(gameState: GameState): GameState {
+export function resetRound(gameState: GameState): GameState {
   gameState = {
     playerOneState: resetPlayerState(gameState.playerOneState),
     playerTwoState: resetPlayerState(gameState.playerTwoState),
@@ -257,6 +306,8 @@ function resetRound(gameState: GameState): GameState {
       ...gameState.globals,
       roundCount: gameState.globals.roundCount + 1,
       roundFrameCount: 0,
+      frozenFramesLeft: 60 * 3,
+      frozenReason: "roundReset",
     },
   };
   return gameState;
@@ -275,20 +326,29 @@ function applyToBothPlayers(
   return gameState;
 }
 
-
 // ==== Update ====
 
 export function update(gameState: GameState): GameState {
+  if (gameState.globals.paused) {
+    return gameState;
+  }
+  if (gameState.globals.frozenFramesLeft > 0) {
+    --gameState.globals.frozenFramesLeft;
+    return gameState;
+  } else if (gameState.globals.frozenFramesLeft === 0) {
+    gameState.globals.frozenReason = "";
+  }
   // Handle inputs for change of states.
   gameState = applyToBothPlayers(gameState, calculateStateFromInputs);
+
+  // Handle attacks.
+  gameState = handleAttack(gameState);
 
   // Handle energy bars
   gameState = applyToBothPlayers(gameState, regenerateStamina);
   gameState = applyToBothPlayers(gameState, chargeUpAttacks);
   gameState = applyToBothPlayers(gameState, chargeDownBlocks);
-
-  // Handle attacks.
-  gameState = handleAttack(gameState);
+  gameState = applyToBothPlayers(gameState, tickDownSpecialFrames);
 
   gameState.globals.roundFrameCount += 1;
   return gameState;
