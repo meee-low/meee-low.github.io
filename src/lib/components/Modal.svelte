@@ -23,10 +23,10 @@
     <button
       class="absolute -right-3 -top-3 h-10 w-10 rounded-full border bg-white"
       autofocus
-      on:click={() => dialog.close()}>
-      <i class="fa-solid fa-xmark"></i>
-      X</button
+      on:click={() => dialog.close()}
     >
+      <i class="fa-solid fa-xmark text-lg"></i>
+    </button>
   </div>
 </dialog>
 

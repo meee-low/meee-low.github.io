@@ -1,16 +1,11 @@
 <script lang="ts">
-  import EmailSvg from "$lib/components/svg/EmailSVG.svelte";
-  import GitHubSvg from "$lib/components/svg/GitHubSVG.svelte";
-  import LinkedInSvg from "$lib/components/svg/LinkedInSVG.svelte";
-  // import LogoPlaceholder from "$lib/components/svg/LogoPlaceholder.svelte";
-  import TwitterSvg from "$lib/components/svg/TwitterSVG.svelte";
-  import YoutubeSvg from "$lib/components/svg/YoutubeSVG.svelte";
+  import { contactInfo } from "$lib/data";
 </script>
 
-<div id="socials" class="flex min-w-44 flex-wrap items-center space-x-2">
-  <LinkedInSvg></LinkedInSvg>
-  <TwitterSvg></TwitterSvg>
-  <GitHubSvg></GitHubSvg>
-  <YoutubeSvg></YoutubeSvg>
-  <EmailSvg></EmailSvg>
+<div id="socials" class="flex flex-wrap items-center gap-3 text-xl text-white">
+  <a href={contactInfo.linkedin}><i class="fa-brands fa-linkedin"></i></a>
+  <a href={contactInfo.twitter}><i class="fa-brands fa-twitter"></i></a>
+  <a href={contactInfo.github}><i class="fa-brands fa-github"></i></a>
+  <a href={contactInfo.youtube}><i class="fa-brands fa-youtube"></i></a>
+  <a href={contactInfo.email}><i class="fa-solid fa-envelope"></i></a>
 </div>
