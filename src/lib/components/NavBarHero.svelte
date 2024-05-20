@@ -30,7 +30,7 @@
     />
     <div class="flex w-full flex-wrap items-center justify-between">
       <nav
-        class="grid grid-cols-1 font-mono text-2xl tracking-wider text-white max-md:mb-4 md:flex md:gap-6"
+        class="max-md:grid max-md:grid-cols-1 font-mono text-2xl tracking-wider text-white max-md:mb-4 md:flex md:gap-6"
       >
         <a class="hover:underline" href="/"> Showcase</a>
         <a class="hover:underline" href="/interactive"> Interactive</a>
