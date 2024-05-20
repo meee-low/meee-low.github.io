@@ -6,20 +6,27 @@
 
   import { haveCommonElements, booleanToInt } from "$lib/utils";
   import { flip } from "svelte/animate";
+  import type { ProjectInfo } from "$lib/interfaces";
 
   let myProjects = [...projects];
 
   function sortProjects() {
+    let maxOrderPriorityThatMatches = (a: ProjectInfo) =>
+      Math.max(
+        ...$projectsFilters
+          .filter((p) => a.filterableTags.includes(p.label) && p.filterEnabled)
+          .map((p) => p.orderClicked),
+        0,
+      );
+
+    let weighSort = (a: ProjectInfo) =>
+      a.id -
+      booleanToInt(haveCommonElements(a.filterableTags, $activeFilters)) *
+        10000 -
+      maxOrderPriorityThatMatches(a) * 100;
+
     myProjects = myProjects.sort((a, b) => {
-      const a_val =
-        a.id -
-        booleanToInt(haveCommonElements(a.filterableTags, $activeFilters)) *
-          1000;
-      const b_val =
-        b.id -
-        booleanToInt(haveCommonElements(b.filterableTags, $activeFilters)) *
-          1000;
-      return a_val - b_val;
+      return weighSort(a) - weighSort(b);
     });
   }
 
