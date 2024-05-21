@@ -31,6 +31,8 @@ export interface GameState {
   };
 }
 
+// ==== Svelte Stores ====
+
 export let gameState: Writable<GameState> = writable({
   playerOneState: {
     status: "neutral",
@@ -61,6 +63,14 @@ export let gameState: Writable<GameState> = writable({
     frozenReason: "",
     paused: true,
   },
+});
+
+export let inputs = writable({
+  Player1Def: "a",
+  Player1Atk: "d",
+  Player2Atk: "ArrowLeft",
+  Player2Def: "ArrowRight",
+  Pause: "p",
 });
 
 // ==== Attacks ====
@@ -168,22 +178,18 @@ function calculateStateFromInputs(playerState: PlayerState): PlayerState {
 export function handleKeyEventWrapper(
   gameState: GameState,
   event: KeyboardEvent,
-  callback: (gameState: GameState, newInput: string) => GameState,
+  callback: (gameState: GameState, action: string) => GameState,
 ): GameState {
-  const relevantKeys = [
-    "a",
-    "A",
-    "d",
-    "D",
-    "ArrowLeft",
-    "ArrowRight",
-    "p",
-    "P",
-  ];
-  if (relevantKeys.includes(event.key)) {
-    event.preventDefault();
-    gameState = callback(gameState, event.key);
-  }
+  inputs.subscribe((currentInputs) => {
+    for (const [action, key] of Object.entries(currentInputs)) {
+      if (event.key == key) {
+        event.preventDefault();
+        gameState = callback(gameState, action);
+      }
+      // return gameState;
+    }
+  })();
+
   return gameState;
 }
 
@@ -201,34 +207,51 @@ export function handleKeyUp(
   return handleKeyEventWrapper(gameState, event, handleKeyUpInner);
 }
 
-function handleKeyDownInner(gameState: GameState, newInput: string): GameState {
-  if (newInput === "a" || newInput === "A") {
-    gameState.playerOneState.keysHeld.add("def");
-  } else if (newInput === "d" || newInput === "D") {
-    gameState.playerOneState.keysHeld.add("atk");
-  } else if (newInput === "ArrowLeft") {
-    gameState.playerTwoState.keysHeld.add("atk");
-  } else if (newInput === "ArrowRight") {
-    gameState.playerTwoState.keysHeld.add("def");
-  } else if (newInput === "p" || newInput === "P") {
-    gameState.globals.paused = !gameState.globals.paused;
+function handleKeyDownInner(gameState: GameState, action: string): GameState {
+  switch (action) {
+    case "Player1Def":
+      gameState.playerOneState.keysHeld.add("def");
+      break;
+    case "Player1Atk":
+      gameState.playerOneState.keysHeld.add("atk");
+      break;
+    case "Player2Def":
+      gameState.playerTwoState.keysHeld.add("def");
+      break;
+    case "Player2Atk":
+      gameState.playerTwoState.keysHeld.add("atk");
+      break;
+    case "Pause":
+      gameState.globals.paused = !gameState.globals.paused;
+      break;
+    default:
+      console.log(`Error: Unexpected action: ${action}`);
   }
+
   return gameState;
 }
 
-function handleKeyUpInner(gameState: GameState, newInput: string): GameState {
-  if (newInput === "a" || newInput === "A") {
-    gameState.playerOneState.keysHeld.delete("def");
+function handleKeyUpInner(gameState: GameState, action: string): GameState {
+  switch (action) {
+    case "Player1Def":
+      gameState.playerOneState.keysHeld.delete("def");
+      break;
+    case "Player1Atk":
+      gameState.playerOneState.keysHeld.delete("atk");
+      break;
+    case "Player2Def":
+      gameState.playerTwoState.keysHeld.delete("def");
+      break;
+    case "Player2Atk":
+      gameState.playerTwoState.keysHeld.delete("atk");
+      break;
+    case "Pause":
+      // Nothing on Pause up.
+      break;
+    default:
+      console.log(`Error: Unexpected action: ${action}`);
   }
-  if (newInput === "d" || newInput === "D") {
-    gameState.playerOneState.keysHeld.delete("atk");
-  }
-  if (newInput === "ArrowLeft") {
-    gameState.playerTwoState.keysHeld.delete("atk");
-  }
-  if (newInput === "ArrowRight") {
-    gameState.playerTwoState.keysHeld.delete("def");
-  }
+
   return gameState;
 }
 
@@ -341,9 +364,6 @@ export function update(gameState: GameState): GameState {
   // Handle inputs for change of states.
   gameState = applyToBothPlayers(gameState, calculateStateFromInputs);
 
-  // Handle attacks.
-  gameState = handleAttack(gameState);
-
   // Handle energy bars
   gameState = applyToBothPlayers(gameState, regenerateStamina);
   gameState = applyToBothPlayers(gameState, chargeUpAttacks);
@@ -351,5 +371,9 @@ export function update(gameState: GameState): GameState {
   gameState = applyToBothPlayers(gameState, tickDownSpecialFrames);
 
   gameState.globals.roundFrameCount += 1;
+
+  // Handle attacks.
+  gameState = handleAttack(gameState);
+
   return gameState;
 }

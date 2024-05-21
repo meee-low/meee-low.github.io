@@ -2,6 +2,7 @@
   import ReduxFgAnnouncer from "$lib/components/games/redux-fg/ReduxFgAnnouncer.svelte";
   import ReduxFgCircle from "$lib/components/games/redux-fg/ReduxFGCircle.svelte";
   import ReduxFghud from "$lib/components/games/redux-fg/ReduxFGHUD.svelte";
+  import ReduxFgRebindMenu from "$lib/components/games/redux-fg/ReduxFgRebindMenu.svelte";
   import {
     gameState,
     handleKeyDown,
@@ -10,15 +11,41 @@
     resetRound,
   } from "$lib/components/games/redux-fg/game";
   import { onMount } from "svelte";
+  import { page } from "$app/stores";
+
+  let gameIsFocused = true;
+  let debugMode = false;
+  let rebindMode = false;
 
   setInterval(() => {
     $gameState = update($gameState);
   }, 1000 / 60);
 
-  onMount(() => resetRound($gameState));
+  onMount(() => {
+    resetRound($gameState);
+    debugMode = $page.url.searchParams.has("debug");
+    rebindMode = $page.url.searchParams.has("rebind");
+  });
 </script>
 
-<div role="application" class="container mx-auto border">
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+<div
+  role="application"
+  class="container mx-auto select-none border"
+  tabindex="0"
+  on:focus={(_) => (gameIsFocused = true)}
+  on:keydown={(e) => {
+    if (gameIsFocused) {
+      handleKeyDown($gameState, e);
+    }
+  }}
+  on:keyup={(e) => {
+    if (gameIsFocused) {
+      handleKeyUp($gameState, e);
+    }
+  }}
+>
   <div class="flex items-center">
     <ReduxFghud gameState={$gameState}></ReduxFghud>
   </div>
@@ -31,7 +58,7 @@
   </div>
 </div>
 
-{#if import.meta.env.MODE === "development"}
+{#if debugMode}
   <div id="debug">
     <h2 class="max-w-[100vw]">Debug:</h2>
     <p>
@@ -40,19 +67,20 @@
   </div>
 {/if}
 
-<div class="px-[5vw]">
-  <h2>Instructions:</h2>
-  <ul>
-    <li>A, RightArrow: Block (good timing = parry = point for the defender)</li>
-    <li>Tap D or LeftArrow: Feint</li>
-    <li>Hold D or LeftArrow: Attack</li>
-  </ul>
-</div>
-
-<svelte:window
-  on:keydown={(e) => handleKeyDown($gameState, e)}
-  on:keyup={(e) => handleKeyUp($gameState, e)}
-/>
+{#if rebindMode}
+  <ReduxFgRebindMenu></ReduxFgRebindMenu>
+{:else}
+  <div class="px-[5vw]">
+    <h2>Instructions:</h2>
+    <ul>
+      <li>
+        A, RightArrow: Block (good timing = parry = point for the defender)
+      </li>
+      <li>Tap D or LeftArrow: Feint</li>
+      <li>Hold D or LeftArrow: Attack</li>
+    </ul>
+  </div>
+{/if}
 
 <svelte:head>
   <title>Redux Fighting Game</title>
