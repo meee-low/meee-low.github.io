@@ -16,28 +16,20 @@
 
 {#if $page.url.searchParams.has("rebind")}
   <form on:submit|preventDefault={handleSubmit} class="flex flex-col">
-    <label>
-      P1 Attack:
-      <input type="text" bind:value={$inputs.Player1Atk} class="border" />
-    </label>
-
-    <label>
-      P1 Defend:
-      <input type="text" bind:value={$inputs.Player1Def} class="border" />
-    </label>
-
-    <label>
-      P2 Attack:
-      <input
-        type="text"
-        bind:value={$inputs.Player2Atk}
-        class="min-w-0 border"
-      />
-    </label>
-
-    <label>
-      P2 Defend:
-      <input type="text" bind:value={$inputs.Player2Def} class="border" />
-    </label>
+    {#each Object.entries($inputs) as [inp, key]}
+      <label>
+        {inp}:
+        <input
+          type="text"
+          on:input|preventDefault={(_) => {}}
+          on:keydown|preventDefault={(e) => {
+            // @ts-ignore: It's ok to ignore this because the index comes from Object.entries.
+            $inputs[inp] = e.key;
+          }}
+          bind:value={key}
+          class="border"
+        />
+      </label>
+    {/each}
   </form>
 {/if}
