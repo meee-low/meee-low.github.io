@@ -2,7 +2,7 @@
   import { contactInfo } from "$lib/data";
 </script>
 
-<footer class="bg-slate-500 px-[5%] py-6 text-white">
+<footer class="bg-slate-500 px-[5%] py-3 text-white">
   <h2 class="mb-2 text-xl font-bold">About me:</h2>
   <p>Matheus Ferreira Drumond</p>
   <p>
@@ -10,11 +10,17 @@
   </p>
   <div>
     <h2>Contact:</h2>
-    <p>
-      <a href={contactInfo.linkedin}><i class="fa-brands fa-linkedin"></i></a>
-    </p>
-    <p>
-      <a href={contactInfo.github}><i class="fa-brands fa-github"></i></a>
-    </p>
+    <div class="flex gap-4">
+      <p>
+        <a href={contactInfo.linkedin} class="hover:underline"
+          ><i class="fa-brands fa-linkedin mr-1"></i>in/mfdrumond</a
+        >
+      </p>
+      <p>
+        <a href={contactInfo.github}
+          ><i class="fa-brands fa-github mr-1"></i>@meee-low</a
+        >
+      </p>
+    </div>
   </div>
 </footer>
