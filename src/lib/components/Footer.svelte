@@ -17,7 +17,7 @@
         >
       </p>
       <p>
-        <a href={contactInfo.github}
+        <a href={contactInfo.github} class="hover:underline"
           ><i class="fa-brands fa-github mr-1"></i>@meee-low</a
         >
       </p>
