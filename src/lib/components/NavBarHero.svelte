@@ -26,7 +26,7 @@
     <img
       src="/e8petrie_0.png"
       alt="Logo"
-      class="m-auto mr-6 max-h-20 max-w-20"
+      class="m-auto mr-6 max-h-14 max-w-14"
     />
     <div class="flex w-full flex-wrap items-center justify-between">
       <nav
