@@ -1,27 +1,14 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { fly } from "svelte/transition";
-
   import Socials from "$lib/components/navcomponents/Socials.svelte";
 
-  let isScrolled = true;
-
-  function handleScroll() {
-    // TODO: Make scrolling properly close it
-    // isScrolled = window.scrollY > 700;
-  }
-  onMount(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  });
+  const navLinks = [
+    { title: "Showcase", link: "/" },
+    { title: "Interactive", link: "/interactive" },
+    { title: "Blog", link: "/blog" },
+  ];
 </script>
 
-<header
-  id="navbar"
-  class="z-50 w-full bg-slate-500 shadow-md {isScrolled ? '' : 'min-h-[70vh]'}"
->
+<header id="navbar" class="z-50 w-full bg-slate-500 shadow-md">
   <div class="flex content-center p-4 px-[5vw]">
     <a href="/" class="m-auto">
       <img
@@ -34,14 +21,14 @@
       <nav
         class="font-mono text-2xl tracking-wider text-white max-md:mb-4 max-md:grid max-md:grid-cols-1 md:flex md:gap-6"
       >
-        <a class="hover:underline" href="/"> Showcase</a>
-        <a class="hover:underline" href="/interactive"> Interactive</a>
-        <a class="hover:underline" href="/blog">Blog</a>
+        {#each navLinks as navL}
+          <a class="hover:underline" href={navL.link}>{navL.title}</a>
+        {/each}
       </nav>
       <Socials></Socials>
     </div>
   </div>
-  {#if !isScrolled}
+  {#if false}
     <h1 class="select-none p-8 text-center text-6xl tracking-wide text-white">
       Matheus Ferreira Drumond
     </h1>

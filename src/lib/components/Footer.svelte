@@ -13,12 +13,12 @@
     <div class="flex gap-4">
       <p>
         <a href={contactInfo.linkedin} class="hover:underline"
-          ><i class="fa-brands fa-linkedin mr-1"></i>in/mfdrumond</a
+          ><i class="fa-brands fa-linkedin mr-1" aria-hidden></i>in/mfdrumond</a
         >
       </p>
       <p>
         <a href={contactInfo.github} class="hover:underline"
-          ><i class="fa-brands fa-github mr-1"></i>@meee-low</a
+          ><i class="fa-brands fa-github mr-1" aria-hidden></i>@meee-low</a
         >
       </p>
     </div>
