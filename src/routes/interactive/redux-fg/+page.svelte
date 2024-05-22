@@ -10,7 +10,7 @@
     update,
     resetRound,
   } from "$lib/components/games/redux-fg/game";
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import { page } from "$app/stores";
 
   let gameIsFocused = true;
@@ -22,9 +22,14 @@
   }, 1000 / 60);
 
   onMount(() => {
-    resetRound($gameState);
+    // $gameState = resetRound($gameState);
+    $gameState.globals.paused = true;
     debugMode = $page.url.searchParams.has("debug");
     rebindMode = $page.url.searchParams.has("rebind");
+  });
+
+  onDestroy(() => {
+    $gameState = resetRound($gameState);
   });
 </script>
 
@@ -59,11 +64,18 @@
 </div>
 
 {#if debugMode}
-  <div id="debug">
+  <div id="debug" class="mx-[5vw]">
     <h2 class="max-w-[100vw]">Debug:</h2>
-    <p>
-      {JSON.stringify($gameState)}
-    </p>
+    <div class="grid auto-cols-fr grid-flow-col">
+      {#each Object.entries($gameState) as [key, values]}
+        <div>
+          <h3>{key}:</h3>
+          <p class="whitespace-pre-wrap">
+            {JSON.stringify(values, null, 2)}
+          </p>
+        </div>
+      {/each}
+    </div>
   </div>
 {/if}
 
