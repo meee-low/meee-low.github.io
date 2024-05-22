@@ -11,6 +11,20 @@
     }
     return "bg-yellow-400";
   }
+
+  function stateToIcon(playerState: PlayerState): string {
+    if (playerState.status == "blocking") {
+      if (playerState.blockStamina > 0) {
+        return "fa-solid fa-shield";
+      } else {
+        // Broken shield
+        return "fa-solid fa-shield-halved";
+      }
+    } else if (playerState.status == "attacking") {
+      return "fa-solid fa-bolt";
+    }
+    return "invisible";
+  }
 </script>
 
 <div
@@ -30,4 +44,9 @@
       : 'invisible'} absolute bottom-0 w-full bg-sky-800"
     style="height: {playerState.attackCharge}%"
   ></div>
+  <i
+    class="{stateToIcon(playerState)} absolute left-1/2 top-1/2
+    -translate-x-1/2 -translate-y-1/2 transform text-4xl text-gray-300
+    "
+  ></i>
 </div>
