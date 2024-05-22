@@ -19,7 +19,7 @@ export function booleanToInt(b: boolean): number {
   return 0;
 }
 
-const iconMap: { key: String } = {
+const iconMap = {
   BeautifulSoup4: "img/toolbadges/beautifulsoup_cropped_shrunk.png",
   "C++": "img/toolbadges/cpp_cropped_shrunk.png",
   CSS: "img/toolbadges/css_cropped_shrunk.png",
@@ -47,5 +47,6 @@ const iconMap: { key: String } = {
 };
 
 export function toolToImgSrc(key: string): string {
-  return iconMap.hasOwnProperty(key) ? iconMap[key] : "";
+  const kkey = key as keyof typeof iconMap;
+  return iconMap.hasOwnProperty(key) ? iconMap[kkey] : "";
 }
