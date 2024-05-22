@@ -2,14 +2,14 @@
   import Socials from "$lib/components/navcomponents/Socials.svelte";
 
   const navLinks = [
-    { title: "Showcase", link: "/" },
-    { title: "Interactive", link: "/interactive" },
-    { title: "Blog", link: "/blog" },
+    { title: "Showcase", link: "/", faTag: "fa-solid fa-eye" },
+    { title: "Interactive", link: "/interactive", faTag: "fa-solid fa-dice" },
+    { title: "Blog", link: "/blog", faTag: "fa-solid fa-blog" },
   ];
 </script>
 
 <header id="navbar" class="z-50 w-full bg-slate-500 shadow-md">
-  <div class="flex content-center p-4 px-[5vw]">
+  <div class="flex content-center p-4 pr-[5vw]">
     <a href="/" class="m-auto">
       <img
         src="/e8petrie_0.webp"
@@ -22,7 +22,11 @@
         class="font-mono text-2xl tracking-wider text-white max-md:mb-4 max-md:grid max-md:grid-cols-1 md:flex md:gap-6"
       >
         {#each navLinks as navL}
-          <a class="hover:underline" href={navL.link}>{navL.title}</a>
+          <a class="hover:underline" href={navL.link}
+            ><i class="{navL.faTag} mr-1 text-sm min-[320px]:max-[420px]:hidden" aria-hidden="true"
+            ></i>{navL.title}
+            <span class="sr-only">Link to my {navL.title}</span></a
+          >
         {/each}
       </nav>
       <Socials></Socials>

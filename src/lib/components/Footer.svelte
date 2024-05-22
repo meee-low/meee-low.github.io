@@ -6,19 +6,19 @@
   <h2 class="mb-2 text-xl font-bold">About me:</h2>
   <p>Matheus Ferreira Drumond</p>
   <p>
-    <i class="fa-solid fa-graduation-cap mr-2"></i>UFRGS, Porto Alegre, Brazil
+    <i class="fa-solid fa-graduation-cap mr-2" aria-hidden="true"></i>UFRGS, Porto Alegre, Brazil
   </p>
   <div>
     <h2>Contact:</h2>
     <div class="flex gap-4">
       <p>
         <a href={contactInfo.linkedin} class="hover:underline"
-          ><i class="fa-brands fa-linkedin mr-1" aria-hidden></i>in/mfdrumond</a
+          ><i class="fa-brands fa-linkedin mr-1" aria-hidden="true"></i>in/mfdrumond</a
         >
       </p>
       <p>
         <a href={contactInfo.github} class="hover:underline"
-          ><i class="fa-brands fa-github mr-1" aria-hidden></i>@meee-low</a
+          ><i class="fa-brands fa-github mr-1" aria-hidden="true"></i>@meee-low</a
         >
       </p>
     </div>

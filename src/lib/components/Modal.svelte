@@ -25,7 +25,7 @@
       autofocus
       on:click={() => dialog.close()}
     >
-      <i class="fa-solid fa-xmark text-lg"></i>
+      <i class="fa-solid fa-xmark text-lg" title="Close"></i>
     </button>
   </div>
 </dialog>
