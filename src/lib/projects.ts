@@ -1,9 +1,4 @@
 import { type ProjectInfo } from "./interfaces";
-// export const projects: ProjectInfo[] = [
-//   { name: "Project 1", width: 1, height: 1, description:"The project with the number 1."},
-//   { name: "Project 2", width: 2, height: 1, description:"The project with the number 2."},
-//   { name: "Project 3", width: 1, height: 2, description:"The project with the number 3."},
-// ];
 
 export const projects: ProjectInfo[] = [
   {
@@ -18,7 +13,7 @@ export const projects: ProjectInfo[] = [
     languagesAndFrameworks: ["Python"],
     additionalInfo: "",
     projectUrl: "https://github.com/meee-low/py_flags",
-    imagePath: "/img/projects/py_flags_cropped.png",
+    imagePath: "/img/projects/py_flags_cropped.webp",
     highlighted: false,
     hidden: false,
     filterableTags: ["Python"],
@@ -32,7 +27,7 @@ export const projects: ProjectInfo[] = [
     languagesAndFrameworks: ["Python", "SpotifyAPI"],
     additionalInfo: "",
     projectUrl: "https://github.com/meee-low/spotify-api",
-    imagePath: "/img/projects/betterspotifydailydrive.png",
+    imagePath: "/img/projects/betterspotifydailydrive.webp",
     highlighted: false,
     hidden: false,
     filterableTags: ["Python", "Backend/CLI"],
@@ -55,7 +50,7 @@ export const projects: ProjectInfo[] = [
     ],
     additionalInfo: "",
     projectUrl: "https://github.com/meee-low/web-of-marvel-characters",
-    imagePath: "/img/projects/web-of-marvel_cropped.png",
+    imagePath: "/img/projects/web-of-marvel_cropped.webp",
     highlighted: true,
     hidden: false,
     filterableTags: ["Python", "Data", "Business"],
@@ -68,7 +63,7 @@ export const projects: ProjectInfo[] = [
     languagesAndFrameworks: ["TypeScript", "React", "HTML", "CSS"],
     additionalInfo: "",
     projectUrl: "https://github.com/meee-low/new-portfolio",
-    imagePath: "/img/projects/youarehere.png",
+    imagePath: "/img/projects/youarehere.webp",
     highlighted: false,
     hidden: false,
     filterableTags: ["Other"],
@@ -82,7 +77,7 @@ export const projects: ProjectInfo[] = [
     additionalInfo: "",
     projectUrl:
       "https://www.kaggle.com/milofd/rottentomatoes-critics-vs-audiences-reviews",
-    imagePath: "/img/projects/kaggle-movies-critics-genre_cropped.png",
+    imagePath: "/img/projects/kaggle-movies-critics-genre_cropped.webp",
     highlighted: true,
     hidden: false,
     filterableTags: ["Python", "Data", "Business"],
@@ -111,7 +106,7 @@ export const projects: ProjectInfo[] = [
     additionalInfo: "",
     projectUrl: "https://github.com/meee-low/challenges",
     imagePath:
-      "/img/projects/challenges_mandelbrot-removebg-preview_cropped.png",
+      "/img/projects/challenges_mandelbrot-removebg-preview_cropped.webp",
     highlighted: false,
     hidden: false,
     filterableTags: ["Other", "Fun"],
@@ -130,7 +125,7 @@ export const projects: ProjectInfo[] = [
     languagesAndFrameworks: ["MS Excel", "Google Sheets", "Google Forms"],
     additionalInfo: "",
     projectUrl: "",
-    imagePath: "/img/projects/spreadsheeet.png",
+    imagePath: "/img/projects/spreadsheeet.webp",
     highlighted: false,
     hidden: false,
     filterableTags: ["Business"],
@@ -149,7 +144,7 @@ export const projects: ProjectInfo[] = [
     languagesAndFrameworks: ["Rust", "Diesel", "Serde", "SQLite"],
     additionalInfo: "",
     projectUrl: "https://github.com/meee-low/jurnalo/",
-    imagePath: "/img/projects/jurnalo-mock.png",
+    imagePath: "/img/projects/jurnalo-mock.webp",
     highlighted: true,
     hidden: false,
     filterableTags: ["Backend/CLI"],

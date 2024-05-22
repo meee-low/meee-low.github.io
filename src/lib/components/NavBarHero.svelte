@@ -23,14 +23,16 @@
   class="z-50 w-full bg-slate-500 shadow-md {isScrolled ? '' : 'min-h-[70vh]'}"
 >
   <div class="flex content-center p-4 px-[5vw]">
-    <img
-      src="/e8petrie_0.png"
-      alt="Logo"
-      class="m-auto mr-6 max-h-14 max-w-14"
-    />
+    <a href="/" class="m-auto">
+      <img
+        src="/e8petrie_0.webp"
+        alt="Logo"
+        class="ml-2 mr-6 max-h-20 max-w-20 md:max-h-14 md:max-w-14"
+      />
+    </a>
     <div class="flex w-full flex-wrap items-center justify-between">
       <nav
-        class="max-md:grid max-md:grid-cols-1 font-mono text-2xl tracking-wider text-white max-md:mb-4 md:flex md:gap-6"
+        class="font-mono text-2xl tracking-wider text-white max-md:mb-4 max-md:grid max-md:grid-cols-1 md:flex md:gap-6"
       >
         <a class="hover:underline" href="/"> Showcase</a>
         <a class="hover:underline" href="/interactive"> Interactive</a>
