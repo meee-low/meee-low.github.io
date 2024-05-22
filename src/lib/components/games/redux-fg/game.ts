@@ -13,6 +13,7 @@ export interface PlayerState {
   roundWon: number;
   blockStamina: number;
   parryFrames: number;
+  readyToParry: boolean;
   attackCharge: number;
   blockForbiddenFramesLeft: number;
   attackForbiddenFramesLeft: number;
@@ -41,6 +42,7 @@ export let gameState: Writable<GameState> = writable({
     blockStamina: 100,
     attackCharge: 0,
     parryFrames: 0,
+    readyToParry: true,
     blockForbiddenFramesLeft: 0,
     attackForbiddenFramesLeft: 0,
     keysHeld: new Set<string>(),
@@ -52,6 +54,7 @@ export let gameState: Writable<GameState> = writable({
     blockStamina: 100,
     attackCharge: 0,
     parryFrames: 0,
+    readyToParry: true,
     blockForbiddenFramesLeft: 0,
     attackForbiddenFramesLeft: 0,
     keysHeld: new Set<string>(),
@@ -150,15 +153,18 @@ function calculateStateFromInputs(playerState: PlayerState): PlayerState {
   ) {
     // Both pressed cancels. None pressed is obviously neutral.
     playerState.status = "neutral";
+    playerState.readyToParry = true;
     playerState.attackCharge = 0;
   } else if (playerState.keysHeld.has("atk")) {
     playerState.status = "attacking";
+    playerState.readyToParry = true; // Shouldn't matter, but in case someone does a frame perfect attack->block
   } else if (playerState.keysHeld.has("def")) {
     playerState.attackCharge = 0;
-    if (playerState.status !== "blocking") {
+    if (playerState.readyToParry) {
       // If wasn't blocking before, enter parry mode.
       playerState.parryFrames = STARTING_PARRY_FRAMES;
     }
+    playerState.readyToParry = false;
     if (
       playerState.blockStamina > 0 &&
       playerState.blockForbiddenFramesLeft === 0
