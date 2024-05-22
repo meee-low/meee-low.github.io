@@ -13,7 +13,9 @@
   }
 
   function stateToIcon(playerState: PlayerState): string {
-    if (playerState.status == "blocking") {
+    if (playerState.parryFrames > 0) {
+      return "fa-solid fa-exclamation";
+    } else if (playerState.status == "blocking") {
       if (playerState.blockStamina > 0) {
         return "fa-solid fa-shield";
       } else {
@@ -46,7 +48,7 @@
   ></div>
   <i
     class="{stateToIcon(playerState)} absolute left-1/2 top-1/2
-    -translate-x-1/2 -translate-y-1/2 transform text-4xl text-gray-300
+    -translate-x-1/2 -translate-y-1/2 transform text-6xl text-gray-300
     "
   ></i>
 </div>
