@@ -24,7 +24,7 @@
 
 <div id="socials" class="flex flex-wrap items-center gap-3 text-xl text-white">
   {#each icons as icon}
-    <a href={icon.link}
+    <a href={icon.link} class="hover:text-teal-100"
       ><i
         role="presentation"
         class={icon.icon}
@@ -33,8 +33,12 @@
           e.toElement.classList.add("fa-shake");
         }}
         on:mouseleave={(e) => {
-          // @ts-ignore
-          e.fromElement.classList.remove("fa-shake");
+          setTimeout(
+            () =>
+              // @ts-ignore
+              e.fromElement.classList.remove("fa-shake"),
+            250,
+          );
         }}
         style="--fa-animation-iteration-count: 1"
         title={icon.title}

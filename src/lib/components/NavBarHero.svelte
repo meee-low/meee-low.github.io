@@ -22,8 +22,10 @@
         class="font-mono text-2xl tracking-wider text-white max-md:mb-4 max-md:grid max-md:grid-cols-1 md:flex md:gap-6"
       >
         {#each navLinks as navL}
-          <a class="hover:underline" href={navL.link}
-            ><i class="{navL.faTag} mr-1 text-sm min-[320px]:max-[420px]:hidden" aria-hidden="true"
+          <a class="hover:text-teal-100 flex items-center" href={navL.link}
+            ><i
+              class="{navL.faTag} mr-1 text-sm min-[320px]:max-[420px]:hidden"
+              aria-hidden="true"
             ></i>{navL.title}
             <span class="sr-only">Link to my {navL.title}</span></a
           >
