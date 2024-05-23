@@ -22,7 +22,7 @@
         class="font-mono text-2xl tracking-wider text-white max-md:mb-4 max-md:grid max-md:grid-cols-1 md:flex md:gap-6"
       >
         {#each navLinks as navL}
-          <a class="hover:text-teal-100 flex items-center" href={navL.link}
+          <a class="flex items-center hover:text-teal-100" href={navL.link}
             ><i
               class="{navL.faTag} mr-1 text-sm min-[320px]:max-[420px]:hidden"
               aria-hidden="true"

@@ -7,7 +7,7 @@
 
   function announcementFromGameState(gameState: GameState): string | null {
     if (gameState.globals.paused) {
-        return "(P)aused."
+      return "(P)aused.";
     }
     if (gameState.globals.frozenFramesLeft > 0) {
       if (gameState.globals.frozenReason === "roundReset") {

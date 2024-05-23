@@ -9,9 +9,7 @@
 
     // If toggling on, increment it in the order clicked
     if ($projectsFilters[index].filterEnabled) {
-      let curIndex = Math.max(
-        ...$projectsFilters.map((p) => p.orderClicked),
-      );
+      let curIndex = Math.max(...$projectsFilters.map((p) => p.orderClicked));
       $projectsFilters[index].orderClicked = curIndex + 1;
     }
 
