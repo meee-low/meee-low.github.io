@@ -2,7 +2,7 @@
   import Socials from "$lib/components/navcomponents/Socials.svelte";
 
   const navLinks = [
-    { title: "Showcase", link: "/", faTag: "fa-solid fa-eye" },
+    { title: "Highlights", link: "/", faTag: "fa-solid fa-eye" },
     { title: "Interactive", link: "/interactive", faTag: "fa-solid fa-dice" },
     { title: "Blog", link: "/blog", faTag: "fa-solid fa-blog" },
   ];
@@ -16,20 +16,23 @@
         alt="Logo"
         class="ml-2 mr-6 max-h-20 max-w-20 md:max-h-14 md:max-w-14"
       />
+      <span class="sr-only">Logo</span>
     </a>
     <div class="flex w-full flex-wrap items-center justify-between">
       <nav
-        class="font-mono text-2xl tracking-wider text-white max-md:mb-4 max-md:grid max-md:grid-cols-1 md:flex md:gap-6"
+        class="font-mono text-2xl tracking-wider text-white "
       >
-        {#each navLinks as navL}
-          <a class="flex items-center hover:text-teal-100" href={navL.link}
-            ><i
-              class="{navL.faTag} mr-1 text-sm min-[320px]:max-[420px]:hidden"
-              aria-hidden="true"
-            ></i>{navL.title}
-            <span class="sr-only">Link to my {navL.title}</span></a
-          >
-        {/each}
+        <ul class="max-md:mb-4 max-md:grid max-md:grid-cols-1 md:flex md:gap-6">
+          {#each navLinks as navL}
+            <li class="inline-block">
+              <a class="flex items-center hover:text-teal-100" href={navL.link}
+                ><i
+                  class="{navL.faTag} mr-1 text-sm min-[0px]:max-[420px]:hidden"
+                  aria-hidden="true"
+                ></i>{navL.title}
+            </li>
+          {/each}
+        </ul>
       </nav>
       <Socials></Socials>
     </div>
@@ -40,3 +43,11 @@
     </h1>
   {/if}
 </header>
+
+<style>
+  @media print {
+    header * {
+      display: none;
+    }
+  }
+</style>

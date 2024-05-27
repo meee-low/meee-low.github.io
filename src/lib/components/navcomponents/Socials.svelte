@@ -22,27 +22,32 @@
   ];
 </script>
 
-<div id="socials" class="flex flex-wrap items-center gap-3 text-xl text-white">
-  {#each icons as icon}
-    <a href={icon.link} class="hover:text-teal-100"
-      ><i
-        role="presentation"
-        class={icon.icon}
-        on:mouseenter={(e) => {
-          // @ts-ignore
-          e.toElement.classList.add("fa-shake");
-        }}
-        on:mouseleave={(e) => {
-          setTimeout(
-            () =>
+<div id="socials" class="text-xl text-white">
+  <ul class="flex flex-wrap items-center gap-3">
+    {#each icons as icon}
+      <li class="inline-block">
+        <a href={icon.link} class="hover:text-teal-100"
+          ><i
+            role="presentation"
+            class={icon.icon}
+            on:mouseenter={(e) => {
               // @ts-ignore
-              e.fromElement.classList.remove("fa-shake"),
-            250,
-          );
-        }}
-        style="--fa-animation-iteration-count: 1"
-        title={icon.title}
-      ></i></a
-    >
-  {/each}
+              e.toElement.classList.add("fa-shake");
+            }}
+            on:mouseleave={(e) => {
+              setTimeout(
+                () =>
+                  // @ts-ignore
+                  e.fromElement.classList.remove("fa-shake"),
+                250,
+              );
+            }}
+            style="--fa-animation-iteration-count: 1"
+            title={icon.title}
+          ></i>
+          <span class="sr-only">{"Link to my " + icon.title}</span>
+        </a>
+      </li>
+    {/each}
+  </ul>
 </div>

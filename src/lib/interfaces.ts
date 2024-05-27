@@ -1,10 +1,3 @@
-// export interface ProjectInfo {
-//     name: string;
-//     width: number;
-//     height: number;
-//     description: string;
-// };
-
 export interface ProjectInfo {
   id: number;
   title: string;
