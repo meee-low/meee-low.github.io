@@ -22,7 +22,7 @@ class CVText {
 
   static deserialize(source: string) {
     const obj = JSON.parse(source);
-    return new CVText(obj.langs, obj.tags);
+    return new CVText(obj.langs??{}, obj.tags??[]);
   }
 
   toObject(): CVTextObj {
@@ -37,9 +37,9 @@ class CVText {
     const langMap: LanguageMap = { default: s };
     return new CVText(langMap, []);
   }
-  
+
   static empty(): CVText {
-    return new CVText({default: ""}, []);
+    return new CVText({ default: "" }, []);
   }
 }
 
@@ -169,6 +169,37 @@ class ProjectUnit {
   }
 }
 
+class BulletPoints {
+  bulletPoints: CVText[];
+
+  constructor(bulletPoints: CVText[]) {
+    this.bulletPoints = bulletPoints;
+  }
+
+  serialize(): string {
+    return JSON.stringify(this.bulletPoints.map((b) => b.serialize()));
+  }
+
+  static deserialize(source: string) {
+    let sourceTrimmed = source.trim();
+    if (sourceTrimmed.startsWith("[")) {
+      sourceTrimmed = sourceTrimmed.slice(1);
+    }
+    if (sourceTrimmed.endsWith("]")) {
+      sourceTrimmed = sourceTrimmed.slice(0, sourceTrimmed.length);
+    }
+    const objBulletPointsSerialized = sourceTrimmed.split(",");
+    const objBulletPoints = objBulletPointsSerialized.map((b) =>
+      CVText.deserialize(b)??CVText.empty(),
+    );
+    return new BulletPoints(objBulletPoints);
+  }
+
+  static empty() {
+    return new BulletPoints([]);
+  }
+}
+
 // ===== Sections =====
 
 type WorkExperience = WorkExperienceUnit[];
@@ -192,6 +223,9 @@ function serializeFullInfo(fullInfo: FullInfo) {
   return JSON.stringify(fullInfo);
 }
 
+
+// ==== STORE ====
+
 export let userInfo: Writable<FullInfo> = writable({
   personalInfo: PersonalInfo.empty(),
   workExperience: [],
@@ -200,4 +234,4 @@ export let userInfo: Writable<FullInfo> = writable({
   projects: [],
   languages: [],
   skills: [],
-})
+});
