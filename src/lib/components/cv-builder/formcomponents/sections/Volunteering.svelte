@@ -1,3 +1,4 @@
+
 <script lang="ts">
   import type { Writable } from "svelte/store";
   import WorkExperienceUnit from "./WorkExperienceUnit.svelte";
@@ -21,10 +22,10 @@
 </script>
 
 <section>
-  <h2 class="inline-block font-bold text-lg">Work Experience</h2>
-  <button class="border" on:click={addWorkExperience}>Add</button>
+  <h2>Work Experience</h2>
   {#each $workExperience as _, index}
     <WorkExperienceUnit data={propertyStore(workExperience, index)}
     ></WorkExperienceUnit>
   {/each}
+  <button class="border" on:click={addWorkExperience}>Add</button>
 </section>

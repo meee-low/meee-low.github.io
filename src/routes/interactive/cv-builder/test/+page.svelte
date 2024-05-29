@@ -1,38 +1,26 @@
 <script lang="ts">
-  import {userInfo, WorkExperienceUnit} from "$lib/components/cv-builder/cv-builder2"
-    import PersonalInfo from "$lib/components/cv-builder/formcomponents/sections/PersonalInfo.svelte";
+  import PersonalInfo from "$lib/components/cv-builder/formcomponents/sections/PersonalInfo.svelte";
+  import WorkExperience from "$lib/components/cv-builder/formcomponents/sections/WorkExperience.svelte";
+  import Projects from "$lib/components/cv-builder/formcomponents/sections/Projects.svelte";
+  import Education from "$lib/components/cv-builder/formcomponents/sections/Education.svelte";
 
-  $: console.log($userInfo);
+  import {simpleCVStore as userInfo} from "$lib/components/cv-builder/cv-builder-simple"
 
-  function addWorkExperience() {
-    $userInfo.workExperience.push(WorkExperienceUnit.empty())
-    $userInfo = $userInfo
-  }
+  import {propertyStore} from "svelte-writable-derived";
+  import BulletPointsSection from "$lib/components/cv-builder/formcomponents/sections/BulletPointsSection.svelte";
 
+  // $: console.log($userInfo);
 </script>
 
 <div>
   <form action="">
     <PersonalInfo></PersonalInfo>
-    <section>
-      <h2>Work Experience</h2>
-      {#each $userInfo.workExperience as we}
-      <label>
-        Employer
-        <input type="text" bind:value={we.employer.langs.default} />
-      </label>
-      {/each}
-      <button on:click={addWorkExperience}>Add</button>
-    </section>
-    <h2></h2>
+    <WorkExperience workExperience={propertyStore(userInfo, "workExperience")}></WorkExperience>
+    <Education education={propertyStore(userInfo, "education")}></Education>
+    <Projects projects={propertyStore(userInfo, "projects")}></Projects>
+    <BulletPointsSection title="Skills" bullets={propertyStore(userInfo, "skills")}></BulletPointsSection>
+    <BulletPointsSection title="Languages" bullets={propertyStore(userInfo, "languages")}></BulletPointsSection>
+    <!-- <Volunteering></Volunteering> -->
+    <input type="submit" />
   </form>
 </div>
-
-<style>
-  input {
-    @apply border rounded-lg;
-  }
-  button {
-    @apply border rounded-lg py-0.5 px-2;
-  }
-</style>

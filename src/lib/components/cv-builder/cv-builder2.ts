@@ -128,7 +128,7 @@ export class WorkExperienceUnit {
   }
 }
 
-class EducationUnit {
+export class EducationUnit {
   degree: CVText;
   institution: CVText;
   dateStart: CVText;
@@ -150,7 +150,7 @@ class EducationUnit {
   }
 }
 
-class ProjectUnit {
+export class ProjectUnit {
   title: CVText;
   description: CVText;
   link: CVText;
@@ -169,7 +169,7 @@ class ProjectUnit {
   }
 }
 
-class BulletPoints {
+export class BulletPoints {
   bulletPoints: CVText[];
 
   constructor(bulletPoints: CVText[]) {
@@ -209,7 +209,7 @@ type CoursesAndCertifications = CVText[];
 type Languages = CVText[];
 type Skills = CVText[];
 
-interface FullInfo {
+export interface FullInfo {
   personalInfo: PersonalInfo;
   workExperience: WorkExperience;
   education: Education;
@@ -226,12 +226,17 @@ function serializeFullInfo(fullInfo: FullInfo) {
 
 // ==== STORE ====
 
-export let userInfo: Writable<FullInfo> = writable({
-  personalInfo: PersonalInfo.empty(),
-  workExperience: [],
-  education: [],
-  coursesAndCertifications: [],
-  projects: [],
-  languages: [],
-  skills: [],
-});
+
+const makeEmptyInfo: () => FullInfo = () => {
+  return {
+    personalInfo: PersonalInfo.empty(),
+    workExperience: [],
+    education: [],
+    coursesAndCertifications: [],
+    projects: [],
+    languages: [],
+    skills: [],
+  };
+};
+
+export let userInfo: Writable<FullInfo> = writable(makeEmptyInfo());
