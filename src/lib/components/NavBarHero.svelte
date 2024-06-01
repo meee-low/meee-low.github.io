@@ -43,11 +43,3 @@
     </h1>
   {/if}
 </header>
-
-<style>
-  @media print {
-    header * {
-      display: none;
-    }
-  }
-</style>
