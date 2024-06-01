@@ -20,7 +20,7 @@
       },
       {
         label: "mat_drumond@hotmail.com",
-        link: "mailto:mat_drumon@hotmaild.com",
+        link: "mailto:mat_drumond@hotmail.com",
         icon: "fa fa-envelope",
       },
       {
