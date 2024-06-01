@@ -10,11 +10,11 @@ export function makeMarkdownFormatter(
     sanitize(s)
       .replace("\\*", "&#42")
       .replace(
-        /(?<!\\)\*\*(.*?)(?<!\\)\*\*/g,
+        /(?<!\\)\*\*(.+?)(?<!\\)\*\*/g,
         `<strong class="${styling.bold}">$1</strong>`,
       )
       .replace(
-        /(?<!\\)\*(.*?)(?<!\\)\*/g,
+        /(?<!\\)\*(.+?)(?<!\\)\*/g,
         `<em class="${styling.italic}">$1</em>`,
       );
 }
