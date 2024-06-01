@@ -12,7 +12,7 @@
   </p> -->
   <div class="text-sm">
   <p><i class="fa-solid fa-location-dot fa-fw mr-1"><span class="sr-only">Location</span></i>Brasília, DF - Brazil</p>
-  <div class="flex gap-3">
+  <div class="flex flex-wrap gap-x-3">
     <a href={contactInfo.linkedin} class="hover:underline"
       ><i class="fa-brands fa-linkedin fa-fw mr-1">
         <span class="sr-only">Linkedin</span>

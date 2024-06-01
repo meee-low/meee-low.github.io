@@ -9,7 +9,7 @@
 </script>
 
 <header id="navbar" class="z-50 w-full bg-slate-500 shadow-md">
-  <div class="flex content-center p-4 pr-[5vw]">
+  <div class="flex content-center py-2 pl-4 pr-[5vw]">
     <a href="/" class="m-auto">
       <img
         src="/e8petrie_0.webp"
