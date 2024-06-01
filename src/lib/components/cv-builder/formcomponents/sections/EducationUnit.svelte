@@ -15,15 +15,8 @@
   }
 </script>
 
-<input type="text" bind:value={$data.institution} />
-<input type="text" bind:value={$data.degree} />
-<input type="text" bind:value={$data.dateStart} />
-<input type="text" bind:value={$data.dateEnd} />
+<label class="block">Instituição: <input class="inline-block border" type="text" bind:value={$data.institution} /> </label>
+<label class="block">Título: <input class="inline-block border" type="text" bind:value={$data.degree} /></label>
+<label class="block">Data de começo (mês/ano): <input class="inline-block border" type="month" bind:value={$data.dateStart} /></label>
+<label class="block">Data de término (mês/ano): <input class="inline-block border" type="month" bind:value={$data.dateEnd} /></label>
 <BulletPoints bullets={propertyStore(data, "bulletPoints")}></BulletPoints>
-<button on:click={addBulletPoint}>Add Bullet Point</button>
-
-<style>
-  input {
-    @apply block border;
-  }
-</style>

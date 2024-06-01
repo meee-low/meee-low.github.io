@@ -16,8 +16,15 @@
   }
 </script>
 
-<input class="border block" type="text" bind:value={$data.employer} />
-<input class="border block" type="text" bind:value={$data.position} />
-<input class="border block" type="text" bind:value={$data.dateStart} />
-<input class="border block" type="text" bind:value={$data.dateEnd} />
+<label class="block"> Cargo:
+<input class="border inline-block" type="text" bind:value={$data.position} /> </label>
+<label class="block"> Empregador:
+<input class="border inline-block" type="text" bind:value={$data.employer} />
+</label>
+<label class="block"> Início:
+<input class="border inline-block" type="month" bind:value={$data.dateStart} />
+</label>
+<label class="block"> Fim:
+<input class="border inline-block" type="month" bind:value={$data.dateEnd} />
+</label>
 <BulletPoints bullets={propertyStore(data, "bulletPoints")}></BulletPoints>

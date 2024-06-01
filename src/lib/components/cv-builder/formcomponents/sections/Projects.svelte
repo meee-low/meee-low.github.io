@@ -19,12 +19,18 @@
 </script>
 
 <section>
-  <h2>Projects</h2>
+  <h2 class="text-lg font-bold inline">Projects</h2>
+  <button class="border inline-block" on:click={addProject}>Add</button>
   {#each $projects as proj, index}
-    <input class="border block" type="text" bind:value={proj.title}>
-    <input class="border block" type="text" bind:value={proj.description}>
-    <input class="border block" type="text" bind:value={proj.link}>
-    <BulletPoints bullets={propertyStore(projects, [index, "bulletPoints"])}></BulletPoints>
-    {/each	}
-    <button class="border block" on:click={addProject}>Add Project</button>
+    <label class="block"> Título:
+      <input class="border inline-block" type="text" bind:value={proj.title}>
+    </label>
+    <label class="block"> Descrição:
+      <input class="border inline-block" type="text" bind:value={proj.description}>
+    </label>
+    <label class="block"> Link:
+      <input class="border inline-block" type="text" bind:value={proj.link}>
+    </label>
+      <BulletPoints bullets={propertyStore(projects, [index, "bulletPoints"])}></BulletPoints>
+  {/each	}
 </section>

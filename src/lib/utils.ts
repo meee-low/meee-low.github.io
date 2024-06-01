@@ -50,3 +50,5 @@ export function toolToImgSrc(key: string): string {
   const kkey = key as keyof typeof iconMap;
   return iconMap.hasOwnProperty(key) ? iconMap[kkey] : "";
 }
+
+export type Intersect<A, B> = A extends B ? A : B extends A ? B : never;

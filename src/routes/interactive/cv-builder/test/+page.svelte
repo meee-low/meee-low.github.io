@@ -3,6 +3,7 @@
   import WorkExperience from "$lib/components/cv-builder/formcomponents/sections/WorkExperience.svelte";
   import Projects from "$lib/components/cv-builder/formcomponents/sections/Projects.svelte";
   import Education from "$lib/components/cv-builder/formcomponents/sections/Education.svelte";
+  import FullCVRender from "$lib/components/cv-builder/printcomponents/FullCVRender.svelte"
 
   import {simpleCVStore as userInfo} from "$lib/components/cv-builder/cv-builder-simple"
 
@@ -12,9 +13,10 @@
   // $: console.log($userInfo);
 </script>
 
+<div class="grid lg:grid-cols-2">
 <div>
   <form action="">
-    <PersonalInfo></PersonalInfo>
+    <PersonalInfo data={propertyStore(userInfo, "personalInfo")}></PersonalInfo>
     <WorkExperience workExperience={propertyStore(userInfo, "workExperience")}></WorkExperience>
     <Education education={propertyStore(userInfo, "education")}></Education>
     <Projects projects={propertyStore(userInfo, "projects")}></Projects>
@@ -23,4 +25,8 @@
     <!-- <Volunteering></Volunteering> -->
     <input type="submit" />
   </form>
+</div>
+<div class="border">
+<FullCVRender data={userInfo}></FullCVRender>
+</div>
 </div>

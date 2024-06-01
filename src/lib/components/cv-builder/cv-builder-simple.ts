@@ -32,6 +32,7 @@ export interface PersonalInfo {
   linkedin: string;
   website: string;
   location: string;
+  github: string;
 }
 
 export type WorkExperience = WorkExperienceUnit[];
@@ -55,7 +56,15 @@ export interface FullInfo {
 
 const makeEmptyInfo: () => FullInfo = () => {
   return {
-    personalInfo: { name: "", phone: "", email: "", linkedin: "", website: "", location: ""},
+    personalInfo: {
+      name: "",
+      phone: "",
+      email: "",
+      linkedin: "",
+      website: "",
+      location: "",
+      github: "",
+    },
     workExperience: [],
     education: [],
     coursesAndCertifications: [],
