@@ -2,7 +2,7 @@
   import SectionHeader from "$lib/components/cv-builder/printcomponents/SectionHeader.svelte";
   import BulletList from "$lib/components/cv-builder/printcomponents/BulletList.svelte";
   import ThreeColumnSubHeader from "$lib/components/cv-builder/printcomponents/ThreeColumnSubHeader.svelte";
-
+    
   // Font ideas: Garamond, Helvetica, Cambria, Georgia, Avenir
   let data = {
     name: "Matheus Ferreira Drumond",
@@ -205,6 +205,7 @@
   </section>
 </article>
 
+
 <style>
   article {
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
@@ -246,3 +247,7 @@
     }
   }
 </style>
+
+<svelte:head>
+  <title>MFD - Resume</title>
+</svelte:head>

@@ -23,10 +23,14 @@
     <BulletPointsSection title="Skills" bullets={propertyStore(userInfo, "skills")}></BulletPointsSection>
     <BulletPointsSection title="Languages" bullets={propertyStore(userInfo, "languages")}></BulletPointsSection>
     <!-- <Volunteering></Volunteering> -->
-    <input type="submit" />
+    <!-- <input type="submit" /> -->
   </form>
 </div>
 <div class="border">
 <FullCVRender data={userInfo}></FullCVRender>
 </div>
 </div>
+
+<svelte:head>
+  <title>MFD - CV Builder Alpha</title>
+</svelte:head>
