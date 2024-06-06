@@ -15,7 +15,7 @@
 </script>
 
 <div
-  class="grid h-full min-h-[230px] w-full grid-cols-5 items-stretch gap-3 border xl:grid-cols-2"
+  class="grid h-full min-h-[230px] w-full grid-cols-5 items-stretch gap-3 rounded-lg border shadow-lg xl:grid-cols-2 overflow-clip"
   on:mousedown={() => (showModal = true)}
   role="button"
   aria-haspopup="dialog"
@@ -46,7 +46,7 @@
 
 <Modal bind:showModal>
   <div
-    class="max-h-[90vh] max-w-[80vw] px-[5%] py-6 lg:min-w-[30vw] lg:max-w-[40vw]"
+    class="max-h-[90vh] max-w-[80vw] px-[5%] py-6 lg:min-w-[30vw] lg:max-w-[40vw] overflow-auto"
   >
     <img src={projectInfo.imagePath} alt="" class="mx-auto mb-4 max-h-[40vh]" />
     <h2 class="mb-2 text-center text-xl font-bold">
@@ -54,7 +54,7 @@
     </h2>
     <p class="mb-6">{projectInfo.description}</p>
     {#if languagesAndFrameworks.length > 0}
-      <ul class="mb-6">
+      <ul class="mb-6 md:grid md:grid-cols-2">
         {#each languagesAndFrameworks as tool}
           <li class="mb-2 flex align-middle">
             <div class="mr-2 max-h-8 max-w-8">

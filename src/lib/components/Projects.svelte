@@ -41,7 +41,7 @@
     {#each myProjects as projectInfo (projectInfo.title)}
       <div
         animate:flip={{ duration: 300 }}
-        class="border-2 {$filtering &&
+        class="border-2 rounded-lg {$filtering &&
         haveCommonElements(projectInfo.filterableTags, $activeFilters)
           ? 'border-teal-500'
           : 'border-transparent '}

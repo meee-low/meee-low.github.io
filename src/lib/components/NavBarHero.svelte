@@ -18,18 +18,25 @@
       />
       <span class="sr-only">Logo</span>
     </a>
-    <div class="flex w-full flex-wrap items-center justify-between">
+    <div
+      class="flex w-full flex-wrap place-content-between content-center items-center gap-x-6 align-middle"
+    >
       <nav
-        class="font-mono text-2xl tracking-wider text-white "
+        class="flex content-center items-center font-mono text-2xl tracking-wider text-white"
       >
-        <ul class="max-md:mb-4 max-md:grid max-md:grid-cols-1 md:flex md:gap-6">
+        <ul class="max-md:mb-4 max-md:grid max-md:grid-cols-1 md:flex md:gap-2">
           {#each navLinks as navL}
-            <li class="inline-block">
-              <a class="flex items-center hover:text-teal-100" href={navL.link}
-                ><i
-                  class="{navL.faTag} mr-1 text-sm min-[0px]:max-[420px]:hidden"
-                  aria-hidden="true"
-                ></i>{navL.title}
+            <li class="inline-block h-full px-2 hover:bg-black/10">
+              <a
+                class="flex h-full items-center hover:text-teal-100"
+                href={navL.link}
+                ><span class="flex items-center"
+                  ><i
+                    class="{navL.faTag} mr-1 text-sm min-[0px]:max-[420px]:hidden"
+                    aria-hidden="true"
+                  ></i>{navL.title}</span
+                >
+              </a>
             </li>
           {/each}
         </ul>
@@ -43,3 +50,13 @@
     </h1>
   {/if}
 </header>
+
+<style>
+  nav ul > :first-child {
+    padding-left: 0;
+    padding-right: 0.5rem;
+  }
+  nav ul > :first-child {
+    padding-right: 0;
+  }
+</style>

@@ -24,25 +24,12 @@
 
 <div id="socials" class="text-xl text-white">
   <ul class="flex flex-wrap items-center gap-3">
-    {#each icons as icon}
+    {#each icons as icon (icon)}
       <li class="inline-block">
         <a href={icon.link} class="hover:text-teal-100"
           ><i
             role="presentation"
-            class={icon.icon}
-            on:mouseenter={(e) => {
-              // @ts-ignore
-              e.toElement.classList.add("fa-shake");
-            }}
-            on:mouseleave={(e) => {
-              setTimeout(
-                () =>
-                  // @ts-ignore
-                  e.fromElement.classList.remove("fa-shake"),
-                250,
-              );
-            }}
-            style="--fa-animation-iteration-count: 1"
+            class="{icon.icon} hover:scale-[120%]"
             title={icon.title}
           ></i>
           <span class="sr-only">{"Link to my " + icon.title}</span>

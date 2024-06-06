@@ -1,4 +1,4 @@
-import { derived, writable } from "svelte/store";
+import { derived, writable, type Writable } from "svelte/store";
 import { type Tag } from "$lib/interfaces";
 
 export let projectsFilters = writable([
@@ -27,3 +27,38 @@ function updateActiveFilters(tags: Tag[]): string[] {
 export let activeFilters = derived(projectsFilters, ($projectsFilters) =>
   updateActiveFilters($projectsFilters),
 );
+
+interface Toggleable<T> extends Writable<boolean> {
+  toggle: () => void;
+}
+
+function makeDarkModeStore(): Writable<boolean> {
+  const { subscribe, set, update } = writable(false);
+  
+  const newSet: typeof set = (v) => {
+    // console.log("updating dark mode");
+    if (typeof document !== "undefined") {
+      // console.log("changing document");
+      if (v) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    }
+
+    if (typeof localStorage !== "undefined") {
+      localStorage.dark = v;
+    }
+    return v;
+  };
+
+  // const toggle = () => newSet(!this);
+  
+  return {
+    subscribe,
+    set: newSet,
+    update,
+  };
+}
+
+export let darkMode = makeDarkModeStore();
