@@ -2,7 +2,7 @@
   import SectionHeader from "$lib/components/cv-builder/printcomponents/SectionHeader.svelte";
   import BulletList from "$lib/components/cv-builder/printcomponents/BulletList.svelte";
   import ThreeColumnSubHeader from "$lib/components/cv-builder/printcomponents/ThreeColumnSubHeader.svelte";
-    
+
   // Font ideas: Garamond, Helvetica, Cambria, Georgia, Avenir
   let data = {
     name: "Matheus Ferreira Drumond",
@@ -108,14 +108,14 @@
 <article>
   <section>
     <h1
-      class="mb-4 text-center text-4xl uppercase font-bold tracking-wide print:mb-2 print:text-[14pt]"
+      class="mb-4 text-center text-4xl font-bold uppercase tracking-wide print:mb-2 print:text-[14pt]"
     >
       {data.name}
     </h1>
   </section>
 
   <section
-    class="mb-10 flex max-w-full flex-wrap gap-x-4 gap-y-2 place-content-between text-xs print:mb-2 print:gap-y-1 print:text-[6pt]"
+    class="mb-10 flex max-w-full flex-wrap place-content-between gap-x-4 gap-y-2 text-xs print:mb-2 print:gap-y-1 print:text-[6pt]"
   >
     <p class="">
       <i class="fa-solid fa-location-dot aria-hidden mr-1 text-teal-600"
@@ -205,6 +205,9 @@
   </section>
 </article>
 
+<svelte:head>
+  <title>MFD - Resume</title>
+</svelte:head>
 
 <style>
   article {
@@ -247,7 +250,3 @@
     }
   }
 </style>
-
-<svelte:head>
-  <title>MFD - Resume</title>
-</svelte:head>

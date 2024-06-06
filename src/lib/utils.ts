@@ -52,3 +52,29 @@ export function toolToImgSrc(key: string): string {
 }
 
 export type Intersect<A, B> = A extends B ? A : B extends A ? B : never;
+
+export function recursiveFlattenAndSerialize(obj: any, prefix: string = "") {
+  const result: { [key: string]: any } = {};
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const newKey = prefix ? `${prefix}[${key}]` : key;
+      if (Array.isArray(obj[key])) {
+        obj[key].forEach((item: any, index: number) => {
+          if (item === Object(item)) {
+            Object.assign(
+              result,
+              recursiveFlattenAndSerialize(item, `${newKey}[${index}]`),
+            );
+          } else {
+            result[`${newKey}[${index}]`] = item;
+          }
+        });
+      } else if (typeof obj[key] === "object" && obj[key] !== null) {
+        Object.assign(result, recursiveFlattenAndSerialize(obj[key], newKey));
+      } else {
+        result[newKey] = obj[key];
+      }
+    }
+  }
+  return result;
+}

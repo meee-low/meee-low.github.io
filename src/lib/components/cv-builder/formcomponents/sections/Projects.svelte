@@ -20,7 +20,7 @@
 
 <section>
   <h2 class="text-lg font-bold inline">Projects</h2>
-  <button class="border inline-block" on:click={addProject}>Add</button>
+  <button type="button" class="border inline-block" on:click={addProject}>Add</button>
   {#each $projects as proj, index}
     <label class="block"> Título:
       <input class="border inline-block" type="text" bind:value={proj.title}>

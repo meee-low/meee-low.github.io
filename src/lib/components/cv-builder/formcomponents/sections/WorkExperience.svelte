@@ -22,7 +22,7 @@
 
 <section>
   <h2 class="inline-block font-bold text-lg">Work Experience</h2>
-  <button class="border" on:click={addWorkExperience}>Add</button>
+  <button type="button" class="border" on:click={addWorkExperience}>Add</button>
   {#each $workExperience as _, index}
     <WorkExperienceUnit data={propertyStore(workExperience, index)}
     ></WorkExperienceUnit>

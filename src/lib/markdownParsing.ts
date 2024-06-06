@@ -7,7 +7,7 @@ export function makeMarkdownFormatter(
   styling: MarkdownStyling,
 ): (s: string) => string {
   return (s: string) =>
-    sanitize(s)
+    sanitizeInnerHTML(s)
       .replace("\\*", "&#42")
       .replace(
         /(?<!\\)\*\*(.+?)(?<!\\)\*\*/g,
@@ -19,7 +19,8 @@ export function makeMarkdownFormatter(
       );
 }
 
-function sanitize(input: string): string {
+/// WARN: should only be used for inner html, as it's not sufficient for proper XSS sanitization for other uses.
+export function sanitizeInnerHTML(input: string): string {
   return input
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")

@@ -27,5 +27,5 @@
     <WorkExperienceUnit data={propertyStore(workExperience, index)}
     ></WorkExperienceUnit>
   {/each}
-  <button class="border" on:click={addWorkExperience}>Add</button>
+  <button type="button" class="border" on:click={addWorkExperience}>Add</button>
 </section>

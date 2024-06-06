@@ -53,16 +53,18 @@
     ></SectionHeader>
     <div class="grid grid-cols-1 gap-2 print:gap-1">
       {#each $data.workExperience as we}
-        <div>
-          <ThreeColumnSubHeader
-            left={we.position}
-            center={we.employer}
-            right={yyyymmToShortLocale(we.dateStart, locale) +
-              "–" + (yyyymmIsFutureDate(we.dateEnd)? "":
-              yyyymmToShortLocale(we.dateEnd, locale))}
-          ></ThreeColumnSubHeader>
-          <BulletList bullets={we.bulletPoints}></BulletList>
-        </div>
+        {#if we.position || we.employer || we.bulletPoints.some((b)=>b.length>0)}
+          <div>
+            <ThreeColumnSubHeader
+              left={we.position}
+              center={we.employer}
+              right={yyyymmToShortLocale(we.dateStart, locale) +
+                "–" + (yyyymmIsFutureDate(we.dateEnd)? "":
+                yyyymmToShortLocale(we.dateEnd, locale))}
+            ></ThreeColumnSubHeader>
+            <BulletList bullets={we.bulletPoints}></BulletList>
+          </div>
+        {/if}
       {/each}
     </div>
   </section>
@@ -73,16 +75,18 @@
       sectionTitle={sectionTitlesWithLocale[locale].education}
     ></SectionHeader>
     {#each $data.education as ed}
-      <ThreeColumnSubHeader
-        left={ed.institution}
-        center={ed.degree}
-        right={yyyymmToShortLocale(ed.dateStart, locale) +
-          "–" +
-          yyyymmToShortLocale(ed.dateEnd, locale) +
-          yyyymmToEstimateTag(ed.dateEnd)
-          }
-      ></ThreeColumnSubHeader>
-      <BulletList bullets={ed.bulletPoints}></BulletList>
+      {#if ed.institution || ed.degree || ed.bulletPoints.some((b)=>b.length>0) }
+        <ThreeColumnSubHeader
+          left={ed.institution}
+          center={ed.degree}
+          right={yyyymmToShortLocale(ed.dateStart, locale) +
+            "–" +
+            yyyymmToShortLocale(ed.dateEnd, locale) +
+            yyyymmToEstimateTag(ed.dateEnd)
+            }
+        ></ThreeColumnSubHeader>
+        <BulletList bullets={ed.bulletPoints}></BulletList>
+      {/if}
     {/each}
   </section>
 
@@ -94,9 +98,10 @@
       ></SectionHeader>
       <div class="grid grid-cols-1 gap-2 px-2 print:gap-1">
         {#each $data.projects as proj}
-          {#if proj.title || proj.description || proj.link}
+          {#if proj.title || proj.description || proj.link || proj.bulletPoints.some(b=>b.length>0)}
             <div class="">
               <h3 class="font-semibold">{proj.title}</h3>
+              <a href={proj.link}>{proj.link}</a>
               <p class="ml-6 print:leading-snug">{proj.description}</p>
               <BulletList bullets={proj.bulletPoints}></BulletList>
             </div>
