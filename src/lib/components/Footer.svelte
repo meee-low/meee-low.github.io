@@ -42,8 +42,10 @@
       </div>
   </div>
   <div class="flex flex-wrap place-content-center gap-2">
-    <!-- <LanguageSelector></LanguageSelector> -->
+    <LanguageSelector></LanguageSelector>
     <button
+      role="switch"
+      aria-checked="{$darkMode}"
       on:mousedown={() => {
         $darkMode = !$darkMode;
       }}
