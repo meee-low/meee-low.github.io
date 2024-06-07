@@ -5,9 +5,7 @@ export default {
   theme: {
     extend: {},
   },
-  darkMode: [
-    "selector"
-  ],
+  darkMode: "selector",
 
   plugins: [],
 };

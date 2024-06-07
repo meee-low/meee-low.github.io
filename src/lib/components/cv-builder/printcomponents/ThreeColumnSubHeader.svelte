@@ -5,7 +5,7 @@
 </script>
 
 
-<div class="mx-2 grid grid-cols-3 text-nowrap font-semibold overflow-visible">
+<div class="mx-2 grid grid-cols-3 text-nowrap font-semibold font- overflow-visible">
   <h3 class="text-left">{left}</h3>
   <h3 class="text-center">{center}</h3>
   <h3 class="text-right">{right}</h3>

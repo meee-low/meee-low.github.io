@@ -6,31 +6,25 @@
   import FullCVRender from "$lib/components/cv-builder/printcomponents/FullCVRender.svelte";
 
   import { simpleCVStore as userInfo } from "$lib/components/cv-builder/cv-builder-simple";
+  import { goto } from "$app/navigation";
 
   import { propertyStore } from "svelte-writable-derived";
   import BulletPointsSection from "$lib/components/cv-builder/formcomponents/sections/GenericBulletPointsSection.svelte";
-  import { recursiveFlattenAndSerialize } from "$lib/utils";
+  import { recursiveFlattenAndSerialize, flattenedToQuery } from "$lib/utils";
 
-  // $: console.log($userInfo);
+  let form: HTMLFormElement;
 
-  function handleFormSubmit() {
-    console.log($userInfo);
-    const flattened = recursiveFlattenAndSerialize($userInfo);
-    console.log({ flattened });
-    const queryString = Object.entries(flattened)
-      .map(
-        (key, value) =>
-          `${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
-      )
-      .join("&");
+  async function handleFormSubmit() {
+    const queryString = JSON.stringify($userInfo);
     console.log({ queryString });
-    // TODO: push the queryString to the actual queryString.
+    const targetUrl = "./test/view?data=" + queryString;
+    await goto(targetUrl);
   }
 </script>
 
 <div class="grid lg:grid-cols-2">
   <div>
-    <form on:submit|preventDefault={handleFormSubmit}>
+    <form bind:this={form} on:submit|preventDefault={handleFormSubmit}>
       <PersonalInfo data={propertyStore(userInfo, "personalInfo")}
       ></PersonalInfo>
       <WorkExperience workExperience={propertyStore(userInfo, "workExperience")}
@@ -46,14 +40,13 @@
         bullets={propertyStore(userInfo, "languages")}
       ></BulletPointsSection>
       <!-- <Volunteering></Volunteering> -->
-      <!-- <input type="submit" /> -->
       <button class="rounded-lg border p-2 hover:bg-gray-200" type="submit"
         >Enviar</button
       >
     </form>
   </div>
   <div class="border">
-    <FullCVRender data={userInfo}></FullCVRender>
+    <FullCVRender data={$userInfo}></FullCVRender>
   </div>
 </div>
 

@@ -34,11 +34,9 @@ interface Toggleable<T> extends Writable<boolean> {
 
 function makeDarkModeStore(): Writable<boolean> {
   const { subscribe, set, update } = writable(false);
-  
+
   const newSet: typeof set = (v) => {
-    // console.log("updating dark mode");
     if (typeof document !== "undefined") {
-      // console.log("changing document");
       if (v) {
         document.documentElement.classList.add("dark");
       } else {
@@ -47,13 +45,13 @@ function makeDarkModeStore(): Writable<boolean> {
     }
 
     if (typeof localStorage !== "undefined") {
-      localStorage.dark = v;
+      localStorage.setItem("dark", JSON.stringify(v));
     }
-    return v;
+    return set(v);
   };
 
   // const toggle = () => newSet(!this);
-  
+
   return {
     subscribe,
     set: newSet,

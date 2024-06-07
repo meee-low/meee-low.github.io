@@ -54,7 +54,7 @@ export interface FullInfo {
 
 // ==== STORE ====
 
-const makeEmptyInfo: () => FullInfo = () => {
+export const makeEmptyInfo: () => FullInfo = () => {
   return {
     personalInfo: {
       name: "",

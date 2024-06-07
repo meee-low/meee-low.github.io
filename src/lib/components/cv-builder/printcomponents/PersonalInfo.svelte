@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { PersonalInfo } from "../cv-builder-simple";
+  import type { PersonalInfo } from "../cv-builder-simple";
 
   const icons = {
     phone: "fa-solid fa-phone",
@@ -12,38 +12,39 @@
 
   export let data: PersonalInfo;
 </script>
-  <section
-    class="mb-10 flex max-w-full flex-wrap gap-x-4 gap-y-2 place-content-between text-xs print:mb-2 print:gap-y-1 print:text-[6pt]"
-  >
+
+<section
+  class="mb-10 flex max-w-full flex-wrap place-content-between gap-x-4 gap-y-2 text-xs print:mb-2 print:gap-y-1 print:text-[6pt]"
+>
   {#if data.location && data.location.length > 0}
     <p class="">
       <i class="fa-solid fa-location-dot aria-hidden mr-1 text-teal-600"
       ></i>{data.location}
     </p>
   {/if}
-    {#if data.email}
-      <a class="text-nowrap" href={"mailto:" + data.email}>
-        <i class="{icons.email} mr-1 text-teal-600"></i>{data.email}
-      </a>
-    {/if}
-    {#if data.linkedin}
-      <a class="text-nowrap" href={"https://linkedin.com/in/" + data.linkedin}>
-        <i class="{icons.linkedin} mr-1 text-teal-600"></i>{"in/" + data.linkedin}
-      </a>
-    {/if}
-    {#if data.phone}
-    <a class="text-nowrap" href={"phone://" + data.phone}>
+  {#if data.email}
+    <a class="text-nowrap" href={"mailto:" + data.email}>
+      <i class="{icons.email} mr-1 text-teal-600"></i>{data.email}
+    </a>
+  {/if}
+  {#if data.linkedin}
+    <a class="text-nowrap" href={"https://linkedin.com/in/" + data.linkedin}>
+      <i class="{icons.linkedin} mr-1 text-teal-600"></i>{"in/" + data.linkedin}
+    </a>
+  {/if}
+  {#if data.phone}
+    <a class="text-nowrap" href={"tel:" + data.phone.replace(/\D/g, "")}>
       <i class="{icons.phone} mr-1 text-teal-600"></i>{data.phone}
     </a>
-    {/if}
-    {#if data.website}
+  {/if}
+  {#if data.website}
     <a class="text-nowrap" href={"https://" + data.website}>
       <i class="{icons.website} mr-1 text-teal-600"></i>{data.website}
     </a>
-    {/if}
-    {#if data.github}
+  {/if}
+  {#if data.github}
     <a class="text-nowrap" href={"https://www.github.com/" + data.github}>
       <i class="{icons.github} mr-1 text-teal-600"></i>{data.github}
     </a>
-    {/if}
-  </section>
+  {/if}
+</section>
