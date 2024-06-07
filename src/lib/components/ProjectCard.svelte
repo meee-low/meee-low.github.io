@@ -16,7 +16,13 @@
 
 <button
   class="grid h-full min-h-[230px] w-full select-text grid-cols-5 items-stretch gap-3 overflow-clip rounded-lg border shadow-lg hover:shadow-xl xl:grid-cols-2"
-  on:click={() => (showModal = true)}
+  on:click={() => {
+    const selection = window.getSelection();
+    if (selection && selection.toString()) {
+      return;
+    }
+    showModal = true;
+  }}
   aria-haspopup="dialog"
   tabindex="0"
 >
