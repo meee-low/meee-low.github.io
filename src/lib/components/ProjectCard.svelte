@@ -14,10 +14,9 @@
   let showModal = false;
 </script>
 
-<div
-  class="grid h-full min-h-[230px] w-full grid-cols-5 items-stretch gap-3 overflow-clip rounded-lg border shadow-lg hover:shadow-xl xl:grid-cols-2"
-  on:mousedown={() => (showModal = true)}
-  role="button"
+<button
+  class="grid h-full min-h-[230px] w-full select-text grid-cols-5 items-stretch gap-3 overflow-clip rounded-lg border shadow-lg hover:shadow-xl xl:grid-cols-2"
+  on:click={() => (showModal = true)}
   aria-haspopup="dialog"
   tabindex="0"
 >
@@ -42,7 +41,7 @@
       {/each}
     </div>
   </div>
-</div>
+</button>
 
 <Modal bind:showModal>
   <div
