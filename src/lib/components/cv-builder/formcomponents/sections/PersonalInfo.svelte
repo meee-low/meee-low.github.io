@@ -11,6 +11,8 @@
       class="border inline-block"
       type="text"
       name="name"
+      autocomplete="name"
+      required
       id="form-name"
       bind:value={$data.name}
       placeholder="Your Name"
@@ -19,8 +21,10 @@
   <label class="block"> Telefone:
     <input
       class="border inline-block"
-      type="text"
+      type="tel"
       name="phone"
+      autocomplete="tel-local"
+      required
       id="form-phone"
       bind:value={$data.phone}
       placeholder="9-999-999-999"
@@ -29,8 +33,10 @@
   <label class="block"> Email:
     <input
       class="border inline-block"
-      type="text"
+      type="email"
       name="email"
+      autocomplete="email"
+      required
       id="form-email"
       bind:value={$data.email}
       placeholder="example@example.com"
@@ -49,7 +55,7 @@
   <label class="block"> Website:
     <input
       class="border inline-block"
-      type="text"
+      type="url"
       name="website"
       id="form-website"
       bind:value={$data.website}
