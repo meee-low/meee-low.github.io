@@ -45,7 +45,7 @@
       >
     </form>
   </div>
-  <div class="border">
+  <div class="border overflow-auto">
     <FullCVRender data={$userInfo}></FullCVRender>
   </div>
 </div>

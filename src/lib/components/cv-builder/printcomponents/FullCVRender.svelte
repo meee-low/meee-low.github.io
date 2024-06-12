@@ -3,9 +3,31 @@
   import BulletList from "./BulletList.svelte";
   import ThreeColumnSubHeader from "./ThreeColumnSubHeader.svelte";
   import { type FullInfo } from "$lib/components/cv-builder/cv-builder-simple";
-  import { yyyymmIsFutureDate, yyyymmToDate, yyyymmToEstimateTag, yyyymmToShortLocale } from "./dateFormatting";
+  import {
+    yyyymmIsFutureDate,
+    yyyymmToDate,
+    yyyymmToEstimateTag,
+    yyyymmToShortLocale,
+  } from "./dateFormatting";
   import { type Intersect } from "$lib/utils";
   import PersonalInfo from "./PersonalInfo.svelte";
+  import { onMount } from "svelte";
+
+  onMount(() => {
+    const header = document.getElementsByTagName("header")[0];
+    const footer = document.getElementsByTagName("footer")[0];
+
+    header.classList.add("print:hidden");
+    footer.classList.add("print:hidden");
+
+    return () => {
+      const header = document.getElementsByTagName("header")[0];
+      const footer = document.getElementsByTagName("footer")[0];
+
+      header.classList.remove("print:hidden");
+      footer.classList.remove("print:hidden");
+    };
+  });
 
   const sectionTitlesWithLocale = {
     "pt-br": {
@@ -34,7 +56,7 @@
   > = "pt-br";
 </script>
 
-<article>
+<article class="mx-auto min-w-[80ch] max-w-[100ch] overflow-auto">
   <section>
     <h1
       class="mb-4 text-center text-4xl font-bold uppercase tracking-wide print:mb-2 print:text-[14pt]"
@@ -52,14 +74,16 @@
     ></SectionHeader>
     <div class="grid grid-cols-1 gap-2 print:gap-1">
       {#each data.workExperience as we}
-        {#if we.position || we.employer || we.bulletPoints.some((b)=>b.length>0)}
+        {#if we.position || we.employer || we.bulletPoints.some((b) => b.length > 0)}
           <div>
             <ThreeColumnSubHeader
               left={we.position}
               center={we.employer}
               right={yyyymmToShortLocale(we.dateStart, locale) +
-                "–" + (yyyymmIsFutureDate(we.dateEnd)? "":
-                yyyymmToShortLocale(we.dateEnd, locale))}
+                "–" +
+                (yyyymmIsFutureDate(we.dateEnd)
+                  ? ""
+                  : yyyymmToShortLocale(we.dateEnd, locale))}
             ></ThreeColumnSubHeader>
             <BulletList bullets={we.bulletPoints}></BulletList>
           </div>
@@ -74,15 +98,14 @@
       sectionTitle={sectionTitlesWithLocale[locale].education}
     ></SectionHeader>
     {#each data.education as ed}
-      {#if ed.institution || ed.degree || ed.bulletPoints.some((b)=>b.length>0) }
+      {#if ed.institution || ed.degree || ed.bulletPoints.some((b) => b.length > 0)}
         <ThreeColumnSubHeader
           left={ed.institution}
           center={ed.degree}
           right={yyyymmToShortLocale(ed.dateStart, locale) +
             "–" +
             yyyymmToShortLocale(ed.dateEnd, locale) +
-            yyyymmToEstimateTag(ed.dateEnd)
-            }
+            yyyymmToEstimateTag(ed.dateEnd)}
         ></ThreeColumnSubHeader>
         <BulletList bullets={ed.bulletPoints}></BulletList>
       {/if}
@@ -97,7 +120,7 @@
       ></SectionHeader>
       <div class="grid grid-cols-1 gap-2 px-2 print:gap-1">
         {#each data.projects as proj}
-          {#if proj.title || proj.description || proj.link || proj.bulletPoints.some(b=>b.length>0)}
+          {#if proj.title || proj.description || proj.link || proj.bulletPoints.some((b) => b.length > 0)}
             <div class="">
               <h3 class="font-semibold">{proj.title}</h3>
               <a href={proj.link}>{proj.link}</a>
@@ -158,7 +181,7 @@
     }
 
     article .text-4xl {
-      font-size: 14pt !important;
+      font-size: 18pt !important;
     }
     article .text-lg {
       font-size: 12pt !important;

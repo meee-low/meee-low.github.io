@@ -11,10 +11,11 @@
   };
 
   export let data: PersonalInfo;
+  $: tightness = Object.entries(data).filter(([key, val]) => val.length > 0).length > 4 ? "tracking-tight": "";
 </script>
 
 <section
-  class="mb-10 flex max-w-full flex-wrap place-content-between gap-x-4 gap-y-2 text-xs print:mb-2 print:gap-y-1 print:text-[6pt]"
+  class="mb-10 flex max-w-full flex-wrap place-content-between gap-x-4 gap-y-2 text-sm print:mb-2 print:gap-x-2 {tightness}  print:gap-y-1 print:text-[8pt]"
 >
   {#if data.location && data.location.length > 0}
     <p class="">

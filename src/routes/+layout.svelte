@@ -4,6 +4,7 @@
   import { onMount } from "svelte";
   import "../app.css";
   import { darkMode } from "$lib/stores";
+  import DynamicPageTitle from "$lib/components/DynamicPageTitle.svelte";
 
   onMount(() => {
     // set dark mode (from tailwindcss on dark)
@@ -19,8 +20,10 @@
   });
 </script>
 
+<DynamicPageTitle></DynamicPageTitle>
+
 <NavBar></NavBar>
-<main class="flex-grow">
+<main class="max-w-[100vw] flex-grow overflow-auto">
   <slot></slot>
 </main>
 <Footer></Footer>
