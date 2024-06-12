@@ -13,7 +13,7 @@
   onMount(() => {
     const queryString = $page.url.searchParams.get("data");
     if (queryString) {
-      const deserialized = JSON.parse(queryString);
+      const deserialized = JSON.parse(decodeURI(queryString));
       data = { ...data, ...deserialized };
     }
   });

@@ -138,7 +138,7 @@
       faIcon="fa-solid fa-shapes"
       sectionTitle={sectionTitlesWithLocale[locale].skills}
     ></SectionHeader>
-    <BulletList bullets={data.skills}></BulletList>
+    <BulletList bullets={data.skills.filter(s=>s.length>0)}></BulletList>
   </section>
 
   {#if data.coursesAndCertifications.length > 0}

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {writable, type Writable } from "svelte/store";
+  import { writable, type Writable } from "svelte/store";
   import { propertyStore } from "svelte-writable-derived";
   import {
     type EducationUnit,
@@ -15,8 +15,36 @@
   }
 </script>
 
-<label class="block">Instituição: <input class="inline-block border" type="text" bind:value={$data.institution} /> </label>
-<label class="block">Título: <input class="inline-block border" type="text" bind:value={$data.degree} /></label>
-<label class="block">Data de começo (AAAA-MM): <input class="inline-block border" type="month" bind:value={$data.dateStart} /></label>
-<label class="block">Data de término (AAAA-MM): <input class="inline-block border" type="month" bind:value={$data.dateEnd} /></label>
-<BulletPoints bullets={data ? propertyStore(data, "bulletPoints") : writable([])}></BulletPoints>
+<div class="grid gap-2">
+<label class="block"
+  >Instituição: <input
+    class="w-full rounded-sm border"
+    type="text"
+    bind:value={$data.institution}
+  />
+</label>
+<label class="block"
+  >Título: <input
+    class="w-full rounded-sm border"
+    type="text"
+    bind:value={$data.degree}
+  /></label
+>
+<label class="block"
+  >Data de começo (AAAA-MM): <input
+    class="w-full rounded-sm border"
+    type="month"
+    bind:value={$data.dateStart}
+  /></label
+>
+<label class="block"
+  >Data de conclusão (AAAA-MM): <input
+    class="w-full rounded-sm border"
+    type="month"
+    bind:value={$data.dateEnd}
+  /></label
+>
+<BulletPoints
+  bullets={data ? propertyStore(data, "bulletPoints") : writable([])}
+></BulletPoints>
+</div>

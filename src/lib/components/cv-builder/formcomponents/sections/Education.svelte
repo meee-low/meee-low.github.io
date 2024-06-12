@@ -29,7 +29,7 @@
 
 <section class="mb-4">
   <h2 class="mb-2 inline text-lg font-bold">Education</h2>
-  <button type="button" class="inline-block border" on:click={addEducationExperience}
+ <button type="button" class="inline-block border py-1 px-2 rounded-md" on:click={addEducationExperience}
     >Add</button
   >
   {#each $education as _, index}

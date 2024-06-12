@@ -21,10 +21,16 @@
 </script>
 
 <section>
-  <h2 class="inline-block font-bold text-lg">Work Experience</h2>
-  <button type="button" class="border" on:click={addWorkExperience}>Add</button>
-  {#each $workExperience as _, index}
-    <WorkExperienceUnit data={propertyStore(workExperience, index)}
-    ></WorkExperienceUnit>
-  {/each}
+  <h2 class="inline-block text-lg font-bold">Work Experience</h2>
+  <button
+    type="button"
+    class="rounded-md border px-2 py-1"
+    on:click={addWorkExperience}>Add</button
+  >
+  <div class="grid gap-4">
+    {#each $workExperience as _, index}
+      <WorkExperienceUnit data={propertyStore(workExperience, index)}
+      ></WorkExperienceUnit>
+    {/each}
+  </div>
 </section>

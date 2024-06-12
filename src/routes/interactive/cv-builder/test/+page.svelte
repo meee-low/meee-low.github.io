@@ -10,21 +10,24 @@
 
   import { propertyStore } from "svelte-writable-derived";
   import BulletPointsSection from "$lib/components/cv-builder/formcomponents/sections/GenericBulletPointsSection.svelte";
-  import { recursiveFlattenAndSerialize, flattenedToQuery } from "$lib/utils";
 
   let form: HTMLFormElement;
 
   async function handleFormSubmit() {
     const queryString = JSON.stringify($userInfo);
-    console.log({ queryString });
-    const targetUrl = "./test/view?data=" + queryString;
+    // console.log({ queryString });
+    const targetUrl = "./test/view?data=" + encodeURI(queryString);
     await goto(targetUrl);
   }
 </script>
 
 <div class="grid lg:grid-cols-2">
-  <div>
-    <form bind:this={form} on:submit|preventDefault={handleFormSubmit}>
+  <div class="max-h-[100vh] overflow-auto p-2">
+    <form
+      bind:this={form}
+      on:submit|preventDefault={handleFormSubmit}
+      class="grid gap-4"
+    >
       <PersonalInfo data={propertyStore(userInfo, "personalInfo")}
       ></PersonalInfo>
       <WorkExperience workExperience={propertyStore(userInfo, "workExperience")}
@@ -40,12 +43,13 @@
         bullets={propertyStore(userInfo, "languages")}
       ></BulletPointsSection>
       <!-- <Volunteering></Volunteering> -->
-      <button class="rounded-lg border p-2 hover:bg-gray-200" type="submit"
-        >Enviar</button
+      <button
+        class="rounded-lg bg-emerald-500 p-2 font-bold hover:bg-emerald-700"
+        type="submit">Enviar</button
       >
     </form>
   </div>
-  <div class="border overflow-auto">
+  <div class="max-h-[100vh] overflow-auto border p-2">
     <FullCVRender data={$userInfo}></FullCVRender>
   </div>
 </div>

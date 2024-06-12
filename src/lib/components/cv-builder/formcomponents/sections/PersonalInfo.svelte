@@ -4,11 +4,12 @@
   export let data: Writable<PersonalInfo>;
 </script>
 
-<section class="mb-2">
+<section class="mb-2 grid gap-2">
   <h2 class="font-bold text-lg">Personal Info</h2>
-  <label class="block"> Nome:
+  <label>
+    Nome:
     <input
-      class="border inline-block"
+      class="rounded-sm border w-full"
       type="text"
       name="name"
       autocomplete="name"
@@ -20,7 +21,7 @@
   </label>
   <label class="block"> Telefone:
     <input
-      class="border inline-block"
+      class="rounded-sm w-full border inline-block"
       type="tel"
       name="phone"
       autocomplete="tel-local"
@@ -32,7 +33,7 @@
   </label>
   <label class="block"> Email:
     <input
-      class="border inline-block"
+      class="rounded-sm w-full border inline-block"
       type="email"
       name="email"
       autocomplete="email"
@@ -44,7 +45,7 @@
   </label>
   <label class="block"> LinkedIn:
     <input
-      class="border inline-block"
+      class="rounded-sm w-full border inline-block"
       type="text"
       name="linkedin"
       id="form-linkedin"
@@ -54,7 +55,7 @@
   </label>
   <label class="block"> Website:
     <input
-      class="border inline-block"
+      class="rounded-sm w-full border inline-block"
       type="url"
       name="website"
       id="form-website"
@@ -64,7 +65,7 @@
   </label>
   <label class="block"> GitHub:
     <input
-      class="border inline-block"
+      class="rounded-sm w-full border inline-block"
       type="text"
       name="github"
       id="form-github"

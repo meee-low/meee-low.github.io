@@ -20,17 +20,20 @@
 <div class="ml-2">
   <h4>Bullet Points:</h4>
   {#each $bullets as bullet, index}
-    <input
-      class="ml-2 block border"
-      type="text"
-      bind:value={bullet}
-      spellcheck="true"
-    />
-    <button on:click={() => removeBullet(index)}
-      ><i class="fa-solid fa-bucket"></i></button
-    >
+    <div class="flex gap-2 mb-2">
+      <textarea
+        cols="60"
+        rows="4"
+        class="ml-2 block border"
+        bind:value={bullet}
+        spellcheck="true"
+      />
+      <button type="button" on:click={() => removeBullet(index)}
+        ><i class="text-xl fa-solid fa-trash"><span class="sr-only">Delete</span></i></button
+      >
+    </div>
   {/each}
-  <button type="button" class="ml-2 block border" on:click={moreBullets}
+  <button type="button" class="ml-2 p-1.5 rounded-md block border" on:click={moreBullets}
     >Add more bullet points</button
   >
 </div>
