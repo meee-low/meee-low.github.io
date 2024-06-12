@@ -32,8 +32,8 @@
     class="col-span-2 m-auto xl:col-span-1"
   />
   <div class="relative col-span-3 p-4 text-left xl:col-span-1">
-    <h3 class="mb-4 text-lg font-bold">{projectInfo.title}</h3>
-    <p class="mb-8">{projectInfo.description}</p>
+    <h3 class="mb-4 cursor-auto text-lg font-bold">{projectInfo.title}</h3>
+    <p class="mb-8 cursor-auto">{projectInfo.description}</p>
     <div class="flex flex-wrap justify-around gap-6">
       {#each languagesAndFrameworks as tool}
         <div class="max-h-12 max-w-12">
