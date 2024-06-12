@@ -6,6 +6,7 @@ export default {
     extend: {},
   },
   darkMode: "selector",
+  safelist: ["print:hidden"],
 
   plugins: [],
 };
