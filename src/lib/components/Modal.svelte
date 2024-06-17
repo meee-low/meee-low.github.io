@@ -5,8 +5,12 @@
   export let showModal: boolean;
 
   let dialog: HTMLDialogElement;
+  let closeButton: HTMLButtonElement;
 
-  $: if (dialog && showModal) dialog.showModal();
+  $: if (dialog && showModal) {
+    dialog.showModal();
+    // closeButton.focus();
+  }
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
@@ -19,10 +23,11 @@
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div on:click|stopPropagation>
     <button
+      bind:this={closeButton}
       class="absolute -right-3 -top-3 h-10 w-10 rounded-full border bg-white"
       on:click={() => dialog.close()}
     >
-      <i class="fa-solid fa-xmark text-lg" title="Close"><span class="sr-only">Close modal</span></i>
+      <i class="fa-solid fa-xmark text-xl" title="Close"><span class="sr-only">Close modal</span></i>
     </button>
     <slot />
   </div>

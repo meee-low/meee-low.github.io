@@ -122,8 +122,14 @@
         {#each data.projects as proj}
           {#if proj.title || proj.description || proj.link || proj.bulletPoints.some((b) => b.length > 0)}
             <div class="">
-              <h3 class="font-semibold">{proj.title}</h3>
-              <a href={proj.link}>{proj.link}</a>
+              <div class="flex flex-wrap items-center place-content-between gap-4">
+                <h3 class="font-semibold">{proj.title}</h3>
+                {#if proj.link}
+                  <a class="inline text-xs hover:underline tracking-tight" href={proj.link}
+                    ><i class="fa-solid fa-link mr-0.5 scale-90"></i>{proj.link}</a
+                  >
+                {/if}
+              </div>
               <p class="ml-6 print:leading-snug">{proj.description}</p>
               <BulletList bullets={proj.bulletPoints}></BulletList>
             </div>
@@ -138,7 +144,7 @@
       faIcon="fa-solid fa-shapes"
       sectionTitle={sectionTitlesWithLocale[locale].skills}
     ></SectionHeader>
-    <BulletList bullets={data.skills.filter(s=>s.length>0)}></BulletList>
+    <BulletList bullets={data.skills.filter((s) => s.length > 0)}></BulletList>
   </section>
 
   {#if data.coursesAndCertifications.length > 0}

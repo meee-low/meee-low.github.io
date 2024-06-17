@@ -1,1 +1,0 @@
-import{w as e}from"./entry.DIYys98R.js";const o=()=>({personalInfo:{name:"",phone:"",email:"",linkedin:"",website:"",location:"",github:""},workExperience:[],education:[],coursesAndCertifications:[],projects:[],languages:[],skills:[]});let n=e(o());export{o as m,n as s};

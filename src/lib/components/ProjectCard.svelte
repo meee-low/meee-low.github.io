@@ -59,7 +59,7 @@
     </h2>
     <p class="mb-6">{projectInfo.description}</p>
     {#if languagesAndFrameworks.length > 0}
-      <ul class="mb-6 md:grid md:grid-cols-2">
+      <ul class="mb-6 md:grid md:grid-cols-2 md:place-content-around">
         {#each languagesAndFrameworks as tool}
           <li class="mb-2 flex align-middle">
             <div class="mr-2 max-h-8 max-w-8">
