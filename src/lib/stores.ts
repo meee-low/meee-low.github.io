@@ -62,6 +62,13 @@ function makeDarkModeStore(): Writable<boolean> {
 
 export let darkMode = makeDarkModeStore();
 
-export let selectedLanguage: Writable<"en" | "pt-br"> = writable("en");
+export let selectedLanguage: Writable<"en" | "pt-BR" | undefined> = writable(undefined);
+
+const unsubLocalStorageLang = selectedLanguage.subscribe((l) => {
+  if (typeof localStorage !== "undefined" && typeof l !== "undefined") {
+    localStorage.setItem("userLanguage", l);
+    console.log("successfully updated the language into local storage. new value: ", l);
+  }
+});
 
 export let selectedLanguageString = derived(selectedLanguage, selectLanguage);
