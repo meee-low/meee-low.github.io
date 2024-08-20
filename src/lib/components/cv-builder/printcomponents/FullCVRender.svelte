@@ -124,7 +124,7 @@
   <section class="mb-6 print:mb-2">
     <SectionHeader
       faIcon="fa-solid fa-shapes"
-      sectionTitle={$s.interactive.cvbuilder.projects.sectionHeader}
+      sectionTitle={$s.interactive.cvbuilder.skills}
     ></SectionHeader>
     <BulletList bullets={data.skills.filter((s) => s.length > 0)}></BulletList>
   </section>
