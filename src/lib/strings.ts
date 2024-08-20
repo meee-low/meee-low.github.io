@@ -109,7 +109,7 @@ const strings: Record<"en" | "pt-br", FullLang> = {
         Fun: "Fun",
       },
       portfoliocard: {
-        sourcecode: "Source code:",
+        sourcecode: "Source code",
       },
     },
     interactive: {
@@ -182,7 +182,7 @@ const strings: Record<"en" | "pt-br", FullLang> = {
         Fun: "Divertidos",
       },
       portfoliocard: {
-        sourcecode: "Código-fonte:",
+        sourcecode: "Código-fonte",
       },
     },
     interactive: {
