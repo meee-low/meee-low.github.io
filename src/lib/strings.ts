@@ -90,7 +90,7 @@ interface FullLang {
   };
 }
 
-const strings: Record<"en" | "pt-br", FullLang> = {
+const strings: Record<"en" | "pt-BR", FullLang> = {
   en: {
     navbarandfooter: {
       highlights: "Highlights",
@@ -160,11 +160,11 @@ const strings: Record<"en" | "pt-br", FullLang> = {
           dateYYYYMM: "YYYY-MM",
         },
         coursesAndCertifications: "Certifications",
-        volunteering: "Volunteering"
+        volunteering: "Volunteering",
       },
     },
   },
-  "pt-br": {
+  "pt-BR": {
     navbarandfooter: {
       highlights: "Destaques",
       interactive: "Interativo",
@@ -189,7 +189,7 @@ const strings: Record<"en" | "pt-br", FullLang> = {
       cvbuilder: {
         personalInfo: {
           sectionHeader: "Informações Pessoais",
-          name: "Nome",
+          name: "Nome Completo",
           phone: "Telefone",
           email: "Email",
           linkedin: "LinkedIn",
@@ -233,16 +233,19 @@ const strings: Record<"en" | "pt-br", FullLang> = {
           dateYYYYMM: "AAAA-MM",
         },
         coursesAndCertifications: "Certificações",
-        volunteering: "Voluntariado"
+        volunteering: "Voluntariado",
       },
     },
   },
 };
 
-export function selectLanguage(userLang: string): FullLang {
-  const ptLangs = ["pt-br", "pt"];
+export function selectLanguage(userLang: string | undefined): FullLang {
+  if (typeof userLang === "undefined") {
+    return strings.en;
+  }
+  const ptLangs = ["pt-BR", "pt"];
   if (ptLangs.includes(userLang)) {
-    return strings["pt-br"];
+    return strings["pt-BR"];
   }
   return strings.en;
 }

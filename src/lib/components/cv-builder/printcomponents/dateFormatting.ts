@@ -1,23 +1,29 @@
 export function yyyymmToDate(yyyymm: string): Date | null {
-  const [year, month] = yyyymm.split('-').map(Number);
+  const [year, month] = yyyymm.split("-").map(Number);
   if (!year || !month || month < 1 || month > 12) {
     return null;
   }
   return new Date(year, month - 1);
 }
 
-export function formatMMYYDateAbbreviated(date: Date, locale: Intl.LocalesArgument = "pt-br"): string {
-  const dtf = Intl.DateTimeFormat(locale, {year: "numeric", month: "short"});
+export function formatMMYYDateAbbreviated(
+  date: Date,
+  locale: Intl.LocalesArgument = "pt-BR",
+): string {
+  const dtf = Intl.DateTimeFormat(locale, { year: "numeric", month: "short" });
 
   let result = dtf.format(date);
-  if (locale === "pt-br") {
+  if (locale === "pt-BR") {
     result = result.replaceAll(". de ", " ");
   }
 
   return result;
 }
 
-export function yyyymmToShortLocale(yyyymm: string, locale: Intl.LocalesArgument = "pt-br"): string {
+export function yyyymmToShortLocale(
+  yyyymm: string,
+  locale: Intl.LocalesArgument = "pt-BR",
+): string {
   const date = yyyymmToDate(yyyymm);
   if (date === null) {
     return "";
@@ -26,7 +32,6 @@ export function yyyymmToShortLocale(yyyymm: string, locale: Intl.LocalesArgument
 }
 
 export function yyyymmIsFutureDate(yyyymm: string): boolean {
-
   const date = yyyymmToDate(yyyymm);
   if (date === null) {
     return false;
@@ -35,9 +40,12 @@ export function yyyymmIsFutureDate(yyyymm: string): boolean {
   return date > now;
 }
 
-export function yyyymmToEstimateTag(yyyymm: string, locale: Intl.LocalesArgument = "pt-br"): string {
-  if (locale != "pt-br" && locale != "en") {
+export function yyyymmToEstimateTag(
+  yyyymm: string,
+  locale: Intl.LocalesArgument = "pt-BR",
+): string {
+  if (locale != "pt-BR" && locale != "en") {
     throw new Error(`Locale ${locale} is not supported.`);
   }
-  return yyyymmIsFutureDate(yyyymm)? " (est.)" : "";
+  return yyyymmIsFutureDate(yyyymm) ? " (est.)" : "";
 }
