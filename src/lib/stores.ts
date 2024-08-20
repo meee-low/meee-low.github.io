@@ -1,5 +1,6 @@
 import { derived, writable, type Writable } from "svelte/store";
 import { type Tag } from "$lib/interfaces";
+import { selectLanguage } from "$lib/strings";
 
 export let projectsFilters = writable([
   { label: "Python", filterEnabled: false, baseOrder: 1, orderClicked: 0 },
@@ -60,3 +61,7 @@ function makeDarkModeStore(): Writable<boolean> {
 }
 
 export let darkMode = makeDarkModeStore();
+
+export let selectedLanguage: Writable<"en" | "pt-br"> = writable("en");
+
+export let selectedLanguageString = derived(selectedLanguage, selectLanguage);

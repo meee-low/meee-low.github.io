@@ -1,10 +1,11 @@
 <script lang="ts">
   import Socials from "$lib/components/navcomponents/Socials.svelte";
+  import { selectedLanguageString as s } from "$lib/stores";
 
-  const navLinks = [
-    { title: "Highlights", link: "/", faTag: "fa-solid fa-eye" },
-    { title: "Interactive", link: "/interactive", faTag: "fa-solid fa-dice" },
-    { title: "Blog", link: "/blog", faTag: "fa-solid fa-blog" },
+  $: navLinks = [
+    { title: $s.navbarandfooter.highlights, link: "/", faTag: "fa-solid fa-eye" },
+    { title: $s.navbarandfooter.interactive, link: "/interactive", faTag: "fa-solid fa-dice" },
+    { title: $s.navbarandfooter.blog, link: "/blog", faTag: "fa-solid fa-blog" },
   ];
 </script>
 

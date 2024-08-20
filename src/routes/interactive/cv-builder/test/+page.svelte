@@ -7,6 +7,7 @@
 
   import { simpleCVStore as userInfo } from "$lib/components/cv-builder/cv-builder-simple";
   import { goto } from "$app/navigation";
+  import { selectedLanguageString as s } from "$lib/stores";
 
   import { propertyStore } from "svelte-writable-derived";
   import BulletPointsSection from "$lib/components/cv-builder/formcomponents/sections/GenericBulletPointsSection.svelte";
@@ -35,17 +36,17 @@
       <Education education={propertyStore(userInfo, "education")}></Education>
       <Projects projects={propertyStore(userInfo, "projects")}></Projects>
       <BulletPointsSection
-        title="Skills"
+        title={$s.interactive.cvbuilder.skills}
         bullets={propertyStore(userInfo, "skills")}
       ></BulletPointsSection>
       <BulletPointsSection
-        title="Languages"
+        title={$s.interactive.cvbuilder.languages}
         bullets={propertyStore(userInfo, "languages")}
       ></BulletPointsSection>
       <!-- <Volunteering></Volunteering> -->
       <button
         class="rounded-lg bg-emerald-500 p-2 font-bold hover:bg-emerald-700"
-        type="submit">Enviar</button
+        type="submit">{$s.interactive.cvbuilder.buttons.send}</button
       >
     </form>
   </div>

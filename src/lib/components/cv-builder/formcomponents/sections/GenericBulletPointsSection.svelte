@@ -5,9 +5,10 @@
 
   export let title: string;
   export let bullets: Writable<BP>;
+  export let multiline: boolean = false;
 </script>
 
 <section class="mb-2">
   <h2 class="font-bold text-lg">{title}</h2>
-  <BulletPoints {bullets}></BulletPoints>
+  <BulletPoints {bullets} {multiline}></BulletPoints>
 </section>

@@ -6,7 +6,7 @@
     type BulletPoints as BP,
   } from "$lib/components/cv-builder/cv-builder-simple";
   import BulletPoints from "$lib/components/cv-builder/formcomponents/BulletPoints.svelte";
-  import { onMount } from "svelte";
+  import { selectedLanguageString as s } from "$lib/stores";
 
   export let data: Writable<WorkExperienceUnit>;
 
@@ -18,7 +18,7 @@
 
 <div class="grid gap-2">
   <label class="block">
-    Cargo:
+    {$s.interactive.cvbuilder.workExperience.position}:
     <input
       class="rounded-sm w-full border"
       type="text"
@@ -26,7 +26,7 @@
     />
   </label>
   <label class="block">
-    Empregador:
+    {$s.interactive.cvbuilder.workExperience.employer}:
     <input
       class="rounded-sm w-full border"
       type="text"
@@ -34,7 +34,7 @@
     />
   </label>
   <label class="block">
-    Início:
+    {$s.interactive.cvbuilder.workExperience.start}:
     <input
       class="rounded-sm w-full border"
       placeholder="2023-10"
@@ -43,7 +43,7 @@
     />
   </label>
   <label class="block">
-    Fim:
+    {$s.interactive.cvbuilder.workExperience.finish}:
     <input
       class="rounded-sm w-full border"
       placeholder="2023-10"
@@ -51,5 +51,5 @@
       bind:value={$data.dateEnd}
     />
   </label>
-  <BulletPoints bullets={propertyStore(data, "bulletPoints")}></BulletPoints>
+  <BulletPoints bullets={propertyStore(data, "bulletPoints")} multiline></BulletPoints>
 </div>

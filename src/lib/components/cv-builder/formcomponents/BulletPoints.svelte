@@ -1,8 +1,10 @@
 <script lang="ts">
   import { type Writable } from "svelte/store";
   import { type BulletPoints } from "$lib/components/cv-builder/cv-builder-simple";
+  import { selectedLanguageString as s } from "$lib/stores";
 
   export let bullets: Writable<BulletPoints>;
+  export let multiline: boolean = false;
 
   function moreBullets() {
     $bullets.push("");
@@ -18,22 +20,35 @@
 </script>
 
 <div class="ml-2">
-  <h4>Bullet Points:</h4>
+  <h4>{$s.interactive.cvbuilder.litBulletPoints}:</h4>
   {#each $bullets as bullet, index}
-    <div class="flex gap-2 mb-2">
-      <textarea
-        cols="60"
-        rows="4"
-        class="ml-2 block border"
-        bind:value={bullet}
-        spellcheck="true"
-      />
+    <div class="mb-2 flex gap-2">
+      {#if multiline}
+        <textarea
+          cols="60"
+          rows="2"
+          class="ml-2 block border"
+          bind:value={bullet}
+          spellcheck="true"
+        />
+      {:else}
+        <input
+          type="text"
+          class="ml-2 block border w-full"
+          bind:value={bullet}
+          spellcheck="true"
+        />
+      {/if}
       <button type="button" on:click={() => removeBullet(index)}
-        ><i class="text-xl fa-solid fa-trash"><span class="sr-only">Delete</span></i></button
+        ><i class="fa-solid fa-trash text-xl"
+          ><span class="sr-only">Delete</span></i
+        ></button
       >
     </div>
   {/each}
-  <button type="button" class="ml-2 p-1.5 rounded-md block border" on:click={moreBullets}
-    >Add more bullet points</button
+  <button
+    type="button"
+    class="ml-2 block rounded-md border p-1.5"
+    on:click={moreBullets}>{$s.interactive.cvbuilder.buttons.addBulletPoints}</button
   >
 </div>

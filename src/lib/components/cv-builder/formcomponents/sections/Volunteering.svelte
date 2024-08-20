@@ -22,7 +22,8 @@
 </script>
 
 <section>
-  <h2>Work Experience</h2>
+  <!-- TODO -->
+  <h2>TODO</h2>
   {#each $workExperience as _, index}
     <WorkExperienceUnit data={propertyStore(workExperience, index)}
     ></WorkExperienceUnit>

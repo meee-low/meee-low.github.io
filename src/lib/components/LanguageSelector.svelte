@@ -1,5 +1,5 @@
 <script lang="ts">
-  let languageSelected: string;
+  import { selectedLanguage } from "$lib/stores";
 </script>
 
 <div class="relative">
@@ -10,7 +10,7 @@
       <span class="sr-only">Language</span>
     </i>
     <select
-      bind:value={languageSelected}
+      bind:value={$selectedLanguage}
       class="rounded-full p-1 pl-5 text-black"
     >
       <option value="en" class="text-black" selected>English</option>

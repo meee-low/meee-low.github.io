@@ -3,6 +3,7 @@
   import { type EducationUnit as EducationUnitT } from "../../cv-builder-simple";
   import { propertyStore } from "svelte-writable-derived";
   import EducationUnit from "./EducationUnit.svelte";
+  import { selectedLanguageString as s } from "$lib/stores";
 
   export let education: Writable<EducationUnitT[]>;
 
@@ -15,7 +16,7 @@
       bulletPoints: [],
     };
     $education.push(emptyEducationUnit);
-    $education = $education;
+    $education = $education; // just to ensure it triggers reactivity
   }
 
   function removeUnit(index: number) {
@@ -28,9 +29,9 @@
 </script>
 
 <section class="mb-4">
-  <h2 class="mb-2 inline text-lg font-bold">Education</h2>
+  <h2 class="mb-2 inline text-lg font-bold">{$s.interactive.cvbuilder.education.sectionHeader}</h2>
  <button type="button" class="inline-block border py-1 px-2 rounded-md" on:click={addEducationExperience}
-    >Add</button
+    >{$s.interactive.cvbuilder.buttons.addSubsection}</button
   >
   {#each $education as _, index}
     <div>

@@ -2,6 +2,7 @@
   import Modal from "./Modal.svelte";
   import { type ProjectInfo } from "$lib/interfaces";
   import { toolToImgSrc } from "$lib/utils";
+  import { selectedLanguageString as s } from "$lib/stores";
 
   export let projectInfo: ProjectInfo;
 
@@ -77,7 +78,7 @@
     {#if projectInfo.projectUrl}
       <a
         class="text-blue-600 visited:text-purple-600 hover:text-blue-800 hover:underline"
-        href={projectInfo.projectUrl}>Source code</a
+        href={projectInfo.projectUrl}>{$s.portfolio.portfoliocard.sourcecode}</a
       >
     {/if}
   </div>

@@ -12,6 +12,7 @@
   import { type Intersect } from "$lib/utils";
   import PersonalInfo from "./PersonalInfo.svelte";
   import { onMount } from "svelte";
+  import { selectedLanguage, selectedLanguageString as s } from "$lib/stores";
 
   onMount(() => {
     const header = document.getElementsByTagName("header")[0];
@@ -29,31 +30,7 @@
     };
   });
 
-  const sectionTitlesWithLocale = {
-    "pt-br": {
-      education: "Formação Acadêmica",
-      workExperience: "Experiência Profissional",
-      skills: "Habilidades/Competências",
-      certifications: "Certificações",
-      languages: "Idiomas",
-      projects: "Projetos",
-    },
-    en: {
-      education: "Education",
-      workExperience: "Work Experience",
-      skills: "Skills",
-      certifications: "Certificates and Courses",
-      languages: "Languages",
-      projects: "Projects",
-    },
-  };
-
   export let data: FullInfo;
-
-  export let locale: Intersect<
-    Intl.LocalesArgument,
-    keyof typeof sectionTitlesWithLocale
-  > = "pt-br";
 </script>
 
 <article class="mx-auto min-w-[80ch] max-w-[100ch] overflow-auto">
@@ -70,7 +47,7 @@
   <section class="mb-6 print:mb-2">
     <SectionHeader
       faIcon="fa-solid fa-briefcase"
-      sectionTitle={sectionTitlesWithLocale[locale].workExperience}
+      sectionTitle={$s.interactive.cvbuilder.workExperience.sectionHeader}
     ></SectionHeader>
     <div class="grid grid-cols-1 gap-2 print:gap-1">
       {#each data.workExperience as we}
@@ -79,11 +56,11 @@
             <ThreeColumnSubHeader
               left={we.position}
               center={we.employer}
-              right={yyyymmToShortLocale(we.dateStart, locale) +
+              right={yyyymmToShortLocale(we.dateStart, $selectedLanguage) +
                 "–" +
                 (yyyymmIsFutureDate(we.dateEnd)
                   ? ""
-                  : yyyymmToShortLocale(we.dateEnd, locale))}
+                  : yyyymmToShortLocale(we.dateEnd, $selectedLanguage))}
             ></ThreeColumnSubHeader>
             <BulletList bullets={we.bulletPoints}></BulletList>
           </div>
@@ -95,16 +72,16 @@
   <section class="mb-6 print:mb-2">
     <SectionHeader
       faIcon="fa-solid fa-graduation-cap"
-      sectionTitle={sectionTitlesWithLocale[locale].education}
+      sectionTitle={$s.interactive.cvbuilder.education.sectionHeader}
     ></SectionHeader>
     {#each data.education as ed}
       {#if ed.institution || ed.degree || ed.bulletPoints.some((b) => b.length > 0)}
         <ThreeColumnSubHeader
           left={ed.institution}
           center={ed.degree}
-          right={yyyymmToShortLocale(ed.dateStart, locale) +
+          right={yyyymmToShortLocale(ed.dateStart, $selectedLanguage) +
             "–" +
-            yyyymmToShortLocale(ed.dateEnd, locale) +
+            yyyymmToShortLocale(ed.dateEnd, $selectedLanguage) +
             yyyymmToEstimateTag(ed.dateEnd)}
         ></ThreeColumnSubHeader>
         <BulletList bullets={ed.bulletPoints}></BulletList>
@@ -116,17 +93,22 @@
     <section class="mb-6 print:mb-2">
       <SectionHeader
         faIcon="fa-solid fa-wrench"
-        sectionTitle={sectionTitlesWithLocale[locale].projects}
+        sectionTitle={$s.interactive.cvbuilder.projects.sectionHeader}
       ></SectionHeader>
       <div class="grid grid-cols-1 gap-2 px-2 print:gap-1">
         {#each data.projects as proj}
           {#if proj.title || proj.description || proj.link || proj.bulletPoints.some((b) => b.length > 0)}
             <div class="">
-              <div class="flex flex-wrap items-center place-content-between gap-4">
+              <div
+                class="flex flex-wrap place-content-between items-center gap-4"
+              >
                 <h3 class="font-semibold">{proj.title}</h3>
                 {#if proj.link}
-                  <a class="inline text-xs hover:underline tracking-tight" href={proj.link}
-                    ><i class="fa-solid fa-link mr-0.5 scale-90"></i>{proj.link}</a
+                  <a
+                    class="inline text-xs tracking-tight hover:underline"
+                    href={proj.link}
+                    ><i class="fa-solid fa-link mr-0.5 scale-90"
+                    ></i>{proj.link}</a
                   >
                 {/if}
               </div>
@@ -142,7 +124,7 @@
   <section class="mb-6 print:mb-2">
     <SectionHeader
       faIcon="fa-solid fa-shapes"
-      sectionTitle={sectionTitlesWithLocale[locale].skills}
+      sectionTitle={$s.interactive.cvbuilder.projects.sectionHeader}
     ></SectionHeader>
     <BulletList bullets={data.skills.filter((s) => s.length > 0)}></BulletList>
   </section>
@@ -151,7 +133,7 @@
     <section class="mb-6 print:mb-2">
       <SectionHeader
         faIcon="fa-solid fa-certificate"
-        sectionTitle={sectionTitlesWithLocale[locale].certifications}
+        sectionTitle={$s.interactive.cvbuilder.coursesAndCertifications}
       ></SectionHeader>
       <BulletList bullets={data.coursesAndCertifications} gridCols={2}
       ></BulletList>
@@ -161,7 +143,7 @@
   <section class="mb-6 print:mb-2">
     <SectionHeader
       faIcon="fa-solid fa-comments"
-      sectionTitle={sectionTitlesWithLocale[locale].languages}
+      sectionTitle={$s.interactive.cvbuilder.languages}
     ></SectionHeader>
     <BulletList bullets={data.languages} gridCols={2}></BulletList>
   </section>
