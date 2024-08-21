@@ -1,53 +1,36 @@
-name: Deploy to GitHub Pages
+name: Build and Deploy Svelte Website
 
 on:
   push:
     branches: "main"
 
 jobs:
-  build_site:
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Echo BASE_PATH
-        env:
-          BASE_PATH: "/${{ github.event.repository.name }}"
-        run: echo "BASE_PAT is $BASE_PATH"
-
-      - name: build
-        env:
-          BASE_PATH: "/${{ github.event.repository.name }}"
-        run: |
-          npm run build
-
-      - name: Upload Artifacts
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # this should match the `pages` option in your adapter-static options
-          path: "build/"
-  deploy:
-    needs: build_site
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '22'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build Svelte website
+      run: npm run build
+
+    - name: Get current timestamp
+      id: get-timestamp
+      run: echo "timestamp=$(date + '%Y%m%d%H%M%S')" >> $GITHUB_ENV
+
+    - name: Commit and push changes
+      run: |
+        git config --local user.name "GitHub Actions"
+        git config --local user.email "actions@github.com"
+        git add docs/
+        git commit -m "Automatic build in /docs at ${{ env.timestamp }}"
+        git push
