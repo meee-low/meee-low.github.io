@@ -16,7 +16,6 @@
 
   async function handleFormSubmit() {
     const queryString = JSON.stringify($userInfo);
-    // console.log({ queryString });
     const targetUrl = "./test/view?data=" + encodeURI(queryString);
     await goto(targetUrl);
   }

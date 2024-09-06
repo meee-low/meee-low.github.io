@@ -67,7 +67,6 @@ export let selectedLanguage: Writable<"en" | "pt-BR" | undefined> = writable(und
 const unsubLocalStorageLang = selectedLanguage.subscribe((l) => {
   if (typeof localStorage !== "undefined" && typeof l !== "undefined") {
     localStorage.setItem("userLanguage", l);
-    console.log("successfully updated the language into local storage. new value: ", l);
   }
 });
 

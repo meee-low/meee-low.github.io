@@ -8,7 +8,6 @@
   } from "$lib/components/cv-builder/cv-builder-simple";
 
   let data: FullInfo = makeEmptyInfo(); // make empty as a fallback and to properly SSR
-  $: console.log(data);
 
   onMount(() => {
     const queryString = $page.url.searchParams.get("data");
