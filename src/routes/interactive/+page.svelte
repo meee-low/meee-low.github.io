@@ -2,11 +2,11 @@
   import DynamicPageTitle from "$lib/components/DynamicPageTitle.svelte";
 
   interface InteractiveProject {
-    title: string , 
-    imgPath: string, 
-    description: string
-    href: string
-  };
+    title: string;
+    imgPath: string;
+    description: string;
+    href: string;
+  }
 
   const interactiveProjects: InteractiveProject[] = [
     {
@@ -24,10 +24,11 @@
       href: "interactive/redux-fg",
     },
     {
-        title: "[WIP] Bracketeering",
-        imgPath: "",
-        description: "Input a list of things you want to rank, and then answer which of each pair you like more to get a ranked list of them.",
-        href: "interactive/bracketeering"
+      title: "[WIP] Bracketeering",
+      imgPath: "",
+      description:
+        "Input a list of things you want to rank, and then answer which of each pair you like more to get a ranked list of them.",
+      href: "",
     },
     {
       title: "[Coming soon] Boids",
@@ -47,11 +48,15 @@
 </script>
 
 <div class="px-[5vw] py-8">
-  <ul class="grid md:grid-cols-2 gap-4">
+  <ul class="grid gap-4 md:grid-cols-2">
     {#each interactiveProjects as proj}
-      <li class="rounded-lg border border-slate-700 px-4 py-3 ">
+      <li class="rounded-lg border border-slate-700 px-4 py-3">
         <h3 class="mb-1 text-xl font-bold">
-          <a class="hover:underline" href={proj.href}>{proj.title}</a>
+          {#if proj.href && proj.href.length > 0}
+            <a class="hover:underline" href={proj.href}>{proj.title}</a>
+          {:else}
+            {proj.title}
+          {/if}
         </h3>
         <p class="mb-1 ml-4">{proj.description}</p>
       </li>
