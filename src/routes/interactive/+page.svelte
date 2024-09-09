@@ -28,7 +28,7 @@
       imgPath: "",
       description:
         "Input a list of things you want to rank, and then answer which of each pair you like more to get a ranked list of them.",
-      href: "",
+      href: "interactive/bracketeering",
     },
     {
       title: "[Coming soon] Boids",

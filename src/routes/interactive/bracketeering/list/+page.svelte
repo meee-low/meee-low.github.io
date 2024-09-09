@@ -1,6 +1,6 @@
 <script lang="ts">
   import { selectedLanguageString as s } from "$lib/stores";
-  import { calcPerformanceRatingForAll } from "$lib/ranker/algorithms";
+  import { calcPerformanceRatingForAll } from "../ranker/algorithms";
 
   const DIRECTION = {
     LEFT: 0,

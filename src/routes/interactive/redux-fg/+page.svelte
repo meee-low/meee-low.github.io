@@ -1,15 +1,15 @@
 <script lang="ts">
-  import ReduxFgAnnouncer from "$lib/components/games/redux-fg/ReduxFgAnnouncer.svelte";
-  import ReduxFgCircle from "$lib/components/games/redux-fg/ReduxFGCircle.svelte";
-  import ReduxFghud from "$lib/components/games/redux-fg/ReduxFGHUD.svelte";
-  import ReduxFgRebindMenu from "$lib/components/games/redux-fg/ReduxFgRebindMenu.svelte";
+  import ReduxFgAnnouncer from "./components/ReduxFgAnnouncer.svelte";
+  import ReduxFgCircle from "./components/ReduxFGCircle.svelte";
+  import ReduxFghud from "./components/ReduxFGHUD.svelte";
+  import ReduxFgRebindMenu from "./components/ReduxFgRebindMenu.svelte";
   import {
     gameState,
     handleKeyDown,
     handleKeyUp,
     update,
     resetRound,
-  } from "$lib/components/games/redux-fg/game";
+  } from "./components/game";
   import { onMount, onDestroy } from "svelte";
   import { page } from "$app/stores";
 
