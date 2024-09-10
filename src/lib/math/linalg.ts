@@ -1,5 +1,3 @@
-import { assert } from "vitest";
-
 export class Matrix {
   readonly rows: number;
   readonly cols: number;
@@ -161,7 +159,7 @@ export class Matrix {
   public getRow(row: number): number[] {
     // TODO: oob check
     const start = row * this.cols;
-    return this._impl.slice(start, start + this.cols + 1);
+    return this._impl.slice(start, start + this.cols);
   }
 
   public getCol(col: number): number[] {

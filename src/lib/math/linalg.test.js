@@ -66,3 +66,13 @@ test("matrix rotations", () => {
   ]);
   return expect(mat.at(0, 0)).toBeCloseTo(expected.at(0, 0));
 });
+
+test("get row", () => {
+  const mat = Matrix.fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9], [3, 3]);
+  return expect(mat.getRow(0)).toStrictEqual([1, 2, 3]);
+});
+
+test("get col", () => {
+  const mat = Matrix.fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9], [3, 3]);
+  return expect(mat.getCol(1)).toStrictEqual([2, 5, 8]);
+});
