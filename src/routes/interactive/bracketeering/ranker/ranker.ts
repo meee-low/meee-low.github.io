@@ -1,5 +1,5 @@
 import { Matrix } from "$lib/math/linalg";
-import type { Result } from "$lib/result";
+import { rankByWinrate } from "./winrate_ranker";
 
 export class Ranker<T> {
   private readonly elements: T[];
@@ -33,9 +33,11 @@ export class Ranker<T> {
       .map(([val]) => val) /** remove the ranks, keep only the values */;
   }
 
-  public addComparison(winnerIdx: number, loserIdx: number) {
-    if (!this.comparisons) {
-      return;
+  public addComparison(winner: T, loser: T) {
+    const winnerIdx = this.elements.indexOf(winner);
+    const loserIdx = this.elements.indexOf(loser);
+    if (winnerIdx < 0 || loserIdx < 0) {
+      throw new Error("This pair was not found in the ranker.");
     }
     this.comparisons.applyToCell(winnerIdx, loserIdx, (x) => x + 1);
   }
@@ -79,4 +81,5 @@ function eloPrediction(m: Matrix): number[] {
 
 export const evaluatingFunctions = {
   elo: eloPrediction,
+  winrate: rankByWinrate,
 } as const;

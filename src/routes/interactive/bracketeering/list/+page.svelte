@@ -1,6 +1,6 @@
 <script lang="ts">
   import { selectedLanguageString as s } from "$lib/stores";
-  import { calcPerformanceRatingForAll } from "../ranker/algorithms";
+  import { Ranker, evaluatingFunctions } from "../ranker/ranker";
 
   const DIRECTION = {
     LEFT: 0,
@@ -9,56 +9,42 @@
 
   type Direction = (typeof DIRECTION)[keyof typeof DIRECTION];
 
-  enum RankerState {
-    INPUTTING,
-    RANKING,
-  }
+  let ranker: Ranker<string> | undefined;
 
   let input: string;
   let validationError = "";
   let words: string[] = [];
+  $: sortedWords = ranker
+    ? ranker.sortedElements(evaluatingFunctions.winrate)
+    : words;
+  $: wordScores = ranker ? ranker.evaluate(evaluatingFunctions.winrate) : [0];
 
-  let wordScores: number[] = [];
-  $: wordRankings = calcPerformanceRatingForAll(wordScores);
-
-  let rankerState: RankerState = RankerState.INPUTTING;
-
-  let currentWordsIndexes: [number, number];
+  let currentWords: [string, string] = ["", ""];
 
   function sendListOfWords() {
     words = input.split(","); // TODO: separate by new lines, commas, semi-colons etc.
-    wordScores = Array(words.length).fill(1);
-    wordScores = wordScores; // trigger reactivity
+    ranker = new Ranker(words);
     selectNewWords();
-    rankerState = RankerState.RANKING;
-  }
-
-  function getTwoRandomDifferentIndexes(max: number): [number, number] {
-    // max is not inclusive, so this should work with '.length'
-
-    const index1 = Math.floor(Math.random() * max);
-
-    let index2;
-    do {
-      index2 = Math.floor(Math.random() * max);
-    } while (index2 === index1);
-
-    return [index1, index2];
   }
 
   function selectNewWords() {
-    currentWordsIndexes = getTwoRandomDifferentIndexes(words.length);
+    if (!ranker) {
+      return;
+    }
+    currentWords = ranker.suggestComparison();
   }
 
   function handleWinner(leftOrRight: Direction) {
-    const winnerIdx = currentWordsIndexes[leftOrRight];
-    wordScores[winnerIdx]++;
-    wordScores = wordScores;
+    ranker?.addComparison(
+      currentWords[leftOrRight],
+      currentWords[(leftOrRight + 1) % 2],
+    );
+    ranker = ranker; // trigger reactivity.
     selectNewWords();
   }
 </script>
 
-{#if rankerState === RankerState.INPUTTING}
+{#if !ranker}
   <form>
     {#if validationError}
       <span class="text-red-600">{validationError}</span>
@@ -70,31 +56,37 @@
       >{$s.interactive.ranker.sendButtonText}</button
     >
   </form>
-{:else if rankerState === RankerState.RANKING}
+{:else}
   <div>
     <button class="border p-2" on:click={() => handleWinner(0)}
-      >{words[currentWordsIndexes[0]]}</button
+      >{currentWords[0]}</button
     >
     <button class="border p-2" on:click={() => handleWinner(1)}
-      >{words[currentWordsIndexes[1]]}</button
+      >{currentWords[1]}</button
     >
   </div>
   <div>
     <ul>
-      {#each words as word, idx}
+      {#each sortedWords as word}
         <li>
-          {`${word}: ${wordRankings[idx]}`}
+          {`${word}`}
         </li>
       {/each}
     </ul>
   </div>
-{:else}
-  <div>
-    Error: Unreachable. If you see this in the live website, please report it as
-    a bug.
-  </div>
 {/if}
 
 <pre>
-  {JSON.stringify({ words, wordScores, wordRankings }, null, 2)}
+  {JSON.stringify(
+    {
+      words,
+      wordScores,
+      ranker: {
+        elements: ranker?.elements,
+        matrix: ranker?.comparisons.toArrayOfArrays(),
+      },
+    },
+    null,
+    2,
+  )}
 </pre>
