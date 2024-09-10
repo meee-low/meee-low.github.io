@@ -1,6 +1,8 @@
 import { Matrix } from "$lib/math/linalg";
+import { bradleyTerryEvaluator } from "./bradley_terry";
 import { rankByWinrate } from "./winrate_ranker";
 
+type Evaluator = (m: Readonly<Matrix>) => number[];
 export class Ranker<T> {
   private readonly elements: T[];
   private comparisons: Matrix;
@@ -14,16 +16,13 @@ export class Ranker<T> {
     if (s.size !== elements.length) {
       throw new Error("Elements should all be distinct.");
     }
-
     this.elements = elements;
     this.comparisons = new Matrix(this.elements.length, this.elements.length);
   }
-
-  evaluate(evaluator: (m: Matrix) => number[]): number[] {
+  evaluate(evaluator: Evaluator): number[] {
     return evaluator(this.comparisons);
   }
-
-  public sortedElements(evaluator: (m: Matrix) => number[]): T[] {
+  public sortedElements(evaluator: Evaluator): T[] {
     const ranks = this.evaluate(evaluator);
 
     return (
@@ -75,11 +74,12 @@ function getTwoRandomDifferentIndexes(max: number): [number, number] {
   return [index1, index2];
 }
 
-function eloPrediction(m: Matrix): number[] {
+function eloPrediction(m: Readonly<Matrix>): number[] {
   throw new Error("Not implemented");
 }
 
 export const evaluatingFunctions = {
   elo: eloPrediction,
   winrate: rankByWinrate,
-} as const;
+  bradleyTerry: bradleyTerryEvaluator,
+} as const satisfies Record<string, Evaluator>;

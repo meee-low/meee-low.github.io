@@ -1,6 +1,13 @@
 <script lang="ts">
   import { selectedLanguageString as s } from "$lib/stores";
   import { Ranker, evaluatingFunctions } from "../ranker/ranker";
+  import { onMount } from "svelte";
+  import { page } from "$app/stores";
+
+  let debugMode: boolean = false;
+  onMount(() => {
+    debugMode = $page.url.searchParams.has("debug");
+  });
 
   const DIRECTION = {
     LEFT: 0,
@@ -10,15 +17,16 @@
   type Direction = (typeof DIRECTION)[keyof typeof DIRECTION];
 
   let ranker: Ranker<string> | undefined;
+  const evaluator = evaluatingFunctions.bradleyTerry
 
   let input: string;
   let validationError = "";
   let words: string[] = [];
   $: sortedWords = ranker
-    ? ranker.sortedElements(evaluatingFunctions.winrate)
+    ? ranker.sortedElements(evaluator)
     : words;
   $: wordScores = ranker
-    ? ranker.evaluate(evaluatingFunctions.winrate)
+    ? ranker.evaluate(evaluator)
     : words.map((_) => 0);
 
   let currentWords: [string, string] = ["", ""];
@@ -59,7 +67,7 @@
     >
   </form>
 {:else}
-  <div>
+  <div class="flex gap-2 px-[5vw]">
     <button class="border p-2" on:click={() => handleWinner(0)}
       >{currentWords[0]}</button
     >
@@ -78,17 +86,19 @@
   </div>
 {/if}
 
-<pre>
+{#if debugMode}
+  <pre>
   {JSON.stringify(
-    {
-      words,
-      wordScores,
-      ranker: {
-        elements: ranker?.elements,
-        matrix: ranker?.comparisons.toArrayOfArrays(),
+      {
+        words,
+        wordScores,
+        ranker: {
+          elements: ranker?.elements,
+          matrix: ranker?.comparisons.toArrayOfArrays(),
+        },
       },
-    },
-    null,
-    2,
-  )}
+      null,
+      2,
+    )}
 </pre>
+{/if}

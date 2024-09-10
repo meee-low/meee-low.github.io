@@ -1,6 +1,6 @@
 import type { Matrix } from "$lib/math/linalg";
 
-export function rankByWinrate(m: Matrix): number[] {
+export function rankByWinrate(m: Readonly<Matrix>): number[] {
   let result = [];
 
   for (let i = 0; i < m.rows; ++i) {
