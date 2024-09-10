@@ -38,7 +38,7 @@ function bradleyTerrySpecific(
     }
     const pj = estimates[j];
     newEstimateNum += (m.at(idx, j) * pj) / (p + pj);
-    newEstimateDen += (m.at(j, idx) * pj) / (p + pj);
+    newEstimateDen += m.at(j, idx) / (p + pj);
   }
 
   const makeItNotZero = 1;
