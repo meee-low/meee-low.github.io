@@ -17,7 +17,9 @@
   $: sortedWords = ranker
     ? ranker.sortedElements(evaluatingFunctions.winrate)
     : words;
-  $: wordScores = ranker ? ranker.evaluate(evaluatingFunctions.winrate) : [0];
+  $: wordScores = ranker
+    ? ranker.evaluate(evaluatingFunctions.winrate)
+    : words.map((_) => 0);
 
   let currentWords: [string, string] = ["", ""];
 
