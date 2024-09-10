@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type PlayerState } from "$lib/components/games/redux-fg/game";
+  import { type PlayerState } from "./game";
 
   export let playerState: PlayerState;
 

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { page } from "$app/stores";
-  import { inputs } from "$lib/components/games/redux-fg/game";
+  import { inputs } from "./game";
 
   // Reactive statement to update the form based on route parameters
   onMount(() => {

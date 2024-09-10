@@ -1,8 +1,5 @@
 <script lang="ts">
-  import {
-    gameState,
-    type GameState,
-  } from "$lib/components/games/redux-fg/game";
+  import { gameState, type GameState } from "./game";
   import { fade } from "svelte/transition";
 
   function announcementFromGameState(gameState: GameState): string | null {
