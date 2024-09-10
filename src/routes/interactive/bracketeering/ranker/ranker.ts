@@ -29,7 +29,7 @@ export class Ranker<T> {
     return (
       this.elements.map((value, idx) => [value, ranks[idx]]) as [T, number][]
     ) // zip with the ranks
-      .sort(([, rankA], [, rankB]) => rankA - rankB) // sort according to the ranks
+      .sort(([, rankA], [, rankB]) => rankB - rankA) // sort according to the ranks
       .map(([val]) => val) /** remove the ranks, keep only the values */;
   }
 
