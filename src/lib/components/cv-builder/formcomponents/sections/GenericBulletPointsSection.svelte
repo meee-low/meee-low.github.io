@@ -9,6 +9,6 @@
 </script>
 
 <section class="mb-2">
-  <h2 class="font-bold text-lg">{title}</h2>
+  <h2 class="text-lg font-bold">{title}</h2>
   <BulletPoints {bullets} {multiline}></BulletPoints>
 </section>

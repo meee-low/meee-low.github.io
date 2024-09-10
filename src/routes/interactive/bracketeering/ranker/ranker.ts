@@ -53,15 +53,15 @@ export class Ranker<T> {
 
 /**
  * Gets two indexes from [0, `max`). `max` is NOT inclusive, so this should work with '.length'.
- * 
+ *
  * Throws if max < 2.
- * 
+ *
  * @param max the maximum (non-inclusive) integer that it may return. Needs to be >= 2, or this function will throw. Ideally an integer but no reliance on that.
- * @returns 
+ * @returns
  */
 function getTwoRandomDifferentIndexes(max: number): [number, number] {
   if (max < 2) {
-    throw new Error(`Need at least 2, got ${max}.`)
+    throw new Error(`Need at least 2, got ${max}.`);
   }
 
   const index1 = Math.floor(Math.random() * max);
@@ -78,5 +78,5 @@ function eloPrediction(m: Matrix): number[] {
 }
 
 export const evaluatingFunctions = {
-  "elo": eloPrediction
+  elo: eloPrediction,
 } as const;

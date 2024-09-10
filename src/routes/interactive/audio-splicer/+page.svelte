@@ -3,7 +3,7 @@
     EMPTY,
     RECORDING,
     PLAYING,
-    PAUSED
+    PAUSED,
   }
 
   let audioPlayerState: AudioPlayerState = AudioPlayerState.EMPTY;
@@ -18,7 +18,7 @@
   let audioBlob: Blob | null | undefined = undefined;
 
   function handlePlay() {
-    if (audioBlob) { 
+    if (audioBlob) {
       audioPlayer.play();
     }
   }
@@ -26,28 +26,30 @@
     audioPlayer.pause();
   }
   async function handleRecord() {
-    if (!mediaRecorder || mediaRecorder.state === 'inactive') {
-      const stream = await navigator.mediaDevices.getUserMedia({audio: true});
+    if (!mediaRecorder || mediaRecorder.state === "inactive") {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       mediaRecorder = new MediaRecorder(stream);
       audioPlayerState = AudioPlayerState.RECORDING;
 
-      mediaRecorder.ondataavailable = (event => {
+      mediaRecorder.ondataavailable = (event) => {
         audioRecordingStreamChunks.push(event.data);
-      })
+      };
 
       mediaRecorder.onstop = () => {
-        audioBlob = new Blob(audioRecordingStreamChunks, {type: "audio/webm"});
+        audioBlob = new Blob(audioRecordingStreamChunks, {
+          type: "audio/webm",
+        });
         audioRecordingStreamChunks = [];
         const audioURL = URL.createObjectURL(audioBlob);
         audioPlayer.src = audioURL;
         audioPlayerState = AudioPlayerState.PAUSED;
-      }
+      };
 
       mediaRecorder.start();
-      recordButton.textContent = 'Stop';
+      recordButton.textContent = "Stop";
     } else {
       mediaRecorder.stop();
-      recordButton.textContent = 'Record';
+      recordButton.textContent = "Record";
     }
   }
 </script>
@@ -63,9 +65,8 @@
   audioRecordingStreamChunks.length={audioRecordingStreamChunks.length}
 </pre>
 
-
 <style>
   button {
-    @apply border p-2 rounded-md border-black
+    @apply rounded-md border border-black p-2;
   }
 </style>

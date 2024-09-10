@@ -1,1 +1,1 @@
-export type Result<S, E> = [S, E | null]
+export type Result<S, E> = [S, E | null];

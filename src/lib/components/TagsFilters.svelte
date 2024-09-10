@@ -29,8 +29,7 @@
         ? 'border-gray-700 bg-gray-100 text-black'
         : 'border-gray-400 bg-gray-100 text-gray-400'}
         rounded-full border px-4 py-2 hover:bg-gray-300"
-
-      aria-pressed="{tag.filterEnabled}"
+      aria-pressed={tag.filterEnabled}
       on:mousedown={() => handleFilterToggle(index)}
       animate:flip={{
         delay: 0,

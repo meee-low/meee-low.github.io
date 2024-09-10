@@ -27,7 +27,9 @@
       class="absolute -right-3 -top-3 h-10 w-10 rounded-full border bg-white"
       on:click={() => dialog.close()}
     >
-      <i class="fa-solid fa-xmark text-xl" title="Close"><span class="sr-only">Close modal</span></i>
+      <i class="fa-solid fa-xmark text-xl" title="Close"
+        ><span class="sr-only">Close modal</span></i
+      >
     </button>
     <slot />
   </div>

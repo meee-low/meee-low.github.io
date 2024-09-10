@@ -1,6 +1,6 @@
 <script lang="ts">
   import FullCVRender from "$lib/components/cv-builder/printcomponents/FullCVRender.svelte";
-  import {cvData} from "$lib/myInfo"
+  import { cvData } from "$lib/myInfo";
 
   let data = cvData;
 

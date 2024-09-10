@@ -7,8 +7,7 @@
     if (typeof val !== "undefined") {
       selectEl.value = val;
     }
-  }
-);
+  });
 
   function handleLangOptionChange(
     e: Event & { currentTarget: EventTarget & HTMLSelectElement },

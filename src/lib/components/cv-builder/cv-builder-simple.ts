@@ -2,7 +2,7 @@ import { writable } from "svelte/store";
 
 export type BulletPoints = string[];
 
-export interface  WorkExperienceUnit {
+export interface WorkExperienceUnit {
   position: string;
   employer: string;
   dateStart: string;

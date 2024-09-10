@@ -25,7 +25,8 @@
           </i>@meee-low</a
         >
         <a href="/my-cv" class="hover:underline"
-          ><i class="fa-solid fa-file-lines fa-fw mr-1"> </i>{$s.navbarandfooter.resumecv}</a
+          ><i class="fa-solid fa-file-lines fa-fw mr-1"> </i>{$s.navbarandfooter
+            .resumecv}</a
         >
       </div>
     </div>

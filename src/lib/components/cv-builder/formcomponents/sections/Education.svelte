@@ -29,8 +29,13 @@
 </script>
 
 <section class="mb-4">
-  <h2 class="mb-2 inline text-lg font-bold">{$s.interactive.cvbuilder.education.sectionHeader}</h2>
- <button type="button" class="inline-block border py-1 px-2 rounded-md" on:click={addEducationExperience}
+  <h2 class="mb-2 inline text-lg font-bold">
+    {$s.interactive.cvbuilder.education.sectionHeader}
+  </h2>
+  <button
+    type="button"
+    class="inline-block rounded-md border px-2 py-1"
+    on:click={addEducationExperience}
     >{$s.interactive.cvbuilder.buttons.addSubsection}</button
   >
   {#each $education as _, index}

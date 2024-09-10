@@ -65,12 +65,12 @@ export function deserializeObject(queryString: string): Object {
   return JSON.parse(queryString);
 }
 
-/** Used when an exhaustive check is expected. 
- * 
- * Throws an error at runtime, but it's supposed to catch errors in typescript 'compile' time. 
+/** Used when an exhaustive check is expected.
+ *
+ * Throws an error at runtime, but it's supposed to catch errors in typescript 'compile' time.
  * If you assign a value with an actual type, it should warn that the type is incompatible with "never".
- * 
-*/
+ *
+ */
 export function assertNever(value: never): never {
-  throw new Error(`Unexpected value: ${value}`)
+  throw new Error(`Unexpected value: ${value}`);
 }

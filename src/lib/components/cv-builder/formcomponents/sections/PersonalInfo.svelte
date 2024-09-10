@@ -6,11 +6,13 @@
 </script>
 
 <section class="mb-2 grid gap-2">
-  <h2 class="font-bold text-lg">{$s.interactive.cvbuilder.personalInfo.sectionHeader}</h2>
+  <h2 class="text-lg font-bold">
+    {$s.interactive.cvbuilder.personalInfo.sectionHeader}
+  </h2>
   <label>
     {$s.interactive.cvbuilder.personalInfo.name}:
     <input
-      class="rounded-sm border w-full"
+      class="w-full rounded-sm border"
       type="text"
       name="name"
       autocomplete="name"
@@ -20,9 +22,10 @@
       placeholder={$s.interactive.cvbuilder.placeholders.name}
     />
   </label>
-  <label class="block"> {$s.interactive.cvbuilder.personalInfo.phone}:
+  <label class="block">
+    {$s.interactive.cvbuilder.personalInfo.phone}:
     <input
-      class="rounded-sm w-full border inline-block"
+      class="inline-block w-full rounded-sm border"
       type="tel"
       name="phone"
       autocomplete="tel-local"
@@ -32,9 +35,10 @@
       placeholder={$s.interactive.cvbuilder.placeholders.phone}
     />
   </label>
-  <label class="block"> {$s.interactive.cvbuilder.personalInfo.email}:
+  <label class="block">
+    {$s.interactive.cvbuilder.personalInfo.email}:
     <input
-      class="rounded-sm w-full border inline-block"
+      class="inline-block w-full rounded-sm border"
       type="email"
       name="email"
       autocomplete="email"
@@ -44,19 +48,22 @@
       placeholder={$s.interactive.cvbuilder.placeholders.email}
     />
   </label>
-  <label class="block"> {$s.interactive.cvbuilder.personalInfo.linkedin}:
+  <label class="block">
+    {$s.interactive.cvbuilder.personalInfo.linkedin}:
     <input
-      class="rounded-sm w-full border inline-block"
+      class="inline-block w-full rounded-sm border"
       type="text"
       name="linkedin"
       id="form-linkedin"
       bind:value={$data.linkedin}
-      placeholder={$s.interactive.cvbuilder.placeholders.genericExamplePlaceholder}
+      placeholder={$s.interactive.cvbuilder.placeholders
+        .genericExamplePlaceholder}
     />
   </label>
-  <label class="block"> {$s.interactive.cvbuilder.personalInfo.website}:
+  <label class="block">
+    {$s.interactive.cvbuilder.personalInfo.website}:
     <input
-      class="rounded-sm w-full border inline-block"
+      class="inline-block w-full rounded-sm border"
       type="url"
       name="website"
       id="form-website"
@@ -64,14 +71,16 @@
       placeholder={$s.interactive.cvbuilder.placeholders.website}
     />
   </label>
-  <label class="block"> {$s.interactive.cvbuilder.personalInfo.github}:
+  <label class="block">
+    {$s.interactive.cvbuilder.personalInfo.github}:
     <input
-      class="rounded-sm w-full border inline-block"
+      class="inline-block w-full rounded-sm border"
       type="text"
       name="github"
       id="form-github"
       bind:value={$data.github}
-      placeholder={$s.interactive.cvbuilder.placeholders.genericExamplePlaceholder}
+      placeholder={$s.interactive.cvbuilder.placeholders
+        .genericExamplePlaceholder}
     />
   </label>
 </section>

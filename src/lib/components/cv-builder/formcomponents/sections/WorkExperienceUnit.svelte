@@ -20,7 +20,7 @@
   <label class="block">
     {$s.interactive.cvbuilder.workExperience.position}:
     <input
-      class="rounded-sm w-full border"
+      class="w-full rounded-sm border"
       type="text"
       bind:value={$data.position}
     />
@@ -28,7 +28,7 @@
   <label class="block">
     {$s.interactive.cvbuilder.workExperience.employer}:
     <input
-      class="rounded-sm w-full border"
+      class="w-full rounded-sm border"
       type="text"
       bind:value={$data.employer}
     />
@@ -36,7 +36,7 @@
   <label class="block">
     {$s.interactive.cvbuilder.workExperience.start}:
     <input
-      class="rounded-sm w-full border"
+      class="w-full rounded-sm border"
       placeholder="2023-10"
       type="month"
       bind:value={$data.dateStart}
@@ -45,11 +45,12 @@
   <label class="block">
     {$s.interactive.cvbuilder.workExperience.finish}:
     <input
-      class="rounded-sm w-full border"
+      class="w-full rounded-sm border"
       placeholder="2023-10"
       type="month"
       bind:value={$data.dateEnd}
     />
   </label>
-  <BulletPoints bullets={propertyStore(data, "bulletPoints")} multiline></BulletPoints>
+  <BulletPoints bullets={propertyStore(data, "bulletPoints")} multiline
+  ></BulletPoints>
 </div>

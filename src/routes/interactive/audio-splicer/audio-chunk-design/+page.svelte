@@ -5,19 +5,18 @@
 
   chunkTitle = "alksjdflkj";
   chunkLengthInSeconds = 132;
-
 </script>
 
-<div class="border w-fit p-2 relative">
+<div class="relative w-fit border p-2">
   <div class="flex gap-12">
-    <input bind:checked={selected} type="checkbox"/>
+    <input bind:checked={selected} type="checkbox" />
     <h3>{chunkTitle}</h3>
     <button>Del</button>
   </div>
+  <div></div>
   <div>
-    
-  </div>
-  <div>
-    <span>{`${Math.round(chunkLengthInSeconds/60)}:${chunkLengthInSeconds%60}`}</span>
+    <span
+      >{`${Math.round(chunkLengthInSeconds / 60)}:${chunkLengthInSeconds % 60}`}</span
+    >
   </div>
 </div>

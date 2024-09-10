@@ -89,7 +89,7 @@ interface FullLang {
     cvbuilder: CVStrings;
     ranker: {
       sendButtonText: string;
-    }
+    };
   };
 }
 
@@ -166,8 +166,8 @@ const strings: Record<"en" | "pt-BR", FullLang> = {
         volunteering: "Volunteering",
       },
       ranker: {
-        sendButtonText: "Rank"
-      }
+        sendButtonText: "Rank",
+      },
     },
   },
   "pt-BR": {
@@ -242,8 +242,8 @@ const strings: Record<"en" | "pt-BR", FullLang> = {
         volunteering: "Voluntariado",
       },
       ranker: {
-        sendButtonText: "Ranquear"
-      }
+        sendButtonText: "Ranquear",
+      },
     },
   },
 };

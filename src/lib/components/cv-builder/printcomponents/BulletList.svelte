@@ -2,7 +2,7 @@
   export let bullets: string[];
   export let gridCols: number = 1;
 
-  import {formatBasicMarkdown} from "$lib/markdownParsing"
+  import { formatBasicMarkdown } from "$lib/markdownParsing";
 </script>
 
 {#if bullets && bullets.length > 0}

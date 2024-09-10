@@ -3,9 +3,21 @@
   import { selectedLanguageString as s } from "$lib/stores";
 
   $: navLinks = [
-    { title: $s.navbarandfooter.highlights, link: "/", faTag: "fa-solid fa-eye" },
-    { title: $s.navbarandfooter.interactive, link: "/interactive", faTag: "fa-solid fa-dice" },
-    { title: $s.navbarandfooter.blog, link: "/blog", faTag: "fa-solid fa-blog" },
+    {
+      title: $s.navbarandfooter.highlights,
+      link: "/",
+      faTag: "fa-solid fa-eye",
+    },
+    {
+      title: $s.navbarandfooter.interactive,
+      link: "/interactive",
+      faTag: "fa-solid fa-dice",
+    },
+    {
+      title: $s.navbarandfooter.blog,
+      link: "/blog",
+      faTag: "fa-solid fa-blog",
+    },
   ] as const;
 </script>
 

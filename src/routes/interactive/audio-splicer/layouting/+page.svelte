@@ -43,7 +43,7 @@
 
 <button class="border p-2" on:click={addCell}>Add Cell</button>
 
-<div class="m-8 grid gap-1 min-h-20 overflow-auto border">
+<div class="m-8 grid min-h-20 gap-1 overflow-auto border">
   {#each cells as c}
     <div
       class="border"

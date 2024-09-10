@@ -1,4 +1,3 @@
-
 <script lang="ts">
   import type { Writable } from "svelte/store";
   import WorkExperienceUnit from "./WorkExperienceUnit.svelte";

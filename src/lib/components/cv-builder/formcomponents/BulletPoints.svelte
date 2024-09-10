@@ -34,7 +34,7 @@
       {:else}
         <input
           type="text"
-          class="ml-2 block border w-full"
+          class="ml-2 block w-full border"
           bind:value={bullet}
           spellcheck="true"
         />
@@ -49,6 +49,7 @@
   <button
     type="button"
     class="ml-2 block rounded-md border p-1.5"
-    on:click={moreBullets}>{$s.interactive.cvbuilder.buttons.addBulletPoints}</button
+    on:click={moreBullets}
+    >{$s.interactive.cvbuilder.buttons.addBulletPoints}</button
   >
 </div>

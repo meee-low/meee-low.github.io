@@ -51,7 +51,12 @@ export const cvData: FullInfo = {
     "Yale (Coursera): Introduction to Machine Learning",
   ],
   projects: [
-    { title: "Web Portfolio", description: "", link: "https://meee-low.github.io", bulletPoints: [] },
+    {
+      title: "Web Portfolio",
+      description: "",
+      link: "https://meee-low.github.io",
+      bulletPoints: [],
+    },
     {
       title:
         "Tomato Wars: What Makes Critics and Audiences Disagree on Movies?",
