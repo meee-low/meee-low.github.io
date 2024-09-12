@@ -13,8 +13,8 @@ interface Quadrants<T> {
 }
 
 export class Quadtree<T> {
-  elements: T[] = [];
-  subdivisions: Quadrants<T> | undefined = undefined;
+  private elements: T[] = [];
+  private subdivisions: Quadrants<T> | undefined = undefined;
   private readonly accessCoordinate: (element: T) => Point;
   private readonly capacity: number;
   private readonly boundaryBox: OrthogonalRectangleCollider;
@@ -73,7 +73,7 @@ export class Quadtree<T> {
     // bbox now for sure contains p
     return this.pushUnchecked(newElement);
   }
-
+  
   /** Assumes that this is the correct quadtree where this point should go. Use carefully.*/
   private pushUnchecked(newElement: Readonly<T>) {
     if (this.elements.length < this.capacity) {
@@ -90,7 +90,7 @@ export class Quadtree<T> {
     if (!this.subdivisions) {
       this.subdivide();
     }
-
+    
     // Find the right quadrant to add to.
     let quadrant: keyof Quadrants<T>;
     const offsets: [boolean, boolean] = [
@@ -110,8 +110,8 @@ export class Quadtree<T> {
       case [true, true]:
         quadrant = "se";
         break;
-      default:
-        throw new Error("This should never happen.");
+        default:
+          throw new Error("This should never happen.");
     }
     return this.subdivisions![quadrant].pushUnchecked(newElement);
   }
@@ -132,14 +132,19 @@ export class Quadtree<T> {
         acc.push(el);
       }
     }
-
+    
     // recurse through the subdivisions
     if (this.subdivisions) {
       for (const sub of Object.values(this.subdivisions)) {
         sub.queryImpl(collider, acc);
       }
     }
-
+    
     return acc;
+  }
+
+  /** Returns a list of all the elements inside this and its children. */
+  public queryAll() {
+    return this.query(this.boundaryBox);
   }
 }

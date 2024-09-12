@@ -22,13 +22,18 @@ abstract class Collider2D {
    *
    * @param point The point that we want to check if this collider contains.
    */
-  public abstract contains(point: Point): boolean;
+  public abstract contains(point: Readonly<Point>): boolean;
   /**
    * Checks if the other collider and this collider overlaps (have points in common). Should includes boundaries.
    *
    * @param other
    */
-  public abstract intersects(other: ConcreteCollider): boolean;
+  public abstract intersects(other: Readonly<ConcreteCollider>): boolean;
+
+  /**
+   * Calculates the squared distance from the boundary of this collider to the point.
+   */
+  public abstract sqDistanceToPoint(point: Readonly<Point>): number;
 }
 
 export type ConcreteCollider = OrthogonalRectangleCollider | CircleCollider;
@@ -118,6 +123,14 @@ export class OrthogonalRectangleCollider extends Collider2D {
     }
     assertNever(other);
   }
+
+  public sqDistanceToPoint(point: Readonly<Point>): number {
+    throw new Error("Bad implementation below. Fix.");
+    // FIX
+    const dx = Math.max(this.leftX() - point.x, 0, point.x - this.rightX())    
+    const dy = Math.max(this.topY() - point.y, 0, point.y - this.bottomY())    
+    return dx*dx + dy*dy;
+  }
 }
 
 export class CircleCollider extends Collider2D {
@@ -148,5 +161,12 @@ export class CircleCollider extends Collider2D {
       return other.intersects(this);
     }
     assertNever(other);
+  }
+
+  public sqDistanceToPoint(point: Readonly<Point>): number {
+    const dx = point.x - this.center.x;
+    const dy = point.y - this.center.y;
+    const sqDistanceFromCenter = dx * dx + dy * dy;
+    return Math.pow(Math.sqrt(sqDistanceFromCenter) - this.radius, 2);
   }
 }
