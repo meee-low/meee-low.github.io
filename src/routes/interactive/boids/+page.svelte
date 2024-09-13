@@ -1,46 +1,89 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import * as THREE from "three";
+  import { World, makeTriangleGeometry } from "./boids";
+  import {
+    threejs2dInit,
+    threejsAnimate,
+  } from "$lib/threejs/threejs_boiler_plate";
+
   let canvas: HTMLCanvasElement;
+  let camera: THREE.OrthographicCamera;
+  let renderer: THREE.Renderer;
+  let scene: THREE.Scene;
+
+  let width: number;
+  let height: number;
+  let world: World;
+
+  function pixelToWorld(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    camera: THREE.OrthographicCamera,
+  ) {
+    const aspect = width / height;
+    const frustumHeight = camera.top - camera.bottom;
+    const frustumWidth = frustumHeight * aspect;
+
+    const worldX = (x / width) * frustumWidth - frustumWidth / 2;
+    const worldY = -(y / height) * frustumHeight - frustumHeight / 2;
+
+    return new THREE.Vector2(worldX, worldY);
+  }
 
   onMount(() => {
-    let scene = new THREE.Scene();
+    width = 600;
+    height = 400;
+    ({ camera, renderer, scene } = threejs2dInit(width, height, canvas));
+    console.log("camera boundaries: ", {
+      top: camera.top,
+      bottom: camera.bottom,
+      left: camera.left,
+      right: camera.right,
+    });
 
-    const aspect = window.innerWidth / window.innerHeight;
-    const frustumSize = 10;
-    let camera = new THREE.OrthographicCamera(
-      (-frustumSize * aspect) / 2,
-      (frustumSize * aspect) / 2,
-      frustumSize / 2,
-      -frustumSize / 2,
-      1,
-      1000,
+    world = new World(
+      0,
+      0,
+      camera.right - camera.left,
+      camera.top - camera.bottom,
     );
-    camera.position.z = 10;
 
-    let renderer = new THREE.WebGLRenderer({ canvas: canvas });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    const geometry = new THREE.PlaneGeometry(2, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-    const rectangle = new THREE.Mesh(geometry, material);
-    scene.add(rectangle);
-
-    let speed = 0.01;
-    function animate() {
-      requestAnimationFrame(animate);
-
-      rectangle.position.x += speed;
-
-      if (
-        rectangle.position.x > (window.innerWidth / window.innerHeight) * 5 ||
-        rectangle.position.x < -5
-      ) {
-        speed = -speed;
-      }
-
-      renderer.render(scene, camera);
+    for (let i = 0; i < 100; ++i) {
+      let x = Math.random() * (camera.right - camera.left) + camera.left;
+      let y = Math.random() * (camera.top - camera.bottom) + camera.bottom;
+      let v = new THREE.Vector2(x, y);
+      console.log(v);
+      // let worldPos = pixelToWorld(x, y, width, height, camera);
+      world.addBoid(v, new THREE.Vector2(Math.random(), Math.random()));
     }
+    scene.add(...world.boidsSprites);
+
+    // const triGeom = makeTriangleGeometry({ x: 0, y: 0 }, { x: 0, y: 0 });
+    // const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+    // let boidSprite = new THREE.Mesh(triGeom, material);
+    // // boidSprite.position.x = -75;
+    // console.log("camera params: ", camera.top);
+    // console.log("world pos", boidSprite.getWorldPosition(new THREE.Vector3()));
+    // console.log(
+    //   "vertex pos",
+    //   boidSprite.getVertexPosition(0, new THREE.Vector3()),
+    // );
+    //
+    // scene.add(boidSprite);
+
+    const animate = threejsAnimate(
+      (_p: {
+        scene: THREE.Scene;
+        camera: THREE.OrthographicCamera;
+        renderer: THREE.Renderer;
+      }) => world.update(),
+      renderer,
+      scene,
+      camera,
+    );
 
     animate();
   });

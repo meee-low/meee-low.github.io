@@ -30,6 +30,10 @@ abstract class Collider2D {
    */
   public abstract intersects(other: Readonly<ConcreteCollider>): boolean;
 
+  public abstract closestBoundaryPointToPoint(
+    point: Readonly<Point>,
+    ret: Point,
+  ) {}
   /**
    * Calculates the squared distance from the boundary of this collider to the point.
    */
@@ -80,11 +84,20 @@ export class OrthogonalRectangleCollider extends Collider2D {
   }
 
   topY() {
-    return this.centerX - this.width / 2;
+    return this.centerY - this.height / 2;
   }
 
   bottomY() {
-    return this.centerX - this.width / 2;
+    return this.centerY + this.height / 2;
+  }
+
+  debugDirections() {
+    return {
+      left: this.leftX(),
+      right: this.rightX(),
+      top: this.topY(),
+      bottom: this.bottomY(),
+    } as const;
   }
 
   contains(point: Point): boolean {
@@ -102,7 +115,7 @@ export class OrthogonalRectangleCollider extends Collider2D {
     if (other instanceof OrthogonalRectangleCollider) {
       const doesntIntersect =
         this.leftX() > other.rightX() ||
-        other.leftX() < this.rightX() ||
+        other.leftX() > this.rightX() ||
         this.topY() > other.bottomY() ||
         other.topY() > this.bottomY();
       return !doesntIntersect;
@@ -124,12 +137,17 @@ export class OrthogonalRectangleCollider extends Collider2D {
     assertNever(other);
   }
 
+  public closestBoundaryPointToPoint(point: Readonly<Point>, ret: Point): void {
+    ret.x = Math.max(this.leftX(), Math.min(point.x, this.rightX()));
+    ret.y = Math.max(this.topY(), Math.min(point.y, this.bottomY()));
+  }
+
   public sqDistanceToPoint(point: Readonly<Point>): number {
-    throw new Error("Bad implementation below. Fix.");
-    // FIX
-    const dx = Math.max(this.leftX() - point.x, 0, point.x - this.rightX())    
-    const dy = Math.max(this.topY() - point.y, 0, point.y - this.bottomY())    
-    return dx*dx + dy*dy;
+    const closest = { x: 0, y: 0 };
+    this.closestBoundaryPointToPoint(point, closest);
+    const dx = point.x - closest.x;
+    const dy = point.y - closest.y;
+    return dx * dx + dy * dy;
   }
 }
 
@@ -161,6 +179,22 @@ export class CircleCollider extends Collider2D {
       return other.intersects(this);
     }
     assertNever(other);
+  }
+
+  public closestBoundaryPointToPoint(point: Readonly<Point>, ret: Point): void {
+    const dx = point.x - this.center.x;
+    const dy = point.y - this.center.y;
+    const distanceFromCenter = Math.sqrt(dx * dx + dy * dy);
+    if (distanceFromCenter <= 0.0001) {
+      // distance is 0 so it's too close to the center to determine the boundary.
+      ret.x = this.center.x;
+      ret.y = this.center.y;
+    }
+    const scaleFactor = this.radius / distanceFromCenter;
+    // scale it to go to the radius:
+    ret.x = this.center.x + point.x * scaleFactor;
+    ret.y = this.center.y + point.y * scaleFactor;
+    return;
   }
 
   public sqDistanceToPoint(point: Readonly<Point>): number {

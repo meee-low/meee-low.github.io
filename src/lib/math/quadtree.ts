@@ -1,4 +1,5 @@
 import { assertNever } from "$lib/utils";
+import { offset } from "@popperjs/core";
 import {
   OrthogonalRectangleCollider,
   type ConcreteCollider,
@@ -73,7 +74,7 @@ export class Quadtree<T> {
     // bbox now for sure contains p
     return this.pushUnchecked(newElement);
   }
-  
+
   /** Assumes that this is the correct quadtree where this point should go. Use carefully.*/
   private pushUnchecked(newElement: Readonly<T>) {
     if (this.elements.length < this.capacity) {
@@ -90,28 +91,23 @@ export class Quadtree<T> {
     if (!this.subdivisions) {
       this.subdivide();
     }
-    
+
     // Find the right quadrant to add to.
     let quadrant: keyof Quadrants<T>;
     const offsets: [boolean, boolean] = [
       p.x > this.boundaryBox.centerX,
       p.y > this.boundaryBox.centerY,
     ];
-    switch (offsets) {
-      case [false, false]:
-        quadrant = "nw";
-        break;
-      case [true, false]:
-        quadrant = "ne";
-        break;
-      case [false, true]:
-        quadrant = "sw";
-        break;
-      case [true, true]:
-        quadrant = "se";
-        break;
-        default:
-          throw new Error("This should never happen.");
+    if (offsets[0] === false && offsets[1] === false) {
+      quadrant = "nw";
+    } else if (offsets[0] === true && offsets[1] === false) {
+      quadrant = "ne";
+    } else if (offsets[0] === false && offsets[1] === true) {
+      quadrant = "sw";
+    } else if (offsets[0] === true && offsets[1] === true) {
+      quadrant = "se";
+    } else {
+      throw new Error("This should never happen.");
     }
     return this.subdivisions![quadrant].pushUnchecked(newElement);
   }
@@ -132,14 +128,14 @@ export class Quadtree<T> {
         acc.push(el);
       }
     }
-    
+
     // recurse through the subdivisions
     if (this.subdivisions) {
       for (const sub of Object.values(this.subdivisions)) {
         sub.queryImpl(collider, acc);
       }
     }
-    
+
     return acc;
   }
 
