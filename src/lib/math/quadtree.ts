@@ -1,5 +1,3 @@
-import { assertNever } from "$lib/utils";
-import { offset } from "@popperjs/core";
 import {
   OrthogonalRectangleCollider,
   type ConcreteCollider,
@@ -36,6 +34,8 @@ export class Quadtree<T> {
     const halfWidth = this.boundaryBox.width / 2;
     const halfHeight = this.boundaryBox.height / 2;
 
+    console.log("Subdividing...")
+
     for (let i = -1 / 2; i <= 1 / 2; i += 1) {
       const cy = this.boundaryBox.centerY + i * this.boundaryBox.height;
       for (let j = -1 / 2; j <= 1 / 2; j += 1) {
@@ -46,9 +46,11 @@ export class Quadtree<T> {
           halfWidth,
           halfHeight,
         );
+        console.log({cx, cy})
         bBoxes.push(bbox);
       }
     }
+
 
     this.subdivisions = {
       nw: new Quadtree(bBoxes[0], this.accessCoordinate, this.capacity),
@@ -119,6 +121,9 @@ export class Quadtree<T> {
 
   queryImpl(collider: Readonly<ConcreteCollider>, acc: T[]): T[] {
     if (!collider.intersects(this.boundaryBox)) {
+      console.log(
+        "tried to find it in this qtree but it doesn't intersect with the collider",
+      );
       return acc;
     }
 
@@ -132,7 +137,8 @@ export class Quadtree<T> {
     // recurse through the subdivisions
     if (this.subdivisions) {
       for (const sub of Object.values(this.subdivisions)) {
-        sub.queryImpl(collider, acc);
+        sub as Quadtree<T>
+        acc = [...acc, ...sub.queryImpl(collider, acc)];
       }
     }
 

@@ -53,3 +53,21 @@ test("point is contained in rectangle", () => {
   const p = { x: 0, y: 0 };
   return expect(rect.contains(p)).toBeTruthy();
 });
+
+test("orthrectangle: literal edge case", () => {
+  const rect = new OrthogonalRectangleCollider(0, 0, 6, 6);
+  const p = { x: 3, y: 0 };
+  return expect(rect.contains(p)).toBeTruthy();
+});
+
+test("orthrectangle: literal corner case", () => {
+  const rect = new OrthogonalRectangleCollider(0, 0, 6, 6);
+  const p = { x: 3, y: 3 };
+  return expect(rect.contains(p)).toBeTruthy();
+});
+
+test("orthrectangle: just outside the bounds", () => {
+  const rect = new OrthogonalRectangleCollider(0, 0, 6, 6);
+  const p = { x: 3, y: 3.1 };
+  return expect(rect.contains(p)).toBeFalsy();
+});

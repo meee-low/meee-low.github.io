@@ -33,7 +33,7 @@ abstract class Collider2D {
   public abstract closestBoundaryPointToPoint(
     point: Readonly<Point>,
     ret: Point,
-  ) {}
+  ): void;
   /**
    * Calculates the squared distance from the boundary of this collider to the point.
    */
