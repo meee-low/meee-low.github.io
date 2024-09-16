@@ -4,8 +4,7 @@ import {
   OrthogonalRectangleCollider,
   type ConcreteCollider,
 } from "$lib/math/colliders";
-import { Matrix } from "$lib/math/linalg";
-import { BasicSpatialContainer, Quadtree, SpatialContainer } from "$lib/math/quadtree";
+import { BasicSpatialContainer, SpatialContainer } from "$lib/math/quadtree";
 import { Vector2 } from "three";
 import * as THREE from "three";
 
@@ -33,6 +32,7 @@ interface BoidsParams {
   separationFactor: number;
   alignmentFactor: number;
   turnFactor: number;
+  speedScale: number;
 }
 const DEFAULT_PARAMS: BoidsParams = {
   maxSpeed: 3,
@@ -43,7 +43,14 @@ const DEFAULT_PARAMS: BoidsParams = {
   cohesionFactor: 0.0005,
   separationFactor: 0.05,
   alignmentFactor: 0.05,
-  turnFactor: 0.2,
+  turnFactor: 0.25,
+  speedScale: 0.8,
+};
+
+type Attractor = {
+  position: Vector2;
+  attractiveStrength: number;
+  inverseDistance: -1 | 1;
 };
 
 export class Boids {
@@ -51,7 +58,7 @@ export class Boids {
   private neighborsBBox;
   private position;
   private heading;
-  private futureHeading;
+  private futureHeadingOffset;
   private params: BoidsParams;
   public id: number;
 
@@ -64,7 +71,7 @@ export class Boids {
     this.id = id;
     this.position = position;
     this.heading = heading;
-    this.futureHeading = heading;
+    this.futureHeadingOffset = heading.clone();
     this.params = { ...DEFAULT_PARAMS, ...params };
     this.tooCloseBBox = new CircleCollider(
       position,
@@ -76,21 +83,28 @@ export class Boids {
     );
   }
 
-  move() {
-    this.heading = this.futureHeading.clampLength(
-      this.params.minSpeed,
-      this.params.maxSpeed,
-    );
-    this.position.add(this.heading);
+  /**
+   *
+   * @param deltatime The deltatime in SECONDS.
+   */
+  move(deltatime: number) {
+    this.heading
+      .copy(this.futureHeadingOffset)
+      .clampLength(this.params.minSpeed, this.params.maxSpeed)
+      .multiplyScalar(this.params.speedScale);
+
+    this.position.add(this.heading.clone().multiplyScalar(deltatime * 60));
     this.tooCloseBBox.center = this.position;
     this.neighborsBBox.center = this.position;
   }
 
-  getNewHeading(world: World) {
-    this.futureHeading.set(0, 0);
+  calculateNewHeading(world: World) {
+    this.futureHeadingOffset.copy(this.heading);
 
     let tooClose = world.boidsQt.query(this.tooCloseBBox);
-    let neighbors = world.boidsQt.query(this.neighborsBBox);
+    let neighbors = world.boidsQt
+      .query(this.neighborsBBox)
+      .filter((v) => !tooClose.includes(v));
 
     // Separation
     let closeVec = new Vector2(0, 0);
@@ -119,55 +133,44 @@ export class Boids {
 
     // Dodge obstacles
     //   Edges
-    let turning = new Vector2(0, 0);
+    let turning = new Vector2();
 
-    if (this.position.x < world.worldArea.leftX() + this.params.obstacleRange) {
-      turning.x += this.params.turnFactor;
-    }
-
-    if (
-      this.position.x >
-      world.worldArea.rightX() - this.params.obstacleRange
-    ) {
-      turning.x -= this.params.turnFactor;
-    }
-
-    if (this.position.y < world.worldArea.topY() + this.params.obstacleRange) {
-      turning.y += this.params.turnFactor;
-    }
-
-    if (
-      this.position.y >
-      world.worldArea.bottomY() - this.params.obstacleRange
-    ) {
-      turning.y -= this.params.turnFactor;
-    }
-
-    //   Obstacles
-    world.obstacles.forEach((obstacle) => {
-      let distance = obstacle.sqDistanceToPoint(this.position);
-      if (distance < 50) {
-        // TODO: make it turn and dodge the obstacle.
-      }
+    world.obstacles.forEach((attractor) => {
+      let dist = this.position.distanceToSquared(attractor.position);
+      let mag =
+        Math.pow(dist, attractor.inverseDistance) *
+        attractor.attractiveStrength;
+      let dir = this.position.clone().sub(attractor.position);
+      turning.addScaledVector(dir, -mag);
     });
 
     // Apply the change
-    this.futureHeading.addScaledVector(closeVec, this.params.separationFactor); // Separation
-    this.futureHeading.addScaledVector(
+    this.futureHeadingOffset.addScaledVector(
+      closeVec,
+      this.params.separationFactor,
+    ); // Separation
+    this.futureHeadingOffset.addScaledVector(
       neighborsAvgHeading,
       this.params.alignmentFactor,
     ); // Alignment
-    this.futureHeading.addScaledVector(
+    this.futureHeadingOffset.addScaledVector(
       neighborsAvgPosition,
       this.params.cohesionFactor,
     ); // Cohesion
-    this.futureHeading.addScaledVector(turning, this.params.turnFactor); // Obstacle avoidance
+    this.futureHeadingOffset.add(turning); // Obstacle avoidance
 
-    this.futureHeading.clampLength(this.params.minSpeed, this.params.maxSpeed);
+    this.futureHeadingOffset.clampLength(
+      this.params.minSpeed,
+      this.params.maxSpeed,
+    );
   }
 
   public getPosition() {
     return this.position;
+  }
+
+  public getVelocity() {
+    return this.heading;
   }
 
   public updateParams(params: BoidsParamsArg) {
@@ -186,7 +189,7 @@ export class World {
   public boidsQt: SpatialContainer<Boids>;
   public boidsSprites: BoidsSprite[] = [];
   public worldArea: OrthogonalRectangleCollider;
-  obstacles: ConcreteCollider[] = [];
+  obstacles: Attractor[] = [];
   curId = 0;
 
   constructor(centerX: number, centerY: number, width: number, height: number) {
@@ -202,6 +205,11 @@ export class World {
     //   (b) => b.getPosition(),
     //   this.QT_CAPACITY,
     // );
+    this.obstacles.push({
+      position: new Vector2(centerX, centerY),
+      attractiveStrength: 0.00000005,
+      inverseDistance: 1,
+    });
   }
 
   public addBoid(position: Vector2, heading: Vector2) {
@@ -209,8 +217,12 @@ export class World {
     this.boidsQt.push(boid);
 
     // visuals:
-    let geom = makeTriangleGeometry(position, heading);
-    const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+    let geom = makeTriangleGeometry();
+    const material = new THREE.MeshBasicMaterial({
+      color: 0xff0000,
+      opacity: 0.6,
+      transparent: true,
+    });
     let boidSprite = new THREE.Mesh(geom, material);
     boidSprite.position.x = position.x;
     boidSprite.position.y = position.y;
@@ -220,62 +232,55 @@ export class World {
 
   updateHeadings() {
     this.boidsQt.queryAll().forEach((b) => {
-      b.getNewHeading(this);
+      b.calculateNewHeading(this);
     });
   }
 
-  move() {
-    // TODO: optimize this instead of making a new quadtree every iteration.
-    // let newQt = new Quadtree(
-    //   this.worldArea,
-    //   (b: Boids) => b.getPosition(),
-    //   this.QT_CAPACITY,
-    // );
-    let newQt = new BasicSpatialContainer((b: Boids) => b.getPosition());
-
-    // console.log(this.boidsQt.queryAll().length);
-
+  /**
+   *
+   * @param deltatime deltatime in SECONDS.
+   */
+  move(deltatime: number) {
     this.boidsQt.queryAll().forEach((b) => {
-      b.move();
-      newQt.push(b);
+      b.move(deltatime);
       this.boidsSprites[b.id].position.x = b.getPosition().x;
       this.boidsSprites[b.id].position.y = b.getPosition().y;
       // TODO: rotation
+      this.boidsSprites[b.id].rotation.z = b.getVelocity().angle();
 
-      console.log({
-        id: b.id,
-        position: { x: b.getPosition().x, y: b.getPosition().y },
-      });
+      // console.log({
+      //   id: b.id,
+      //   position: { x: b.getPosition().x, y: b.getPosition().y },
+      // });
     });
-
-    this.boidsQt = newQt;
+    this.boidsQt.rebalance();
   }
 
-  public update() {
+  /**
+   *
+   * @param deltatime deltatime in SECONDS.
+   */
+  public update(deltatime: number) {
     this.updateHeadings();
-    this.move();
+    this.move(deltatime);
+  }
+
+  public destroy() {
+    this.boidsQt = new BasicSpatialContainer<Boids>((b) => b.getPosition());
+    this.boidsSprites = [];
   }
 }
 
-export function makeTriangleGeometry(
-  position: THREE.Vector2Like,
-  heading: THREE.Vector2Like,
-): THREE.ShapeGeometry {
+export function makeTriangleGeometry(): THREE.ShapeGeometry {
   let shape = new THREE.Shape();
 
-  // const { x, y } = position;
-  const x = 0;
-  const y = 0;
-  const cos30 = Math.cos(Math.PI / 6);
-  let v1 = new Vector2(x, y + 1);
-  let v2 = new Vector2(x - cos30, y - 2);
-  let v3 = new Vector2(x + cos30, y - 2);
+  const leftX = -0.8;
+  const sinOfLeft = Math.sin(Math.acos(leftX));
 
-  // let rotM = Matrix.rot2D(heading.angle());
-  //
-  // rotM.transformVec2(v1);
-  // rotM.transformVec2(v2);
-  // rotM.transformVec2(v3);
+  const scale = 1;
+  let v1 = new Vector2(1, 0).multiplyScalar(scale);
+  let v2 = new Vector2(leftX, sinOfLeft).multiplyScalar(scale);
+  let v3 = new Vector2(leftX, -sinOfLeft).multiplyScalar(scale);
 
   shape.moveTo(v1.x, v1.y);
   shape.lineTo(v2.x, v2.y);
@@ -283,4 +288,3 @@ export function makeTriangleGeometry(
 
   return new THREE.ShapeGeometry(shape);
 }
-

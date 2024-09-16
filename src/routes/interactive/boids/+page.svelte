@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import * as THREE from "three";
   import { World, makeTriangleGeometry } from "./boids";
   import {
@@ -11,6 +11,7 @@
   let camera: THREE.OrthographicCamera;
   let renderer: THREE.Renderer;
   let scene: THREE.Scene;
+  let clock: THREE.Clock;
 
   let width: number;
   let height: number;
@@ -34,9 +35,9 @@
   }
 
   onMount(() => {
-    width = 600;
-    height = 400;
-    ({ camera, renderer, scene } = threejs2dInit(width, height, canvas));
+    width = 1200;
+    height = 600;
+    ({ camera, renderer, scene } = threejs2dInit(width, height, canvas, 2));
     console.log("camera boundaries: ", {
       top: camera.top,
       bottom: camera.bottom,
@@ -51,42 +52,47 @@
       camera.top - camera.bottom,
     );
 
-    for (let i = 0; i < 20; ++i) {
+    // Add the boids to the world
+    for (let i = 0; i < 100; ++i) {
       let x = Math.random() * (camera.right - camera.left) + camera.left;
       let y = Math.random() * (camera.top - camera.bottom) + camera.bottom;
       let v = new THREE.Vector2(x, y);
-      console.log(v);
-      // let worldPos = pixelToWorld(x, y, width, height, camera);
+      // console.log(v);
       world.addBoid(v, new THREE.Vector2(Math.random(), Math.random()));
     }
     scene.add(...world.boidsSprites);
 
-    // const triGeom = makeTriangleGeometry({ x: 0, y: 0 }, { x: 0, y: 0 });
-    // const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-    // let boidSprite = new THREE.Mesh(triGeom, material);
-    // // boidSprite.position.x = -75;
-    // console.log("camera params: ", camera.top);
-    // console.log("world pos", boidSprite.getWorldPosition(new THREE.Vector3()));
-    // console.log(
-    //   "vertex pos",
-    //   boidSprite.getVertexPosition(0, new THREE.Vector3()),
-    // );
-    //
-    // scene.add(boidSprite);
-
+    clock = new THREE.Clock();
     const animate = threejsAnimate(
-      (_p: {
+      (p: {
         scene: THREE.Scene;
         camera: THREE.OrthographicCamera;
         renderer: THREE.Renderer;
-      }) => world.update(),
+        deltatime: number;
+      }) => {
+        if (p.deltatime > 0) {
+          console.log(p.deltatime);
+          world.update(p.deltatime);
+        }
+      },
       renderer,
       scene,
       camera,
+      clock,
     );
 
-    let clock = new THREE.Clock();
     animate();
+  });
+  onDestroy(() => {
+    if (world) {
+      world.destroy();
+    }
+    if (scene) {
+      scene.clear();
+    }
+    if (clock) {
+      clock.stop();
+    }
   });
 </script>
 

@@ -35,15 +35,18 @@ export function threejsAnimate<CameraT extends THREE.Camera>(
     scene: THREE.Scene;
     camera: CameraT;
     renderer: THREE.Renderer;
+    deltatime: number;
   }) => void,
   renderer: THREE.Renderer,
   scene: THREE.Scene,
   camera: CameraT,
+  clock: THREE.Clock
 ) {
   const animate = () => {
     requestAnimationFrame(animate);
 
-    updateCallback({ camera, scene, renderer });
+    let deltatime = clock.getDelta()
+    updateCallback({ camera, scene, renderer, deltatime});
 
     renderer.render(scene, camera);
   };
