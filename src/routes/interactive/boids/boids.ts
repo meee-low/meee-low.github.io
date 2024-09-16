@@ -5,7 +5,7 @@ import {
   type ConcreteCollider,
 } from "$lib/math/colliders";
 import { Matrix } from "$lib/math/linalg";
-import { Quadtree } from "$lib/math/quadtree";
+import { BasicSpatialContainer, Quadtree, SpatialContainer } from "$lib/math/quadtree";
 import { Vector2 } from "three";
 import * as THREE from "three";
 
@@ -183,7 +183,7 @@ export class Boids {
 
 export class World {
   readonly QT_CAPACITY = 3;
-  public boidsQt: Quadtree<Boids>;
+  public boidsQt: SpatialContainer<Boids>;
   public boidsSprites: BoidsSprite[] = [];
   public worldArea: OrthogonalRectangleCollider;
   obstacles: ConcreteCollider[] = [];
@@ -196,11 +196,12 @@ export class World {
       width,
       height,
     );
-    this.boidsQt = new Quadtree<Boids>(
-      this.worldArea,
-      (b) => b.getPosition(),
-      this.QT_CAPACITY,
-    );
+    this.boidsQt = new BasicSpatialContainer((b) => b.getPosition());
+    // this.boidsQt = new Quadtree<Boids>(
+    //   this.worldArea,
+    //   (b) => b.getPosition(),
+    //   this.QT_CAPACITY,
+    // );
   }
 
   public addBoid(position: Vector2, heading: Vector2) {
@@ -225,11 +226,12 @@ export class World {
 
   move() {
     // TODO: optimize this instead of making a new quadtree every iteration.
-    let newQt = new Quadtree(
-      this.worldArea,
-      (b: Boids) => b.getPosition(),
-      this.QT_CAPACITY,
-    );
+    // let newQt = new Quadtree(
+    //   this.worldArea,
+    //   (b: Boids) => b.getPosition(),
+    //   this.QT_CAPACITY,
+    // );
+    let newQt = new BasicSpatialContainer((b: Boids) => b.getPosition());
 
     // console.log(this.boidsQt.queryAll().length);
 

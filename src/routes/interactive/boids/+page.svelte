@@ -51,7 +51,7 @@
       camera.top - camera.bottom,
     );
 
-    for (let i = 0; i < 100; ++i) {
+    for (let i = 0; i < 20; ++i) {
       let x = Math.random() * (camera.right - camera.left) + camera.left;
       let y = Math.random() * (camera.top - camera.bottom) + camera.bottom;
       let v = new THREE.Vector2(x, y);
@@ -85,6 +85,7 @@
       camera,
     );
 
+    let clock = new THREE.Clock();
     animate();
   });
 </script>

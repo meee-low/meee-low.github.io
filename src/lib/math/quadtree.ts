@@ -4,6 +4,35 @@ import {
   type Point,
 } from "./colliders";
 
+
+export abstract class SpatialContainer<T> {
+  public abstract push(element: T): void
+  public abstract query(boundaryBox: Readonly<ConcreteCollider>): T[]
+  public abstract queryAll(): T[]
+  public abstract rebalance(parent?: typeof this): void
+}
+
+export class BasicSpatialContainer<T> extends SpatialContainer<T> {
+  elements: T[] = []
+  accessFunc: (el: T) => Point;
+  constructor(accessFunc: (el: T)=>Point) {
+    super()
+    this.accessFunc = accessFunc
+  }
+  public push(element: T): void {
+    this.elements.push(element);
+  }
+  public query(boundaryBox: Readonly<ConcreteCollider>): T[] {
+    return this.elements.filter((el) =>
+      boundaryBox.contains(this.accessFunc(el)),
+    );
+  }
+  public queryAll(): T[] {
+    return this.elements;
+  }
+  public rebalance(): void {}
+}
+
 interface Quadrants<T> {
   ne: Quadtree<T>;
   nw: Quadtree<T>;
@@ -11,7 +40,7 @@ interface Quadrants<T> {
   sw: Quadtree<T>;
 }
 
-export class Quadtree<T> {
+export class Quadtree<T> extends SpatialContainer<T> {
   private elements: T[] = [];
   private subdivisions: Quadrants<T> | undefined = undefined;
   private readonly accessCoordinate: (element: T) => Point;
@@ -23,6 +52,7 @@ export class Quadtree<T> {
     accessCoordinatesFunc: (element: T) => Point,
     capacity: number,
   ) {
+    super()
     this.accessCoordinate = accessCoordinatesFunc;
     this.capacity = capacity;
     this.boundaryBox = boundaryBox;
@@ -148,5 +178,23 @@ export class Quadtree<T> {
   /** Returns a list of all the elements inside this and its children. */
   public queryAll() {
     return this.query(this.boundaryBox);
+  }
+
+  public rebalance(parent?: Quadtree<T>): void {
+    const par = parent ?? this;
+    this.elements.forEach((v, i) => {
+      if (!this.boundaryBox.contains(this.accessCoordinate(v))) {
+        this.elements.splice(i, 1);
+        if (par !== this) {
+          par.push(v);
+        }
+      }
+    })
+    if (this.subdivisions) {
+      this.subdivisions.ne.rebalance(par);
+      this.subdivisions.se.rebalance(par);
+      this.subdivisions.nw.rebalance(par);
+      this.subdivisions.sw.rebalance(par);
+    }
   }
 }
