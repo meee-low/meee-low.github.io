@@ -44,7 +44,7 @@ const DEFAULT_PARAMS: BoidsParams = {
   separationFactor: 0.05,
   alignmentFactor: 0.05,
   turnFactor: 0.25,
-  speedScale: 0.8,
+  speedScale: 1,
 };
 
 type Attractor = {
@@ -93,7 +93,8 @@ export class Boids {
       .clampLength(this.params.minSpeed, this.params.maxSpeed)
       .multiplyScalar(this.params.speedScale);
 
-    this.position.add(this.heading.clone().multiplyScalar(deltatime * 60));
+    // this.position.add(this.heading.clone().multiplyScalar(deltatime * 60));
+    this.position.addScaledVector(this.heading, deltatime * 60);
     this.tooCloseBBox.center = this.position;
     this.neighborsBBox.center = this.position;
   }
@@ -132,13 +133,12 @@ export class Boids {
     }
 
     // Dodge obstacles
-    //   Edges
     let turning = new Vector2();
 
     world.obstacles.forEach((attractor) => {
       let dist = this.position.distanceToSquared(attractor.position);
       let mag =
-        Math.pow(dist, attractor.inverseDistance) *
+        Math.pow(dist, -attractor.inverseDistance) *
         attractor.attractiveStrength;
       let dir = this.position.clone().sub(attractor.position);
       turning.addScaledVector(dir, -mag);
@@ -205,9 +205,22 @@ export class World {
     //   (b) => b.getPosition(),
     //   this.QT_CAPACITY,
     // );
-    this.obstacles.push({
+
+    this.addObstacle({
       position: new Vector2(centerX, centerY),
-      attractiveStrength: 0.00000005,
+      attractiveStrength: 0.00000006,
+      inverseDistance: -1,
+    });
+
+    this.addObstacle({
+      position: new Vector2(centerX - width / 6, centerY),
+      attractiveStrength: -0.000000001,
+      inverseDistance: 1,
+    });
+
+    this.addObstacle({
+      position: new Vector2(centerX + width / 6, centerY),
+      attractiveStrength: -0.000000001,
       inverseDistance: 1,
     });
   }
@@ -219,7 +232,7 @@ export class World {
     // visuals:
     let geom = makeTriangleGeometry();
     const material = new THREE.MeshBasicMaterial({
-      color: 0xff0000,
+      color: 0xffffff,
       opacity: 0.6,
       transparent: true,
     });
@@ -263,6 +276,10 @@ export class World {
   public update(deltatime: number) {
     this.updateHeadings();
     this.move(deltatime);
+  }
+
+  public addObstacle(obstacle: Attractor) {
+    this.obstacles.push(obstacle);
   }
 
   public destroy() {

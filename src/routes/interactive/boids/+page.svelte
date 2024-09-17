@@ -6,12 +6,15 @@
     threejs2dInit,
     threejsAnimate,
   } from "$lib/threejs/threejs_boiler_plate";
+  import Controls from "./controls.svelte";
 
   let canvas: HTMLCanvasElement;
   let camera: THREE.OrthographicCamera;
   let renderer: THREE.Renderer;
   let scene: THREE.Scene;
   let clock: THREE.Clock;
+
+  const numberOfBoids = 200;
 
   let width: number;
   let height: number;
@@ -53,7 +56,7 @@
     );
 
     // Add the boids to the world
-    for (let i = 0; i < 100; ++i) {
+    for (let i = 0; i < numberOfBoids; ++i) {
       let x = Math.random() * (camera.right - camera.left) + camera.left;
       let y = Math.random() * (camera.top - camera.bottom) + camera.bottom;
       let v = new THREE.Vector2(x, y);
@@ -72,7 +75,7 @@
       }) => {
         if (p.deltatime > 0) {
           console.log(p.deltatime);
-          world.update(p.deltatime);
+          world.update(Math.min(p.deltatime, 1/15));
         }
       },
       renderer,
@@ -96,4 +99,7 @@
   });
 </script>
 
-<canvas bind:this={canvas}></canvas>
+<div>
+  <canvas bind:this={canvas}></canvas>
+  <Controls></Controls>
+</div>
