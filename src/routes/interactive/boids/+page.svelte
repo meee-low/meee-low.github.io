@@ -7,12 +7,15 @@
     threejsAnimate,
   } from "$lib/threejs/threejs_boiler_plate";
   import Controls from "./controls.svelte";
+  import FpsCounter from "$lib/threejs/FPSCounter.svelte";
 
   let canvas: HTMLCanvasElement;
   let camera: THREE.OrthographicCamera;
   let renderer: THREE.Renderer;
   let scene: THREE.Scene;
   let clock: THREE.Clock;
+
+  let fpsCounter: FpsCounter;
 
   const numberOfBoids = 200;
 
@@ -74,8 +77,9 @@
         deltatime: number;
       }) => {
         if (p.deltatime > 0) {
-          console.log(p.deltatime);
-          world.update(Math.min(p.deltatime, 1/15));
+          // console.log(p.deltatime);
+          fpsCounter.pushDeltatime(p.deltatime);
+          world.update(Math.min(p.deltatime, 1 / 15));
         }
       },
       renderer,
@@ -99,7 +103,12 @@
   });
 </script>
 
-<div>
-  <canvas bind:this={canvas}></canvas>
-  <Controls></Controls>
+<div class="relative">
+  <div class="absolute select-none text-white">
+    <FpsCounter bind:this={fpsCounter}></FpsCounter>
+  </div>
+  <div>
+    <canvas bind:this={canvas}></canvas>
+    <Controls></Controls>
+  </div>
 </div>
