@@ -1,7 +1,6 @@
 /**
  * A generic RingBuffer class that stores a fixed number of elements in a circular buffer.
  * Once the buffer is full, older elements are overwritten with new ones, that is, in a FIFO style. 
- * This class supports push, pop, peek, and other utility methods.
  *
  * @template T - The type of elements stored in the buffer.
  */
@@ -77,7 +76,7 @@ export class RingBuffer<T> {
     let index = this.head;
     let result: U[] = new Array<U>(this.occupancy);
     for (let i = 0; i < this.occupancy; ++i) {
-      result.push(callback(this.array[index]));
+      result[i] = callback(this.array[index]);
       index = (index + 1) % this.capacity;
     }
     return result;
@@ -113,7 +112,7 @@ export class RingBuffer<T> {
 }
 
 /**
- * A specialized RingBuffer for handling numeric data, extending RingBuffer<number>.
+ * A specialized RingBuffer for handling numeric data, extending RingBuffer<number> (FIFO-style).
  * Provides additional methods for calculating numeric aggregates of buffer contents.
  */
 export class NumericRingBuffer extends RingBuffer<number> {
