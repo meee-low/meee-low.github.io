@@ -17,31 +17,14 @@
 
   let fpsCounter: FpsCounter;
 
-  const numberOfBoids = 200;
+  const numberOfBoids = 350;
 
   let width: number;
   let height: number;
   let world: World;
 
-  function pixelToWorld(
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-    camera: THREE.OrthographicCamera,
-  ) {
-    const aspect = width / height;
-    const frustumHeight = camera.top - camera.bottom;
-    const frustumWidth = frustumHeight * aspect;
-
-    const worldX = (x / width) * frustumWidth - frustumWidth / 2;
-    const worldY = -(y / height) * frustumHeight - frustumHeight / 2;
-
-    return new THREE.Vector2(worldX, worldY);
-  }
-
   onMount(() => {
-    width = 1200;
+    width = 800;
     height = 600;
     ({ camera, renderer, scene } = threejs2dInit(width, height, canvas, 2));
     console.log("camera boundaries: ", {
@@ -103,12 +86,12 @@
   });
 </script>
 
-<div class="relative">
-  <div class="absolute select-none text-white">
-    <FpsCounter bind:this={fpsCounter}></FpsCounter>
+<div>
+  <div class="relative">
+    <div class="absolute z-10 select-none text-white">
+      <FpsCounter bind:this={fpsCounter}></FpsCounter>
+    </div>
+    <canvas class="relative" bind:this={canvas}> </canvas>
   </div>
-  <div>
-    <canvas bind:this={canvas}></canvas>
-    <Controls></Controls>
-  </div>
+  <Controls></Controls>
 </div>

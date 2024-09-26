@@ -4,7 +4,12 @@ import {
   OrthogonalRectangleCollider,
   type ConcreteCollider,
 } from "$lib/math/colliders";
-import { BasicSpatialContainer, SpatialContainer } from "$lib/math/quadtree";
+import {
+  BasicSpatialContainer,
+  SpatialContainer,
+  Quadtree,
+  Quadtree2,
+} from "$lib/math/quadtree";
 import { Vector2 } from "three";
 import * as THREE from "three";
 
@@ -34,6 +39,7 @@ interface BoidsParams {
   turnFactor: number;
   speedScale: number;
 }
+
 const DEFAULT_PARAMS: BoidsParams = {
   maxSpeed: 3,
   minSpeed: 2,
@@ -185,10 +191,11 @@ export class Boids {
 }
 
 export class World {
-  readonly QT_CAPACITY = 3;
+  readonly QT_CAPACITY = 50;
   public boidsQt: SpatialContainer<Boids>;
   public boidsSprites: BoidsSprite[] = [];
   public worldArea: OrthogonalRectangleCollider;
+  frameCount = 0;
   obstacles: Attractor[] = [];
   curId = 0;
 
@@ -196,15 +203,15 @@ export class World {
     this.worldArea = new OrthogonalRectangleCollider(
       centerX,
       centerY,
-      width,
-      height,
+      width * 2,
+      height * 2,
     );
-    this.boidsQt = new BasicSpatialContainer((b) => b.getPosition());
-    // this.boidsQt = new Quadtree<Boids>(
-    //   this.worldArea,
-    //   (b) => b.getPosition(),
-    //   this.QT_CAPACITY,
-    // );
+    // this.boidsQt = new BasicSpatialContainer((b) => b.getPosition());
+    this.boidsQt = new Quadtree2<Boids>(
+      this.worldArea,
+      (b) => b.getPosition(),
+      this.QT_CAPACITY,
+    );
 
     this.addObstacle({
       position: new Vector2(centerX, centerY),
@@ -254,6 +261,8 @@ export class World {
    * @param deltatime deltatime in SECONDS.
    */
   move(deltatime: number) {
+    this.frameCount++;
+
     this.boidsQt.queryAll().forEach((b) => {
       b.move(deltatime);
       this.boidsSprites[b.id].position.x = b.getPosition().x;
@@ -266,7 +275,18 @@ export class World {
       //   position: { x: b.getPosition().x, y: b.getPosition().y },
       // });
     });
-    this.boidsQt.rebalance();
+    if (this.frameCount % 180 === 0) {
+      let bbs = this.boidsQt.queryAll();
+      this.boidsQt = new Quadtree2<Boids>(
+        this.worldArea,
+        (b) => b.getPosition(),
+        this.QT_CAPACITY,
+      );
+
+      bbs.forEach((b) => this.boidsQt.push(b));
+    } else {
+      this.boidsQt.rebalance();
+    }
   }
 
   /**

@@ -4,20 +4,19 @@ import {
   type Point,
 } from "./colliders";
 
-
 export abstract class SpatialContainer<T> {
-  public abstract push(element: T): void
-  public abstract query(boundaryBox: Readonly<ConcreteCollider>): T[]
-  public abstract queryAll(): T[]
-  public abstract rebalance(parent?: typeof this): void
+  public abstract push(element: T): void;
+  public abstract query(boundaryBox: Readonly<ConcreteCollider>): T[];
+  public abstract queryAll(): T[];
+  public abstract rebalance(parent?: typeof this): void;
 }
 
 export class BasicSpatialContainer<T> extends SpatialContainer<T> {
-  elements: T[] = []
+  elements: T[] = [];
   accessFunc: (el: T) => Point;
-  constructor(accessFunc: (el: T)=>Point) {
-    super()
-    this.accessFunc = accessFunc
+  constructor(accessFunc: (el: T) => Point) {
+    super();
+    this.accessFunc = accessFunc;
   }
   public push(element: T): void {
     this.elements.push(element);
@@ -31,6 +30,186 @@ export class BasicSpatialContainer<T> extends SpatialContainer<T> {
     return this.elements;
   }
   public rebalance(): void {}
+}
+
+export class Quadtree2<T> extends SpatialContainer<T> {
+  elements: T[] = [];
+  accessFunc: (el: T) => Point;
+  readonly capacity: number;
+  boundaryBox: OrthogonalRectangleCollider;
+  subdivisions: Quadrants2<T> | undefined = undefined;
+
+  constructor(
+    boundaryBox: OrthogonalRectangleCollider,
+    accessCoordinatesFunc: (element: T) => Point,
+    capacity: number,
+  ) {
+    super();
+    this.accessFunc = accessCoordinatesFunc;
+    // this.capacity = capacity;
+    this.capacity = capacity;
+    this.boundaryBox = boundaryBox;
+  }
+
+  public push(element: T): void {
+    if (this.elements.length <= this.capacity) {
+      this.elements.push(element);
+      return;
+    }
+
+    // Else, subdivide:
+    if (typeof this.subdivisions === typeof undefined) {
+      this.subdivisions = {
+        ne: new Quadtree2<T>(
+          new OrthogonalRectangleCollider(
+            (this.boundaryBox.centerX + this.boundaryBox.rightX()) / 2,
+            (this.boundaryBox.centerY + this.boundaryBox.topY()) / 2,
+            this.boundaryBox.width / 2,
+            this.boundaryBox.height / 2,
+          ),
+          this.accessFunc,
+          this.capacity,
+        ),
+        nw: new Quadtree2<T>(
+          new OrthogonalRectangleCollider(
+            (this.boundaryBox.centerX + this.boundaryBox.leftX()) / 2,
+            (this.boundaryBox.centerY + this.boundaryBox.topY()) / 2,
+            this.boundaryBox.width / 2,
+            this.boundaryBox.height / 2,
+          ),
+          this.accessFunc,
+          this.capacity,
+        ),
+        se: new Quadtree2<T>(
+          new OrthogonalRectangleCollider(
+            (this.boundaryBox.centerX + this.boundaryBox.rightX()) / 2,
+            (this.boundaryBox.centerY + this.boundaryBox.bottomY()) / 2,
+            this.boundaryBox.width / 2,
+            this.boundaryBox.height / 2,
+          ),
+          this.accessFunc,
+          this.capacity,
+        ),
+        sw: new Quadtree2<T>(
+          new OrthogonalRectangleCollider(
+            (this.boundaryBox.centerX + this.boundaryBox.leftX()) / 2,
+            (this.boundaryBox.centerY + this.boundaryBox.bottomY()) / 2,
+            this.boundaryBox.width / 2,
+            this.boundaryBox.height / 2,
+          ),
+          this.accessFunc,
+          this.capacity,
+        ),
+      };
+    }
+
+    if (this.subdivisions) {
+      let toTheLeft = this.accessFunc(element).x < this.boundaryBox.centerX;
+      let toTheTop = this.accessFunc(element).y < this.boundaryBox.centerY;
+
+      if (toTheLeft && toTheTop) {
+        this.subdivisions.nw.push(element);
+      } else if (!toTheLeft && toTheTop) {
+        this.subdivisions.ne.push(element);
+      } else if (toTheLeft && !toTheTop) {
+        this.subdivisions.sw.push(element);
+      } else if (!toTheLeft && !toTheTop) {
+        this.subdivisions.se.push(element);
+      } else {
+        this.subdivisions.nw.push(element);
+      }
+    }
+  }
+
+  public query(boundaryBox: Readonly<ConcreteCollider>): T[] {
+    if (!boundaryBox.intersects(this.boundaryBox)) {
+      return [];
+    }
+    let results: T[] = [];
+
+    this.elements
+      .filter((el) => boundaryBox.contains(this.accessFunc(el)))
+      .forEach((el) => results.push(el));
+
+    if (this.subdivisions) {
+      this.subdivisions.ne
+        .query(boundaryBox)
+        .filter((el) => boundaryBox.contains(this.accessFunc(el)))
+        .forEach((el) => results.push(el));
+
+      this.subdivisions.nw
+        .query(boundaryBox)
+        .filter((el) => boundaryBox.contains(this.accessFunc(el)))
+        .forEach((el) => results.push(el));
+
+      this.subdivisions.se
+        .query(boundaryBox)
+        .filter((el) => boundaryBox.contains(this.accessFunc(el)))
+        .forEach((el) => results.push(el));
+
+      this.subdivisions.sw
+        .query(boundaryBox)
+        .filter((el) => boundaryBox.contains(this.accessFunc(el)))
+        .forEach((el) => results.push(el));
+    }
+    return results;
+  }
+
+  public queryAll(): T[] {
+    let results: T[] = [];
+    this.elements.forEach((el) => results.push(el));
+
+    if (this.subdivisions) {
+      this.subdivisions.ne.queryAll().forEach((el) => results.push(el));
+      this.subdivisions.nw.queryAll().forEach((el) => results.push(el));
+      this.subdivisions.se.queryAll().forEach((el) => results.push(el));
+      this.subdivisions.sw.queryAll().forEach((el) => results.push(el));
+    }
+    return results;
+  }
+
+  public rebalance(parent?: Quadtree2<T>): void {
+    let par = parent ?? this;
+    this.elements.forEach((el, i) => {
+      if (!this.boundaryBox.contains(this.accessFunc(el))) {
+        this.elements.splice(i, 1);
+        par.push(el);
+      }
+    });
+
+    if (this.subdivisions) {
+      this.subdivisions.ne.rebalance(par);
+      this.subdivisions.nw.rebalance(par);
+      this.subdivisions.se.rebalance(par);
+      this.subdivisions.sw.rebalance(par);
+    }
+
+    if (this.subdivisions) {
+      // Trim irrelevant subdivisions.
+      // A subdivision is irrelevant if it has no actual child elements and if its subdivisions are the end-node of the tree.
+      // Some other criterium could be used but I think this is a good tradeoff between accuracy and speed.
+      let subs = [
+        this.subdivisions.ne,
+        this.subdivisions.nw,
+        this.subdivisions.se,
+        this.subdivisions.sw,
+      ];
+      let childs = subs.reduce((acc, el) => acc + el.elements.length, 0);
+      let subsAreUndivided = subs.every(
+        (s) => typeof s.subdivisions === typeof undefined,
+      );
+      if (childs === 0 && subsAreUndivided) {
+        this.subdivisions = undefined;
+      }
+    }
+  }
+}
+
+interface Quadrants2<T> {
+  ne: Quadtree2<T>;
+  nw: Quadtree2<T>;
+  se: Quadtree2<T>;
+  sw: Quadtree2<T>;
 }
 
 interface Quadrants<T> {
@@ -52,7 +231,7 @@ export class Quadtree<T> extends SpatialContainer<T> {
     accessCoordinatesFunc: (element: T) => Point,
     capacity: number,
   ) {
-    super()
+    super();
     this.accessCoordinate = accessCoordinatesFunc;
     this.capacity = capacity;
     this.boundaryBox = boundaryBox;
@@ -64,7 +243,7 @@ export class Quadtree<T> extends SpatialContainer<T> {
     const halfWidth = this.boundaryBox.width / 2;
     const halfHeight = this.boundaryBox.height / 2;
 
-    console.log("Subdividing...")
+    console.log("Subdividing...");
 
     for (let i = -1 / 2; i <= 1 / 2; i += 1) {
       const cy = this.boundaryBox.centerY + i * this.boundaryBox.height;
@@ -76,11 +255,10 @@ export class Quadtree<T> extends SpatialContainer<T> {
           halfWidth,
           halfHeight,
         );
-        console.log({cx, cy})
+        console.log({ cx, cy });
         bBoxes.push(bbox);
       }
     }
-
 
     this.subdivisions = {
       nw: new Quadtree(bBoxes[0], this.accessCoordinate, this.capacity),
@@ -167,7 +345,7 @@ export class Quadtree<T> extends SpatialContainer<T> {
     // recurse through the subdivisions
     if (this.subdivisions) {
       for (const sub of Object.values(this.subdivisions)) {
-        sub as Quadtree<T>
+        sub as Quadtree<T>;
         acc = [...acc, ...sub.queryImpl(collider, acc)];
       }
     }
@@ -189,7 +367,7 @@ export class Quadtree<T> extends SpatialContainer<T> {
           par.push(v);
         }
       }
-    })
+    });
     if (this.subdivisions) {
       this.subdivisions.ne.rebalance(par);
       this.subdivisions.se.rebalance(par);
