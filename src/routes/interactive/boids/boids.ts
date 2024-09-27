@@ -12,46 +12,16 @@ import {
 } from "$lib/math/quadtree";
 import { Vector2 } from "three";
 import * as THREE from "three";
+import {
+  DEFAULT_CONTROL_PARAMS,
+  DEFAULT_BOIDS_PARAMS,
+  type ControlParams,
+  type BoidsParams,
+} from "./controls_store";
+import { assertNever } from "$lib/utils";
+import { onlyChangedFields, pick, pickFrom } from "$lib/utils/type_utils";
 
 type BoidsSprite = THREE.Mesh;
-
-interface BoidsParamsArg {
-  maxSpeed?: number;
-  minSpeed?: number;
-  neighborRange?: number;
-  protectedRange?: number;
-  obstacleRange?: number;
-  centeringFactor?: number;
-  avoidFactor?: number;
-  matchingFactor?: number;
-  turnFactor?: number;
-}
-
-interface BoidsParams {
-  maxSpeed: number;
-  minSpeed: number;
-  neighborRange: number;
-  protectedRange: number;
-  obstacleRange: number;
-  cohesionFactor: number;
-  separationFactor: number;
-  alignmentFactor: number;
-  turnFactor: number;
-  speedScale: number;
-}
-
-const DEFAULT_PARAMS: BoidsParams = {
-  maxSpeed: 3,
-  minSpeed: 2,
-  neighborRange: 20,
-  protectedRange: 2,
-  obstacleRange: 50,
-  cohesionFactor: 0.0005,
-  separationFactor: 0.05,
-  alignmentFactor: 0.05,
-  turnFactor: 0.25,
-  speedScale: 1,
-};
 
 type Attractor = {
   position: Vector2;
@@ -72,13 +42,13 @@ export class Boids {
     id: number,
     position: Vector2,
     heading: Vector2,
-    params: BoidsParamsArg = {},
+    params: Partial<BoidsParams> = {},
   ) {
     this.id = id;
     this.position = position;
     this.heading = heading;
     this.futureHeadingOffset = heading.clone();
-    this.params = { ...DEFAULT_PARAMS, ...params };
+    this.params = { ...DEFAULT_BOIDS_PARAMS, ...params };
     this.tooCloseBBox = new CircleCollider(
       position,
       this.params.protectedRange,
@@ -108,10 +78,12 @@ export class Boids {
   calculateNewHeading(world: World) {
     this.futureHeadingOffset.copy(this.heading);
 
-    let tooClose = world.boidsQt.query(this.tooCloseBBox);
-    let neighbors = world.boidsQt
-      .query(this.neighborsBBox)
-      .filter((v) => !tooClose.includes(v));
+    let neighbors = world.boidsQt.query(this.neighborsBBox);
+    // .filter((v) => !tooClose.includes(v));
+
+    let tooClose = neighbors.filter((b) =>
+      this.tooCloseBBox.contains(b.getPosition()),
+    );
 
     // Separation
     let closeVec = new Vector2(0, 0);
@@ -179,7 +151,7 @@ export class Boids {
     return this.heading;
   }
 
-  public updateParams(params: BoidsParamsArg) {
+  public updateParams(params: Partial<BoidsParams>) {
     if (params.neighborRange) {
       this.neighborsBBox.radius = params.neighborRange;
     }
@@ -191,10 +163,10 @@ export class Boids {
 }
 
 export class World {
-  readonly QT_CAPACITY = 50;
   public boidsQt: SpatialContainer<Boids>;
   public boidsSprites: BoidsSprite[] = [];
   public worldArea: OrthogonalRectangleCollider;
+  worldParams: ControlParams = DEFAULT_CONTROL_PARAMS;
   frameCount = 0;
   obstacles: Attractor[] = [];
   curId = 0;
@@ -210,7 +182,7 @@ export class World {
     this.boidsQt = new Quadtree2<Boids>(
       this.worldArea,
       (b) => b.getPosition(),
-      this.QT_CAPACITY,
+      this.worldParams.quadtreeCapacity,
     );
 
     this.addObstacle({
@@ -250,6 +222,10 @@ export class World {
     this.boidsSprites.push(boidSprite);
   }
 
+  public getSprites() {
+    return this.boidsSprites;
+  }
+
   updateHeadings() {
     this.boidsQt.queryAll().forEach((b) => {
       b.calculateNewHeading(this);
@@ -269,18 +245,13 @@ export class World {
       this.boidsSprites[b.id].position.y = b.getPosition().y;
       // TODO: rotation
       this.boidsSprites[b.id].rotation.z = b.getVelocity().angle();
-
-      // console.log({
-      //   id: b.id,
-      //   position: { x: b.getPosition().x, y: b.getPosition().y },
-      // });
     });
     if (this.frameCount % 180 === 0) {
       let bbs = this.boidsQt.queryAll();
       this.boidsQt = new Quadtree2<Boids>(
         this.worldArea,
         (b) => b.getPosition(),
-        this.QT_CAPACITY,
+        this.worldParams.quadtreeCapacity,
       );
 
       bbs.forEach((b) => this.boidsQt.push(b));
@@ -305,6 +276,67 @@ export class World {
   public destroy() {
     this.boidsQt = new BasicSpatialContainer<Boids>((b) => b.getPosition());
     this.boidsSprites = [];
+  }
+
+  /**
+   *
+   * @param params
+   *
+   * @returns Whether an update to the `scene` is needed.
+   */
+  public updateParams(params: ControlParams): boolean {
+    let needsSceneUpdate = false;
+    const patch = onlyChangedFields(this.worldParams, params);
+    this.worldParams = params;
+
+    // Change in the number of boids:
+    while (params.numberOfBoids > this.curId) {
+      needsSceneUpdate = true;
+      let x = Math.random() * this.worldArea.width + this.worldArea.leftX();
+      let y = Math.random() * this.worldArea.height + this.worldArea.topY();
+      let v = new THREE.Vector2(x, y);
+      this.addBoid(v, new THREE.Vector2(Math.random(), Math.random()));
+    }
+    if (params.numberOfBoids < this.curId) {
+      needsSceneUpdate = true;
+      let boids = this.boidsQt
+        .queryAll()
+        .filter((b) => b.id < params.numberOfBoids);
+      this.reconstructSpace(boids);
+      this.boidsSprites = this.boidsSprites.slice(0, params.numberOfBoids);
+      this.curId = params.numberOfBoids;
+    }
+
+    // Change in the data structure:
+    if (
+      params.spatialStructure !== this.worldParams.spatialStructure ||
+      params.numberOfBoids !== this.worldParams.numberOfBoids
+    ) {
+      this.reconstructSpace(this.boidsQt.queryAll());
+    }
+
+    // Propagate to the individual boids:
+    const boidParams = pickFrom(params, DEFAULT_BOIDS_PARAMS);
+    this.boidsQt.queryAll().forEach((b) => {
+      b.updateParams(boidParams);
+    });
+    return needsSceneUpdate;
+  }
+
+  private reconstructSpace(boids: Boids[]) {
+    if (this.worldParams.spatialStructure === "array") {
+      this.boidsQt = new BasicSpatialContainer((b) => b.getPosition());
+    } else if (this.worldParams.spatialStructure === "quadtree") {
+      this.boidsQt = new Quadtree2(
+        this.worldArea,
+        (b) => b.getPosition(),
+        this.worldParams.quadtreeCapacity,
+      );
+    } else {
+      assertNever(this.worldParams.spatialStructure);
+    }
+
+    boids.forEach((b) => this.boidsQt.push(b));
   }
 }
 

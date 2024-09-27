@@ -6,8 +6,10 @@
     threejs2dInit,
     threejsAnimate,
   } from "$lib/threejs/threejs_boiler_plate";
-  import Controls from "./controls.svelte";
+  import BoidsControls from "./BoidsControls.svelte";
   import FpsCounter from "$lib/threejs/FPSCounter.svelte";
+  import { type Writable } from "svelte/store";
+  import { type ControlParams, controlParams } from "./controls_store";
 
   let canvas: HTMLCanvasElement;
   let camera: THREE.OrthographicCamera;
@@ -17,7 +19,7 @@
 
   let fpsCounter: FpsCounter;
 
-  const numberOfBoids = 350;
+  const startingNumberOfBoids = $controlParams.numberOfBoids;
 
   let width: number;
   let height: number;
@@ -42,16 +44,25 @@
     );
 
     // Add the boids to the world
-    for (let i = 0; i < numberOfBoids; ++i) {
+    for (let i = 0; i < startingNumberOfBoids; ++i) {
       let x = Math.random() * (camera.right - camera.left) + camera.left;
       let y = Math.random() * (camera.top - camera.bottom) + camera.bottom;
       let v = new THREE.Vector2(x, y);
-      // console.log(v);
       world.addBoid(v, new THREE.Vector2(Math.random(), Math.random()));
     }
     scene.add(...world.boidsSprites);
 
     clock = new THREE.Clock();
+
+    controlParams.subscribe((v) => {
+      console.log(v);
+      const needsSceneUpdate = world.updateParams(v);
+      if (needsSceneUpdate) {
+        scene.clear();
+        scene.add(...world.getSprites());
+      }
+    });
+
     const animate = threejsAnimate(
       (p: {
         scene: THREE.Scene;
@@ -86,12 +97,14 @@
   });
 </script>
 
-<div>
-  <div class="relative">
+<div class="md:grid md:grid-cols-12 md:gap-2">
+  <div class="relative overflow-auto md:col-span-6 lg:col-span-8">
     <div class="absolute z-10 select-none text-white">
       <FpsCounter bind:this={fpsCounter}></FpsCounter>
     </div>
     <canvas class="relative" bind:this={canvas}> </canvas>
   </div>
-  <Controls></Controls>
+  <div class="md:col-span-6 lg:col-span-4">
+    <BoidsControls></BoidsControls>
+  </div>
 </div>
