@@ -93,7 +93,9 @@
         words,
         wordScores,
         ranker: {
-          elements: ranker?.elements,
+          // @ts-expect-error
+          elements: ranker?.elements, 
+          // @ts-expect-error
           matrix: ranker?.comparisons.toArrayOfArrays(),
         },
       },
