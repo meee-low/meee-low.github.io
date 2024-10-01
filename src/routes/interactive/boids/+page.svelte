@@ -28,7 +28,14 @@
   onMount(() => {
     width = 800;
     height = 600;
-    ({ camera, renderer, scene } = threejs2dInit(width, height, canvas, 2));
+    try {
+      ({ camera, renderer, scene } = threejs2dInit(width, height, canvas, 2));
+    } catch (e) {
+      window.alert(
+        `ERROR: Could not start the ThreeJS WebGL Canvas: \n  '${e}' \n\nMaybe try a different browser or check your settings.`,
+      );
+      return;
+    }
     console.log("camera boundaries: ", {
       top: camera.top,
       bottom: camera.bottom,
