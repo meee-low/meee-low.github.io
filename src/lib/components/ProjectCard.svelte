@@ -58,7 +58,7 @@
     <h2 class="mb-2 text-center text-xl font-bold">
       {projectInfo.title}
     </h2>
-    <p class="mb-6">{projectInfo.description}</p>
+    <p class="mb-6 font-sans">{projectInfo.description}</p>
     {#if languagesAndFrameworks.length > 0}
       <ul class="mb-6 md:grid md:grid-cols-2 md:place-content-around">
         {#each languagesAndFrameworks as tool}
