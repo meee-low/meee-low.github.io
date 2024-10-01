@@ -25,8 +25,8 @@
 
 <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-2">
   {#each $sortedImages as image, idx}
-    <div>
-      <img class="object-cover mx-auto" src={image.url} alt="" />
+    <div class="max-h-[20vh]" >
+      <img class="border object-contain mx-auto max-h-[80%]" src={image.url} alt="" />
       <span
         class="block overflow-hidden text-ellipsis whitespace-nowrap text-center"
         >{`#${idx+1} - ${image.file.name}`}</span

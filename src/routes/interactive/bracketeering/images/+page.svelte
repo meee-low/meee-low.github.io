@@ -1,8 +1,15 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
+  import { onMount, tick } from "svelte";
   import { imagesStore } from "./images_store";
 
-  function handleImageUpload(
+  let totalImages = 0;
+
+  $: loadingImages = !($imagesStore.length === totalImages);
+
+  onMount(()=>{totalImages=$imagesStore.length})
+
+  async function handleImageUpload(
     event: Event & { currentTarget: EventTarget & HTMLInputElement },
   ) {
     const input = event.currentTarget;
@@ -10,18 +17,28 @@
       return;
     }
     const files = Array.from(input.files);
-    files.forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        if (e.target) {
-          $imagesStore = [
-            ...$imagesStore,
-            { url: e.target.result as string, file },
-          ];
-        }
-      };
-      reader.readAsDataURL(file);
+    totalImages += files.length;
+
+    const promises = files.map((file) => {
+      new Promise<void>((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          if (
+            e.target &&
+            e.target.result &&
+            typeof e.target.result === "string"
+          ) {
+            $imagesStore = [...$imagesStore, { url: e.target.result, file }];
+            tick().then(resolve);
+          } else {
+            resolve();
+          }
+        };
+        reader.readAsDataURL(file);
+      });
     });
+
+    await Promise.all(promises);
   }
 
   function handleSubmit(e: Event) {
@@ -33,6 +50,12 @@
   // TODO: ellipse the middle of the file when it overflows.
 </script>
 
+{#if loadingImages}
+  <div>
+    {`Loading... Loaded ${$imagesStore.length} out of ${totalImages} images.`}
+  </div>
+{/if}
+
 <form on:submit={handleSubmit}>
   <input
     class="mb-4"
@@ -41,14 +64,20 @@
     multiple
     on:change={handleImageUpload}
   />
-  <input class="block rounded-sm border border-black p-2" type="submit" />
+  <input
+    class="{loadingImages
+      ? 'cursor-wait'
+      : 'cursor-pointer'} block rounded-sm border border-black p-2"
+    type="submit"
+    disabled={loadingImages}
+  />
 </form>
 
-<div class="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-6">
+<div class="grid grid-cols-2 gap-4 md:grid-cols-5 lg:grid-cols-8">
   {#each $imagesStore as image, idx}
-    <div>
+    <div class="max-h-[33vh]">
       <img
-        class="border object-cover p-1 mx-auto"
+        class="mx-auto max-h-[85%] max-w-full border object-contain"
         src={image.url}
         alt={`Uploaded image ${idx}`}
       />
