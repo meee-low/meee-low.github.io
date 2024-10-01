@@ -52,13 +52,29 @@ export class Quadtree2<T> extends SpatialContainer<T> {
   }
 
   public push(element: T): void {
-    if (this.elements.length <= this.capacity) {
+    if (!this.subdivisions && this.elements.length <= this.capacity) {
       this.elements.push(element);
       return;
     }
 
     // Else, subdivide:
-    if (typeof this.subdivisions === typeof undefined) {
+    this.subdivide();
+    const ok = this.pushToChild(element);
+    console.assert(
+      ok,
+      `Error: Could not add this element ${this.accessFunc(element)} to this quadtree ${JSON.stringify(
+        {
+          left: this.boundaryBox.leftX(),
+          right: this.boundaryBox.rightX(),
+          top: this.boundaryBox.topY(),
+          bottom: this.boundaryBox.bottomY(),
+        },
+      )}.`,
+    );
+  }
+
+  protected subdivide() {
+    if (typeof this.subdivisions === "undefined") {
       this.subdivisions = {
         ne: new Quadtree2<T>(
           new OrthogonalRectangleCollider(
@@ -102,23 +118,39 @@ export class Quadtree2<T> extends SpatialContainer<T> {
         ),
       };
     }
+    // Move the elements to the children.
+    let allOk = true;
+    this.elements.forEach((e) => {
+      const ok = this.pushToChild(e);
+      allOk = allOk && ok;
+    });
+    this.elements = [];
+    console.assert(allOk, "Could not transfer all the elements to the children.")
+  }
 
+  protected pushToChild(element: T): boolean {
     if (this.subdivisions) {
       let toTheLeft = this.accessFunc(element).x < this.boundaryBox.centerX;
       let toTheTop = this.accessFunc(element).y < this.boundaryBox.centerY;
 
       if (toTheLeft && toTheTop) {
         this.subdivisions.nw.push(element);
+        return true;
       } else if (!toTheLeft && toTheTop) {
         this.subdivisions.ne.push(element);
+        return true;
       } else if (toTheLeft && !toTheTop) {
         this.subdivisions.sw.push(element);
+        return true;
       } else if (!toTheLeft && !toTheTop) {
         this.subdivisions.se.push(element);
+        return true;
       } else {
-        this.subdivisions.nw.push(element);
+        console.error("Exhaustive check failed while pushing to child. Assumption broken.")
+        return false;
       }
     }
+    return true;
   }
 
   public query(boundaryBox: Readonly<ConcreteCollider>): T[] {
