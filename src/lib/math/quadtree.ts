@@ -218,19 +218,22 @@ export class Quadtree2<T> extends SpatialContainer<T> {
 
     if (this.subdivisions) {
       // Trim irrelevant subdivisions.
-      // A subdivision is irrelevant if it has no actual child elements and if its subdivisions are the end-node of the tree.
+      // A subdivision is irrelevant if it contains no actual points and if it's not further subdivided.
       // Some other criterium could be used but I think this is a good tradeoff between accuracy and speed.
-      let subs = [
-        this.subdivisions.ne,
-        this.subdivisions.nw,
-        this.subdivisions.se,
-        this.subdivisions.sw,
-      ];
-      let childs = subs.reduce((acc, el) => acc + el.elements.length, 0);
-      let subsAreUndivided = subs.every(
-        (s) => typeof s.subdivisions === typeof undefined,
-      );
+      let childs =
+        this.subdivisions.ne.elements.length +
+        this.subdivisions.nw.elements.length +
+        this.subdivisions.se.elements.length +
+        this.subdivisions.sw.elements.length;
+
+      let subsAreUndivided =
+        typeof this.subdivisions.ne.subdivisions === "undefined" &&
+        typeof this.subdivisions.nw.subdivisions === "undefined" &&
+        typeof this.subdivisions.se.subdivisions === "undefined" &&
+        typeof this.subdivisions.sw.subdivisions === "undefined";
+
       if (childs === 0 && subsAreUndivided) {
+        delete this.subdivisions;
         this.subdivisions = undefined;
       }
     }
