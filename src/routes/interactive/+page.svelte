@@ -58,7 +58,7 @@
             {proj.title}
           {/if}
         </h3>
-        <p class="mb-1 ml-4">{proj.description}</p>
+        <p class="mb-1 ml-4 font-sans">{proj.description}</p>
       </li>
     {/each}
   </ul>
