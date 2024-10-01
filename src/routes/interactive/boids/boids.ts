@@ -324,19 +324,21 @@ export class World {
   }
 
   private reconstructSpace(boids: Boids[]) {
+let newSS;
     if (this.worldParams.spatialStructure === "array") {
-      this.boidsQt = new BasicSpatialContainer((b) => b.getPosition());
+      newSS = new BasicSpatialContainer((b: Boids) => b.getPosition());
     } else if (this.worldParams.spatialStructure === "quadtree") {
-      this.boidsQt = new Quadtree2(
+      newSS = new Quadtree2(
         this.worldArea,
-        (b) => b.getPosition(),
+        (b: Boids) => b.getPosition(),
         this.worldParams.quadtreeCapacity,
       );
     } else {
       assertNever(this.worldParams.spatialStructure);
     }
 
-    boids.forEach((b) => this.boidsQt.push(b));
+    boids.forEach((b) => newSS.push(b));
+this.boidsQt = newSS;
   }
 }
 
