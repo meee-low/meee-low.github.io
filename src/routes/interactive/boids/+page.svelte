@@ -102,7 +102,7 @@
     <div class="absolute z-10 select-none text-white">
       <FpsCounter bind:this={fpsCounter}></FpsCounter>
     </div>
-    <canvas class="relative" bind:this={canvas}> </canvas>
+    <canvas bind:this={canvas}> </canvas>
   </div>
   <div class="md:col-span-6 lg:col-span-4">
     <BoidsControls></BoidsControls>
