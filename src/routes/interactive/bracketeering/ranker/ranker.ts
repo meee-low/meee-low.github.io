@@ -74,7 +74,7 @@ export class Ranker<T> {
     let idx2 = -1;
     if (lowest.length >= 2) {
       // Grab both from here
-      [idx1, idx2] = getTwoRandomDifferentIndexes(lowest.length);
+      [idx1, idx2] = getTwoRandomDifferentIndexes(lowest.length).map((i) => lowest[i]);
     } else {
       idx1 = lowest[randomBetweenZeroAndN(lowest.length)];
       const secLowest = evalMap[sortedKeys[1]];
