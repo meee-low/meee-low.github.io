@@ -3,11 +3,6 @@
   import { page } from "$app/stores";
   import { inputs } from "./game";
 
-  // Reactive statement to update the form based on route parameters
-  onMount(() => {
-    console.log($page.url.searchParams);
-  });
-
   // Function to handle form submission
   function handleSubmit() {
     // Perform any additional actions on form submission
