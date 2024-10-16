@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
   import * as THREE from "three";
-  import { World, makeTriangleGeometry } from "./boids";
+  import {BoidsWrapper} from "./boids_wasm_wrapper";
   import {
     threejs2dInit,
     threejsAnimate,
@@ -19,13 +19,11 @@
 
   let fpsCounter: FpsCounter;
 
-  const startingNumberOfBoids = $controlParams.numberOfBoids;
-
   let width: number;
   let height: number;
-  let world: World;
+  let wasmWrapper: BoidsWrapper;
 
-  onMount(() => {
+  onMount(async () => {
     width = 800;
     height = 600;
     try {
@@ -36,38 +34,23 @@
       );
       return;
     }
-    console.log("camera boundaries: ", {
-      top: camera.top,
-      bottom: camera.bottom,
-      left: camera.left,
-      right: camera.right,
-    });
-
-    world = new World(
-      0,
-      0,
-      camera.right - camera.left,
-      camera.top - camera.bottom,
-    );
-
-    // Add the boids to the world
-    for (let i = 0; i < startingNumberOfBoids; ++i) {
-      let x = Math.random() * (camera.right - camera.left) + camera.left;
-      let y = Math.random() * (camera.top - camera.bottom) + camera.bottom;
-      let v = new THREE.Vector2(x, y);
-      world.addBoid(v, new THREE.Vector2(Math.random(), Math.random()));
-    }
-    scene.add(...world.boidsSprites);
+    // console.log("camera boundaries: ", {
+    //   top: camera.top,
+    //   bottom: camera.bottom,
+    //   left: camera.left,
+    //   right: camera.right,
+    // });
+    // camera.translateX(camera.right);
+    // camera.translateY(camera.bottom);
+    wasmWrapper = new BoidsWrapper();
+    await wasmWrapper.initWasm();
+    scene.add(wasmWrapper.sprites);
 
     clock = new THREE.Clock();
 
     controlParams.subscribe((v) => {
-      console.log(v);
-      const needsSceneUpdate = world.updateParams(v);
-      if (needsSceneUpdate) {
-        scene.clear();
-        scene.add(...world.getSprites());
-      }
+      // console.log(v);
+      wasmWrapper.updateParams(v);
     });
 
     const animate = threejsAnimate(
@@ -80,7 +63,7 @@
         if (p.deltatime > 0) {
           // console.log(p.deltatime);
           fpsCounter.pushDeltatime(p.deltatime);
-          world.update(Math.min(p.deltatime, 1 / 15));
+          wasmWrapper.update(Math.min(p.deltatime, 1 / 15));
         }
       },
       renderer,
@@ -92,9 +75,6 @@
     animate();
   });
   onDestroy(() => {
-    if (world) {
-      world.destroy();
-    }
     if (scene) {
       scene.clear();
     }

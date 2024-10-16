@@ -1,0 +1,1 @@
+wasm-pack build --release --no-pack --target web --out-dir ..\..\src\lib\wasm\boids
