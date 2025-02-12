@@ -8,7 +8,7 @@ export const cvData: FullInfo = {
     github: "meee-low",
     linkedin: "mfdrumond",
     website: "meee-low.github.io/",
-    location: "Brasília, DF - Brazil",
+    location: "Porto Alegre, RS - Brazil",
   },
 
   workExperience: [
@@ -16,10 +16,11 @@ export const cvData: FullInfo = {
       employer: "Grau Técnico Taguatinga",
       position: "Junior IT Technician",
       dateStart: "2024-04",
-      dateEnd: "2030-04",
+      dateEnd: "2025-02",
       bulletPoints: [
-        "Provided technical support for our employees, general eletronics maintenance and also guided students in our computer skills interactive courses.",
-        "Developed complex spreadsheets and software to help with management and logistics, as well as some customer-facing products like a resume builder webpage.",
+        "Acted as the key point of contact for software vendors, facilitating adoption, training, and support across multiple schools—an uncommon cross-institutional responsibility.",
+        "Tutored students in our interactive courses, such as computer skills, programming, and graphic design.",
+        "Developed and led training sessions for teachers and staff, creating instructional guides to troubleshoot common tech issues.",
       ],
     },
     {
@@ -37,7 +38,7 @@ export const cvData: FullInfo = {
       institution: "UFRGS",
       degree: "B.S. Applied Mathematics",
       dateStart: "2022-06",
-      dateEnd: "2026-06",
+      dateEnd: "2026-12",
       bulletPoints: [
         "Focused on data science and programming.",
         "Scientific Initiation: Studied advanced graduate-level topics in Representation Theory (Algebra) under the guidance of Leonardo Duarte Silva, delivering weekly lectures on what I learned.",
@@ -53,9 +54,23 @@ export const cvData: FullInfo = {
   projects: [
     {
       title: "Web Portfolio",
-      description: "",
+      description:
+        "Where you can find this CV and other projecs I've worked on.",
       link: "https://meee-low.github.io",
       bulletPoints: [],
+    },
+    {
+      title: "ZenResort",
+      description:
+        "A Django-powered web application providing comprehensive booking, reservation, and CRM functionality for a countryside resort.",
+      link: "",
+      bulletPoints: [
+        "Developed and maintained as a solo freelance project since Jan 2025.",
+        "Tech Stack: Python, Django, Tailwind CSS, HTMX, PostgreSQL, SQLite.",
+        "Features include: Booking system, room/reservation management panels, and CRM.",
+        "Directly collaborated with the client to implement new features and address their needs.",
+        "Currently planning expansion to offer the system as a SaaS solution.",
+      ],
     },
     {
       title:
@@ -71,7 +86,6 @@ export const cvData: FullInfo = {
     "General Programming: Git; Linux and terminal environments; SQL (SQLite, Postgres).",
     "Web Development: HTML, JavaScript, TypeScript, CSS; Tailwind; Svelte; Django backends; Familiar with React.",
     "Theory: Machine Learning; Statistical modeling (regression, hypothesis testing).",
-    "Soft Skills: Experienced in education, presentation, research, teaching and communicating technical concepts to non-technical audiences.",
     "Other Programming Languages and Tools: Neovim wizard; Beginner at Go, Kotlin and Rust.",
   ],
   languages: [
