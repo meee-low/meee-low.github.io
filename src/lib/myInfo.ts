@@ -128,6 +128,7 @@ export const cvData: FullInfoWithLang = {
           "Atuei como ponto de contato para fornecedores de software, facilitando a implantação, treinamento e suporte em várias escolas da região — uma responsabilidade interinstitucional confiada a mim devido ao meu destaque na minha função.",
           "Monitorei estudantes dos nossos cursos interativos em áreas como Pacote Office, programação e design gráfico.",
           "Liderei sessões de treinamento para instrutores e funcionários e redigi manuais para acelerar a resolução de problemas técnicos comuns. Auxiliei os funcionários em dúvidas de tecnologia e de Pacote Office.",
+          "Fui responsável pela manutenção de computadores, impressoras e projetores.",
           "Desenvolvi e mantive planilhas para ajudar no gerenciamento e logística.",
         ],
       },
@@ -165,7 +166,7 @@ export const cvData: FullInfoWithLang = {
       {
         title: "Portfólio Web",
         description:
-          "Onde você pode encontrar esse currículo e o melhor lugar para visualizar meus projetos.",
+          "Onde você pode encontrar esse currículo e o melhor lugar para explorar meus projetos.",
         link: "https://meee-low.github.io",
         bulletPoints: [],
       },
@@ -173,7 +174,7 @@ export const cvData: FullInfoWithLang = {
         title:
           "Tomato Wars: What Makes Critics and Audiences Disagree on Movies?",
         description:
-          "Uma exploração do dataset da Rotten Tomatoes com o objetivo de descobrir fatores que fazem as pontuações do público e dos críticos divergir.",
+          "Uma exploração do dataset da Rotten Tomatoes com o objetivo de descobrir fatores que fazem as pontuações do público e dos críticos divergirem.",
         link: "",
         bulletPoints: [],
       },
