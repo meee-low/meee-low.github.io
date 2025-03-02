@@ -1,8 +1,9 @@
 <script lang="ts">
   import FullCVRender from "$lib/components/cv-builder/printcomponents/FullCVRender.svelte";
   import { cvData } from "$lib/myInfo";
+  import { selectedLanguage } from "$lib/stores";
 
-  let data = cvData;
+  $: data = cvData[$selectedLanguage ?? "en"];
 
   // Font ideas: Garamond, Helvetica, Cambria, Georgia, Avenir
 

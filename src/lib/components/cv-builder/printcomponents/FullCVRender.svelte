@@ -112,7 +112,7 @@
                   >
                 {/if}
               </div>
-              <p class="ml-6 print:leading-snug">{proj.description}</p>
+              <p class="ml-6 italic print:leading-snug">{proj.description}</p>
               <BulletList bullets={proj.bulletPoints}></BulletList>
             </div>
           {/if}
@@ -151,8 +151,9 @@
 
 <style>
   article {
-    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-      "Lucida Sans", Arial, sans-serif;
+    font-family:
+      "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
+      Arial, sans-serif;
   }
   @media print {
     article * {
