@@ -95,10 +95,10 @@
         faIcon="fa-solid fa-wrench"
         sectionTitle={$s.interactive.cvbuilder.projects.sectionHeader}
       ></SectionHeader>
-      <div class="grid grid-cols-1 gap-2 px-2 print:gap-1">
+      <div class="grid grid-cols-1 gap-2 print:gap-1">
         {#each data.projects as proj}
           {#if proj.title || proj.description || proj.link || proj.bulletPoints.some((b) => b.length > 0)}
-            <div class="">
+            <div class="ml-2">
               <div
                 class="flex flex-wrap place-content-between items-center gap-4"
               >
