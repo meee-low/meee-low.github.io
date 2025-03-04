@@ -48,7 +48,7 @@ export const cvData: FullInfoWithLang = {
         dateEnd: "2026-12",
         bulletPoints: [
           "Focused on data science and programming.",
-          "Scientific Initiation: Studied advanced graduate-level topics in Representation Theory (Algebra) under the guidance of Leonardo Duarte Silva, delivering weekly lectures on what I learned.",
+          "Scientific Initiation: Studied advanced graduate-level topics in Representation Theory (Algebra) under the guidance of professor Leonardo Duarte Silva, delivering weekly lectures on what I learned.",
           "Strong background in Business and Economics from coursework completed in an Economics major before transitioning to Applied Mathematics (Economics degree not completed).",
         ],
       },
@@ -128,17 +128,7 @@ export const cvData: FullInfoWithLang = {
           "Atuei como ponto de contato para fornecedores de software, facilitando a implantação, treinamento e suporte em várias escolas da região — uma responsabilidade interinstitucional confiada a mim devido ao meu destaque na minha função.",
           "Monitorei estudantes dos nossos cursos interativos em áreas como Pacote Office, programação e design gráfico.",
           "Liderei sessões de treinamento para instrutores e funcionários e redigi manuais para acelerar a resolução de problemas técnicos comuns. Auxiliei os funcionários em dúvidas de tecnologia e de Pacote Office.",
-          "Fui responsável pela manutenção de computadores, impressoras e projetores.",
           "Desenvolvi e mantive planilhas para ajudar no gerenciamento e logística.",
-        ],
-      },
-      {
-        employer: "Gazeus Games",
-        position: "Tradutor de Jogos",
-        dateStart: "2020-11",
-        dateEnd: "2020-12",
-        bulletPoints: [
-          "Trabalhei home-office como freelancer e traduzi o jogo mobile Top Gun Legends do inglês para o português brasileiro.",
         ],
       },
     ],
@@ -151,7 +141,7 @@ export const cvData: FullInfoWithLang = {
         dateEnd: "2026-12",
         bulletPoints: [
           "Eletivas focadas em ciência de dados, programação e economia.",
-          "Iniciação Científica: Estudei tópicos avançados de pós-graduação (Teoria das Representações) sob a orientação de Leonardo Duarte Silva, ministrando palestras semanais sobre o que aprendi.",
+          "Iniciação Científica: Estudei tópicos avançados de pós-graduação (Teoria das Representações) sob a orientação do professor Leonardo Duarte Silva, ministrando palestras semanais sobre o que aprendi.",
           "Boa base em economia e administração devido a cadeiras estudadas no meu curso anterior, Ciências Econômicas, antes de trocar para Matemática Aplicada (curso de Ciências Econômicas não concluído).",
         ],
       },
@@ -174,20 +164,27 @@ export const cvData: FullInfoWithLang = {
         title:
           "Tomato Wars: What Makes Critics and Audiences Disagree on Movies?",
         description:
-          "Uma exploração do dataset da Rotten Tomatoes com o objetivo de descobrir fatores que fazem as pontuações do público e dos críticos divergirem.",
+          "Uma exploração do dataset do agregador de críticas de filmes Rotten Tomatoes com o objetivo de descobrir fatores em comum dos filmes em que as pontuações do público e dos críticos mais divergirem.",
         link: "",
         bulletPoints: [],
       },
       {
         title: "ZenResort",
         description:
-          "Uma aplicação web que fornece funcionalidade de reservas, gerenciamento de quartos e CRM para um resort de campo.",
+          "Uma aplicação web que fornece funcionalidade de reservas, gerenciamento de quartos e CRM para um resort de campo. Desenvolvido e mantido desde 2025.",
         link: "",
         bulletPoints: [
-          "Desenvolvido como um projeto solo freelance desde janeiro de 2025.",
           "Stack: Python, Django, Tailwind CSS, HTMX, PostgreSQL, SQLite.",
           "Colaborei diretamente com o cliente para implementar novos recursos e atender às suas necessidades",
           "Planejo expandir esse projeto para oferecer o sistema como uma solução SaaS para mais empresas.",
+        ],
+      },
+      {
+        title: "Tradução do jogo Top Gun Legends",
+        description: "",
+        link: "",
+        bulletPoints: [
+          "Traduzi completamente o jogo mobile Top Gun Legends do inglês para o português brasileiro para a empresa Gazeus Games.",
         ],
       },
     ],

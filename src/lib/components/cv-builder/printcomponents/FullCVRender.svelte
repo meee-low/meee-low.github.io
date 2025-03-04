@@ -98,9 +98,9 @@
       <div class="grid grid-cols-1 gap-2 print:gap-1">
         {#each data.projects as proj}
           {#if proj.title || proj.description || proj.link || proj.bulletPoints.some((b) => b.length > 0)}
-            <div class="ml-2">
+            <div class="">
               <div
-                class="flex flex-wrap place-content-between items-center gap-4"
+                class="ml-2 flex flex-wrap place-content-between items-center gap-4"
               >
                 <h3 class="font-semibold">{proj.title}</h3>
                 {#if proj.link}
@@ -112,7 +112,9 @@
                   >
                 {/if}
               </div>
-              <p class="ml-6 italic print:leading-snug">{proj.description}</p>
+              {#if proj.description}
+                <p class="ml-6 italic print:leading-snug">{proj.description}</p>
+              {/if}
               <BulletList bullets={proj.bulletPoints}></BulletList>
             </div>
           {/if}
@@ -145,7 +147,7 @@
       faIcon="fa-solid fa-comments"
       sectionTitle={$s.interactive.cvbuilder.languages}
     ></SectionHeader>
-    <BulletList bullets={data.languages} gridCols={2}></BulletList>
+    <BulletList bullets={data.languages} gridCols={4}></BulletList>
   </section>
 </article>
 
