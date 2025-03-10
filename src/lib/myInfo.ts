@@ -120,15 +120,36 @@ export const cvData: FullInfoWithLang = {
 
     workExperience: [
       {
+        employer: "ZenResort (projeto solo)",
+        position: "Web Developer",
+        dateStart: "2025-01",
+        dateEnd: "2030-12",
+        bulletPoints: [
+          "Criei uma aplicação web interna, que fornece funcionalidade de reservas, gerenciamento de quartos e CRM para um resort de campo.",
+          "Stack: Python, Django, Tailwind CSS, HTMX, PostgreSQL, SQLite.",
+          "Colaborei diretamente com o cliente para implementar novos recursos e atender às suas necessidades",
+          "Planejo expandir esse projeto para oferecer o sistema como uma solução SaaS para mais empresas.",
+        ],
+      },
+      {
         employer: "Grau Técnico Taguatinga",
-        position: "Assistente de Tecnologia Júnior",
+        position: "Assistente de Tecnologia",
         dateStart: "2024-04",
         dateEnd: "2025-02",
         bulletPoints: [
           "Atuei como ponto de contato para fornecedores de software, facilitando a implantação, treinamento e suporte em várias escolas da região — uma responsabilidade interinstitucional confiada a mim devido ao meu destaque na minha função.",
-          "Monitorei estudantes dos nossos cursos interativos em áreas como Pacote Office, programação e design gráfico.",
+          "Instruí os estudantes dos nossos cursos interativos em áreas como Pacote Office, programação e design gráfico.",
           "Liderei sessões de treinamento para instrutores e funcionários e redigi manuais para acelerar a resolução de problemas técnicos comuns. Auxiliei os funcionários em dúvidas de tecnologia e de Pacote Office.",
           "Desenvolvi e mantive planilhas para ajudar no gerenciamento e logística.",
+        ],
+      },
+      {
+        employer: "Gazeus Games",
+        position: "Tradutor",
+        dateStart: "2020-11",
+        dateEnd: "2020-12",
+        bulletPoints: [
+          "Traduzi o jogo Top Gun Legends do inglês para o português, contratado temporariamente.",
         ],
       },
     ],
@@ -136,13 +157,13 @@ export const cvData: FullInfoWithLang = {
     education: [
       {
         institution: "UFRGS",
-        degree: "Bac. em Matemática Aplicada e Computacional",
+        degree: "Matemática Aplicada e Computacional",
         dateStart: "2022-06",
         dateEnd: "2026-12",
         bulletPoints: [
           "Eletivas focadas em ciência de dados, programação e economia.",
-          "Iniciação Científica: Estudei tópicos avançados de pós-graduação (Teoria das Representações) sob a orientação do professor Leonardo Duarte Silva, ministrando palestras semanais sobre o que aprendi.",
-          "Boa base em economia e administração devido a cadeiras estudadas no meu curso anterior, Ciências Econômicas, antes de trocar para Matemática Aplicada (curso de Ciências Econômicas não concluído).",
+          "Iniciação Científica: Estudei tópicos avançados de pós-graduação (Teoria das Representações - Álgebra) sob a orientação do professor Leonardo Duarte Silva, ministrando palestras semanais sobre o que aprendi.",
+          "Boa base em economia e administração devido a disciplinas estudadas no meu curso anterior, Ciências Econômicas, antes de trocar para Matemática Aplicada (curso de Ciências Econômicas não concluído).",
         ],
       },
     ],
@@ -168,29 +189,10 @@ export const cvData: FullInfoWithLang = {
         link: "",
         bulletPoints: [],
       },
-      {
-        title: "ZenResort",
-        description:
-          "Uma aplicação web que fornece funcionalidade de reservas, gerenciamento de quartos e CRM para um resort de campo. Desenvolvido e mantido desde 2025.",
-        link: "",
-        bulletPoints: [
-          "Stack: Python, Django, Tailwind CSS, HTMX, PostgreSQL, SQLite.",
-          "Colaborei diretamente com o cliente para implementar novos recursos e atender às suas necessidades",
-          "Planejo expandir esse projeto para oferecer o sistema como uma solução SaaS para mais empresas.",
-        ],
-      },
-      {
-        title: "Tradução do jogo Top Gun Legends",
-        description: "",
-        link: "",
-        bulletPoints: [
-          "Traduzi completamente o jogo mobile Top Gun Legends do inglês para o português brasileiro para a empresa Gazeus Games.",
-        ],
-      },
     ],
 
     skills: [
-      "Tecnologias de Data Science: Python (Numpy, Pandas, Matplotlib, Seaborn, Jupyter Notebook; conhecimento básico de PyTorch); Excel (incluindo tabelas dinâmicas e Power Query); Power BI; SQL",
+      "Tecnologias de Data Science: Python (Numpy, Pandas, Matplotlib, Seaborn, Jupyter Notebook; conhecimento básico de PyTorch); Excel (incluindo tabelas dinâmicas e Power Query); Power BI; SQL.",
       "Programação em Geral: Git; Linux e ambientes de terminal; SQL (SQLite, Postgres); Docker.",
       "Web: HTML, JavaScript, TypeScript, CSS; Tailwind; Svelte; Django; Familiaridade com React.",
       "Teoria: Machine Learning; Modelagem Estatística (regressões, teste de hipóteses).",

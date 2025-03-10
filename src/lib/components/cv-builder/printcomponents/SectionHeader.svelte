@@ -3,7 +3,7 @@
   export let sectionTitle: string;
 </script>
 
-<h2 class="header-line mb-2 text-lg font-extrabold uppercase print:mb-1">
+<h2 class="header-line mb-2 text-lg font-extrabold uppercase print:mb-2">
   <i class="{faIcon} fa-fw" aria-hidden="true"></i>
   {sectionTitle}
 </h2>

@@ -19,7 +19,7 @@
 
 <section>
   <ul
-    class="mb-10 flex max-w-full flex-wrap place-content-between gap-x-4 gap-y-2 text-sm print:mb-2 print:gap-x-2 {tightness}  print:gap-y-1 print:text-[8pt]"
+    class="flex max-w-full flex-wrap place-content-between gap-x-4 gap-y-2 text-sm print:gap-x-2 {tightness}  print:gap-y-1 print:text-[9pt]"
   >
     {#if data.location && data.location.length > 0}
       <li>

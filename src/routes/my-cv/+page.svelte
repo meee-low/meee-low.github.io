@@ -3,7 +3,9 @@
   import { cvData } from "$lib/myInfo";
   import { selectedLanguage } from "$lib/stores";
 
-  $: data = cvData[$selectedLanguage ?? "en"];
+  $: lang = $selectedLanguage ?? "en";
+
+  $: data = cvData[lang];
 
   // Font ideas: Garamond, Helvetica, Cambria, Georgia, Avenir
 
@@ -14,5 +16,5 @@
 <FullCVRender {data}></FullCVRender>
 
 <svelte:head>
-  <title>MFD - Resume</title>
+  <title>MFD - {lang === "en" ? "Resume" : "Currículo"}</title>
 </svelte:head>
