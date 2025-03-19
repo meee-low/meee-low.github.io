@@ -19,15 +19,28 @@ export const cvData: FullInfoWithLang = {
 
     workExperience: [
       {
+        employer: "ZenResort (projeto solo)",
+        position: "Web Developer",
+        dateStart: "2025-01",
+        dateEnd: "2030-12",
+        bulletPoints: [
+          "Developed an internal web app providing booking, room management and CRM for a countrysside resort.",
+          "Stack: Python, Django, Tailwind CSS, HTMX, PostgreSQL, SQLite.",
+          "Directly collaborated with the client to implement new features and address their needs.",
+          "Currently planning expansion to offer the system as a SaaS solution.",
+        ],
+      },
+      {
         employer: "Grau Técnico Taguatinga",
-        position: "Junior IT Technician",
+        position: "Technology Assistant",
         dateStart: "2024-04",
         dateEnd: "2025-02",
         bulletPoints: [
-          "Acted as the key point of contact for software vendors, facilitating adoption, training, and support across multiple schools—an uncommon cross-institutional responsibility.",
-          "Tutored students in our interactive courses, such as computer skills, programming, and graphic design.",
-          "Developed and led training sessions for teachers and staff, creating instructional guides to troubleshoot common tech issues.",
-          "Developed complex spreadsheets and software to help with management and logistics, as well as some customer-facing products like a resume builder webpage.",
+          "Acted as the key point of contact for software vendors, facilitating deployment, training, and support across multiple schools—an cross-institutional responsibility entrusted to me due to my outstanding performance in my role.",
+          "Taught students in our interactive courses, on topics such as computer skills, programming, and graphic design.",
+          "Developed and led training sessions for teachers and staff. Authored manuals to streamline the resolution of common tech issues.",
+          "Assisted staff with technology-related problems and automatized processes.",
+          "Developed spreadsheets to help with management and logistics.",
         ],
       },
       {
@@ -74,19 +87,6 @@ export const cvData: FullInfoWithLang = {
           "An exploration of the Rotten Tomatoes dataset with the goal of finding out critical factors that make audiences' and critics' scores diverge.",
         link: "",
         bulletPoints: [],
-      },
-      {
-        title: "ZenResort",
-        description:
-          "A Django-powered web application providing booking, reservation, and CRM functionality for a countryside resort.",
-        link: "",
-        bulletPoints: [
-          "Developed and maintained as a solo freelance project since Jan 2025.",
-          "Tech Stack: Python, Django, Tailwind CSS, HTMX, PostgreSQL, SQLite.",
-          "Features include: Booking system, room/reservation management panels, and CRM.",
-          "Directly collaborated with the client to implement new features and address their needs.",
-          "Currently planning expansion to offer the system as a SaaS solution.",
-        ],
       },
     ],
 
