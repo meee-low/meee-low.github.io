@@ -1,0 +1,1 @@
+import{w as e}from"./Nlh6b-u8.js";const o=()=>({personalInfo:{name:"",phone:"",email:"",linkedin:"",website:"",location:"",github:""},about:"",workExperience:[],education:[],coursesAndCertifications:[],projects:[],languages:[],skills:[]});let i=e(o());export{o as m,i as s};
