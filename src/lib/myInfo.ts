@@ -7,6 +7,7 @@ interface FullInfoWithLang {
 
 export const cvData: FullInfoWithLang = {
   en: {
+    about: "",
     personalInfo: {
       name: "Matheus Ferreira Drumond",
       phone: "+55 51 98101-6400",
@@ -20,7 +21,7 @@ export const cvData: FullInfoWithLang = {
     workExperience: [
       {
         employer: "ZenResort (projeto solo)",
-        position: "Web Developer",
+        position: "Desenvolvedor Web",
         dateStart: "2025-01",
         dateEnd: "2030-12",
         bulletPoints: [
@@ -108,6 +109,7 @@ export const cvData: FullInfoWithLang = {
   },
 
   "pt-BR": {
+    about: "",
     personalInfo: {
       name: "Matheus Ferreira Drumond",
       phone: "(51) 98101-6400",

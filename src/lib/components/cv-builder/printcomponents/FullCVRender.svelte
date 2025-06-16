@@ -11,6 +11,7 @@
   import PersonalInfo from "./PersonalInfo.svelte";
   import { onMount } from "svelte";
   import { selectedLanguage, selectedLanguageString as s } from "$lib/stores";
+  import { formatBasicMarkdown } from "$lib/markdownParsing";
 
   onMount(() => {
     const header = document.getElementsByTagName("header")[0];
@@ -45,6 +46,14 @@
   <section class="mb-4">
     <PersonalInfo data={data.personalInfo}></PersonalInfo>
   </section>
+
+  {#if data.about && data.about.length > 0 }
+    <section>
+      <p class="border-l-2 mb-4 border-black pl-2 rounded-sm">
+        {formatBasicMarkdown(data.about)}
+      </p>
+    </section>
+  {/if}
 
   <div class="space-y-6 print:space-y-4">
     <section>

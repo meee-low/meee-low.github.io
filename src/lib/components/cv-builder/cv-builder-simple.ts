@@ -44,6 +44,7 @@ export type Skills = BulletPoints;
 
 export interface FullInfo {
   personalInfo: PersonalInfo;
+  about: string;
   workExperience: WorkExperience;
   education: Education;
   coursesAndCertifications: CoursesAndCertifications;
@@ -65,6 +66,7 @@ export const makeEmptyInfo: () => FullInfo = () => {
       location: "",
       github: "",
     },
+    about: "",
     workExperience: [],
     education: [],
     coursesAndCertifications: [],
