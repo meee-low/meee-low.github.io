@@ -35,6 +35,9 @@ interface CVStrings {
     website: string;
     github: string;
   };
+  aboutMe: {
+    sectionHeader: string;
+  } | null;
   workExperience: {
     sectionHeader: string;
     position: string;
