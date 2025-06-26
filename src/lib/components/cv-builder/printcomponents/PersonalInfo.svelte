@@ -1,8 +1,9 @@
 <script lang="ts">
   import type { PersonalInfo } from "../cv-builder-simple";
+  import { selectedLanguage } from "$lib/stores";
 
-  const icons = {
-    phone: "fa-solid fa-phone",
+  $: icons = {
+    phone: $selectedLanguage === "en" ? "fa-solid fa-phone" : "fa-brands fa-square-whatsapp",
     email: "fa-solid fa-envelope",
     linkedin: "fa-brands fa-linkedin",
     website: "fa-solid fa-globe",
@@ -11,18 +12,15 @@
   };
 
   export let data: PersonalInfo;
-  $: tightness =
-    Object.entries(data).filter(([key, val]) => val.length > 0).length > 4
-      ? "tracking-tight"
-      : "";
-  // if data has more than 6 items
   $: lineBreak =
     Object.entries(data).filter(([key, val]) => val.length > 0).length >= 5 ? "grid grid-cols-3 " : "flex flex-wrap place-content-between" ;
+
+  $: phoneHref = $selectedLanguage === "en" ? "tel:" : "https://wa.me/55"
 </script>
 
 <section>
   <ul
-    class="{lineBreak} max-w-full place-content-between gap-x-4 gap-y-2 text-sm print:gap-x-2 {tightness}  print:gap-y-1 print:text-[9pt]"
+    class="{lineBreak} max-w-full place-content-between gap-x-4 gap-y-1 text-sm print:gap-x-2 print:gap-y-1 print:text-[9pt]"
   >
     {#if data.location && data.location.length > 0}
       <li>
@@ -52,7 +50,7 @@
     {/if}
     {#if data.phone}
       <li>
-        <a class="text-nowrap" href={"tel:" + data.phone.replace(/\D/g, "")}>
+        <a class="text-nowrap" href={phoneHref + data.phone.replace(/\D/g, "")}>
           <i class="{icons.phone} mr-1 text-teal-600"></i>{data.phone}
         </a>
       </li>
@@ -77,7 +75,7 @@
 
 <style>
   ul.grid li:nth-child(3n-1) {
-    text-align: center;    
+    text-align: center;
   }
   ul.grid li:nth-child(3n) {
     text-align: right;
