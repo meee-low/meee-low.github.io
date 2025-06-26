@@ -13,7 +13,9 @@
   // https://app.enhancv.com/resume-checker/results?key=resumeChecker/253c98e412c4538681ad9c3439e4658312d812d5e22684e28511d7b36fd3c81b.pdf#resumeCheckerSubsection-FormatAndSizeReport
 </script>
 
-<FullCVRender {data}></FullCVRender>
+<div class="my-8 print:my-0">
+  <FullCVRender {data}></FullCVRender>
+</div>
 
 <svelte:head>
   <title>MFD - {lang === "en" ? "Resume" : "Currículo"}</title>
