@@ -15,11 +15,14 @@
     Object.entries(data).filter(([key, val]) => val.length > 0).length > 4
       ? "tracking-tight"
       : "";
+  // if data has more than 6 items
+  $: lineBreak =
+    Object.entries(data).filter(([key, val]) => val.length > 0).length >= 5 ? "grid grid-cols-3 " : "flex flex-wrap place-content-between" ;
 </script>
 
 <section>
   <ul
-    class="flex max-w-full flex-wrap place-content-between gap-x-4 gap-y-2 text-sm print:gap-x-2 {tightness}  print:gap-y-1 print:text-[9pt]"
+    class="{lineBreak} max-w-full place-content-between gap-x-4 gap-y-2 text-sm print:gap-x-2 {tightness}  print:gap-y-1 print:text-[9pt]"
   >
     {#if data.location && data.location.length > 0}
       <li>
@@ -71,3 +74,12 @@
     {/if}
   </ul>
 </section>
+
+<style>
+  ul.grid li:nth-child(3n-1) {
+    text-align: center;    
+  }
+  ul.grid li:nth-child(3n) {
+    text-align: right;
+  }
+</style>

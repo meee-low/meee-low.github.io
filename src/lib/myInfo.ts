@@ -7,7 +7,7 @@ interface FullInfoWithLang {
 
 export const cvData: FullInfoWithLang = {
   en: {
-    about: "",
+    about: "For me, coding is like solving a puzzle with superpowers. I love building little tools that make big differences, finding patterns in data, and making things run smoother. And as much as I love talking to computers, I enjoy talking to people just as much!",
     personalInfo: {
       name: "Matheus Ferreira Drumond",
       phone: "+55 51 98101-6400",
@@ -109,7 +109,7 @@ export const cvData: FullInfoWithLang = {
   },
 
   "pt-BR": {
-    about: "",
+    about: "Para mim, programar é como resolver um quebra-cabeça com superpoderes. Adoro criar pequenas ferramentas que fazem uma grande diferença, encontrar padrões nos dados e deixar tudo funcionando de forma mais fluida. E por mais que eu goste de conversar com computadores, gosto igualmente de conversar com pessoas. Me dou bem com diferentes perfis, trabalho bem em equipe e acredito que boas relações fazem toda a diferença em qualquer projeto.",
     personalInfo: {
       name: "Matheus Ferreira Drumond",
       phone: "(51) 98101-6400",
