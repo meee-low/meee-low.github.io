@@ -109,7 +109,7 @@ export const cvData: FullInfoWithLang = {
   },
 
   "pt-BR": {
-    about: "Tenho uma paixão por automatizar tarefas manuais repetitivas e extrair informações úteis de dados. Tenho mais experiência com Python e JavaScript/Web, mas sempre estou aprendendo tecnologias novas.",
+    about: "Sou apaixonado por automatizar tarefas manuais repetitivas e extrair informações úteis de dados. Tenho mais experiência com Python e JavaScript/Web, mas sempre estou aprendendo tecnologias novas.",
     personalInfo: {
       name: "Matheus Ferreira Drumond",
       phone: "(51) 98101-6400",
@@ -128,7 +128,7 @@ export const cvData: FullInfoWithLang = {
         dateEnd: "2032-10",
         bulletPoints: [
           "Logo nos primeiros meses, identifiquei gargalos nos processos da equipe e desenvolvi automações que reduziram as tarefas manuais repetitivas e minimizaram erros, utilizando Google Apps Script (JavaScript) e Microsoft Excel.",
-          "Busquei dados e painéis, resumi dados e montei gráficos e tabelas para auxiliar na visualização de dados para os nossos relatórios.",
+          "Reuni e sintetizei dados, que transformei em gráficos e tabelas para aprimorar a clareza dos nossos relatórios.",
           "Fui chamado para reuniões entre equipes, onde fui encubido de montar um site para conectar a equipe de emendas parlamentares aos parlamentares.",
         ]
       },
