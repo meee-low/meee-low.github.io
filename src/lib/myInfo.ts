@@ -7,7 +7,7 @@ interface FullInfoWithLang {
 
 export const cvData: FullInfoWithLang = {
   en: {
-    about: "For me, coding is like solving a puzzle with superpowers. I love building little tools that make big differences, finding patterns in data, and making things run smoother. And as much as I love talking to computers, I enjoy talking to people just as much!",
+    about: "",
     personalInfo: {
       name: "Matheus Ferreira Drumond",
       phone: "+55 51 98101-6400",
@@ -109,7 +109,7 @@ export const cvData: FullInfoWithLang = {
   },
 
   "pt-BR": {
-    about: "Para mim, programar é como resolver um quebra-cabeça com superpoderes. Adoro criar pequenas ferramentas que fazem uma grande diferença, encontrar padrões nos dados e deixar tudo funcionando de forma mais fluida. E por mais que eu goste de conversar com computadores, gosto igualmente de conversar com pessoas. Me dou bem com diferentes perfis, trabalho bem em equipe e acredito que boas relações fazem toda a diferença em qualquer projeto.",
+    about: "Tenho uma paixão por automatizar tarefas manuais repetitivas e extrair informações úteis de dados. Tenho mais experiência com Python e JavaScript/Web, mas sempre estou aprendendo tecnologias novas.",
     personalInfo: {
       name: "Matheus Ferreira Drumond",
       phone: "(51) 98101-6400",
@@ -122,15 +122,26 @@ export const cvData: FullInfoWithLang = {
 
     workExperience: [
       {
+        employer: "Secretaria Municipal de Saúde de Porto Alegre",
+        position: "Estagiário",
+        dateStart: "2025-09",
+        dateEnd: "2032-10",
+        bulletPoints: [
+          "Logo nos primeiros meses, identifiquei gargalos nos processos da equipe e desenvolvi automações que reduziram as tarefas manuais repetitivas e minimizaram erros, utilizando Google Apps Script (JavaScript) e Microsoft Excel.",
+          "Busquei dados e painéis, resumi dados e montei gráficos e tabelas para auxiliar na visualização de dados para os nossos relatórios.",
+          "Fui chamado para reuniões entre equipes, onde fui encubido de montar um site para conectar a equipe de emendas parlamentares aos parlamentares.",
+        ]
+      },
+      {
         employer: "ZenResort (projeto solo)",
         position: "Web Developer",
         dateStart: "2025-01",
-        dateEnd: "2030-12",
+        dateEnd: "2025-05",
         bulletPoints: [
           "Criei uma aplicação web interna, que fornece funcionalidade de reservas, gerenciamento de quartos e CRM para um resort de campo.",
           "Stack: Python, Django, Tailwind CSS, HTMX, PostgreSQL, SQLite.",
           "Colaborei diretamente com o cliente para implementar novos recursos e atender às suas necessidades",
-          "Planejo expandir esse projeto para oferecer o sistema como uma solução SaaS para mais empresas.",
+          // "Planejo expandir esse projeto para oferecer o sistema como uma solução SaaS para mais empresas.",
         ],
       },
       {
@@ -151,7 +162,7 @@ export const cvData: FullInfoWithLang = {
         dateStart: "2020-11",
         dateEnd: "2020-12",
         bulletPoints: [
-          "Traduzi o jogo Top Gun Legends do inglês para o português, contratado temporariamente.",
+          "Traduzi o jogo Top Gun Legends do inglês para o português, contratado para esse projeto.",
         ],
       },
     ],
