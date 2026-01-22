@@ -127,14 +127,14 @@ export const cvData: FullInfoWithLang = {
         dateStart: "2025-09",
         dateEnd: "2032-10",
         bulletPoints: [
-          "Logo nos primeiros meses, identifiquei gargalos nos processos da equipe e desenvolvi automações que reduziram as tarefas manuais repetitivas e minimizaram erros, utilizando Google Apps Script (JavaScript) e Microsoft Excel.",
-          "Reuni e sintetizei dados, que transformei em gráficos e tabelas para aprimorar a clareza dos nossos relatórios.",
-          "Fui chamado para reuniões entre equipes, onde fui encubido de montar um site para conectar a equipe de emendas parlamentares aos parlamentares.",
+          "Extraí, limpei e sintetizei dados, que transformei em tabelas, gráficos e dashboards de PowerBI para aprimorar a clareza dos nossos relatórios.",
+          "Montei um site interno em que os parlamentares podem investir suas emendas diretamente em projetos que disponibilizamos no catálogo. Isso centralizou essas emendas e ",
+          "Logo nos primeiros meses, identifiquei gargalos nos processos da equipe e desenvolvi automações que reduziram as tarefas manuais repetitivas e minimizaram erros, utilizando Python, Google Apps Script (JavaScript) e Microsoft Excel.",
         ]
       },
       {
         employer: "ZenResort (projeto solo)",
-        position: "Web Developer",
+        position: "Desenvolvedor Web",
         dateStart: "2025-01",
         dateEnd: "2025-05",
         bulletPoints: [
