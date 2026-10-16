@@ -100,7 +100,7 @@ const strings: Record<"en" | "pt-BR", FullLang> = {
       interactive: "Interactive",
       blog: "Blog",
       resumecv: "Resume",
-      location: "Brasília, DF - Brazil",
+      location: "Porto Alegre, RS - Brazil",
     },
     portfolio: {
       filters: {
@@ -176,7 +176,7 @@ const strings: Record<"en" | "pt-BR", FullLang> = {
       interactive: "Interativo",
       blog: "Blog",
       resumecv: "Currículo",
-      location: "Brasília, DF - Brasil",
+      location: "Porto Alegre, RS - Brasil",
     },
     portfolio: {
       filters: {
