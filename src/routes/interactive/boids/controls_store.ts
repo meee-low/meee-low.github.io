@@ -34,6 +34,7 @@ interface WorldParams {
   numberOfBoids: number;
   spatialStructure: keyof typeof SpatialStructures;
   quadtreeCapacity: number;
+  showQuadtree: boolean;
 }
 
 export type ControlParams = BoidsParams & WorldParams;
@@ -43,6 +44,7 @@ export const DEFAULT_CONTROL_PARAMS: ControlParams = {
   numberOfBoids: 300,
   spatialStructure: "quadtree",
   quadtreeCapacity: 20,
+  showQuadtree: false,
 };
 
 export let controlParams: Writable<ControlParams> = writable({

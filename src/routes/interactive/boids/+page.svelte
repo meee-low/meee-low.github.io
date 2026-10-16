@@ -24,6 +24,37 @@
   let width: number;
   let height: number;
   let world: World;
+  let quadtreeDebugLines: THREE.LineSegments;
+
+  function updateQuadtreeDebugLines() {
+    const positions: number[] = [];
+    for (const bounds of world.getQuadtreeDebugBounds()) {
+      positions.push(
+        bounds.leftX(),
+        bounds.topY(),
+        bounds.rightX(),
+        bounds.topY(),
+        bounds.rightX(),
+        bounds.topY(),
+        bounds.rightX(),
+        bounds.bottomY(),
+        bounds.rightX(),
+        bounds.bottomY(),
+        bounds.leftX(),
+        bounds.bottomY(),
+        bounds.leftX(),
+        bounds.bottomY(),
+        bounds.leftX(),
+        bounds.topY(),
+      );
+    }
+
+    quadtreeDebugLines.geometry.setAttribute(
+      "position",
+      new THREE.Float32BufferAttribute(positions, 2),
+    );
+    quadtreeDebugLines.geometry.computeBoundingSphere();
+  }
 
   onMount(() => {
     width = 800;
@@ -58,15 +89,22 @@
       world.addBoid(v, new THREE.Vector2(Math.random(), Math.random()));
     }
     scene.add(...world.boidsSprites);
+    quadtreeDebugLines = new THREE.LineSegments(
+      new THREE.BufferGeometry(),
+      new THREE.LineBasicMaterial({ color: 0x00ff88 }),
+    );
+    scene.add(quadtreeDebugLines);
 
     clock = new THREE.Clock();
 
     controlParams.subscribe((v) => {
       console.log(v);
       const needsSceneUpdate = world.updateParams(v);
+      quadtreeDebugLines.visible = v.showQuadtree;
       if (needsSceneUpdate) {
         scene.clear();
         scene.add(...world.getSprites());
+        scene.add(quadtreeDebugLines);
       }
     });
 
@@ -81,6 +119,7 @@
           // console.log(p.deltatime);
           fpsCounter.pushDeltatime(p.deltatime);
           world.update(Math.min(p.deltatime, 1 / 15));
+          updateQuadtreeDebugLines();
         }
       },
       renderer,
@@ -97,6 +136,10 @@
     }
     if (scene) {
       scene.clear();
+    }
+    if (quadtreeDebugLines) {
+      quadtreeDebugLines.geometry.dispose();
+      (quadtreeDebugLines.material as THREE.Material).dispose();
     }
     if (clock) {
       clock.stop();

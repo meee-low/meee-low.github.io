@@ -29,7 +29,7 @@ export class BasicSpatialContainer<T> extends SpatialContainer<T> {
   public queryAll(): T[] {
     return this.elements;
   }
-  public rebalance(): void {}
+  public rebalance(): void { }
 }
 
 export class Quadtree2<T> extends SpatialContainer<T> {
@@ -198,6 +198,17 @@ export class Quadtree2<T> extends SpatialContainer<T> {
       this.subdivisions.sw.queryAll().forEach((el) => results.push(el));
     }
     return results;
+  }
+
+  public getDebugBounds(): OrthogonalRectangleCollider[] {
+    const bounds = [this.boundaryBox];
+    if (this.subdivisions) {
+      bounds.push(...this.subdivisions.ne.getDebugBounds());
+      bounds.push(...this.subdivisions.nw.getDebugBounds());
+      bounds.push(...this.subdivisions.se.getDebugBounds());
+      bounds.push(...this.subdivisions.sw.getDebugBounds());
+    }
+    return bounds;
   }
 
   public rebalance(parent?: Quadtree2<T>): void {

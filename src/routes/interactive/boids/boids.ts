@@ -89,7 +89,7 @@ export class Boids {
     let closeVec = new Vector2(0, 0);
 
     tooClose.forEach((other) => {
-      closeVec.add(this.position).sub(other.position);
+      closeVec.add(this.position.clone().sub(other.position));
     });
 
     // Alignment
@@ -108,6 +108,7 @@ export class Boids {
         neighborsAvgPosition.add(other.position);
       });
       neighborsAvgPosition.divideScalar(neighbors.length);
+      neighborsAvgPosition.sub(this.position);
     }
 
     // Dodge obstacles
@@ -226,6 +227,13 @@ export class World {
     return this.boidsSprites;
   }
 
+  public getQuadtreeDebugBounds(): OrthogonalRectangleCollider[] {
+    if (this.boidsQt instanceof Quadtree2) {
+      return this.boidsQt.getDebugBounds();
+    }
+    return [];
+  }
+
   updateHeadings() {
     this.boidsQt.queryAll().forEach((b) => {
       b.calculateNewHeading(this);
@@ -287,6 +295,7 @@ export class World {
   public updateParams(params: ControlParams): boolean {
     let needsSceneUpdate = false;
     const patch = onlyChangedFields(this.worldParams, params);
+    const previousWorldParams = this.worldParams;
     this.worldParams = params;
 
     // Change in the number of boids:
@@ -309,8 +318,9 @@ export class World {
 
     // Change in the data structure:
     if (
-      params.spatialStructure !== this.worldParams.spatialStructure ||
-      params.numberOfBoids !== this.worldParams.numberOfBoids
+      params.spatialStructure !== previousWorldParams.spatialStructure ||
+      params.numberOfBoids !== previousWorldParams.numberOfBoids ||
+      params.quadtreeCapacity !== previousWorldParams.quadtreeCapacity
     ) {
       this.reconstructSpace(this.boidsQt.queryAll());
     }
@@ -324,7 +334,7 @@ export class World {
   }
 
   private reconstructSpace(boids: Boids[]) {
-let newSS;
+    let newSS;
     if (this.worldParams.spatialStructure === "array") {
       newSS = new BasicSpatialContainer((b: Boids) => b.getPosition());
     } else if (this.worldParams.spatialStructure === "quadtree") {
@@ -338,7 +348,7 @@ let newSS;
     }
 
     boids.forEach((b) => newSS.push(b));
-this.boidsQt = newSS;
+    this.boidsQt = newSS;
   }
 }
 

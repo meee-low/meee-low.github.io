@@ -15,6 +15,11 @@
     <option value="quadtree" selected>Quadtree</option>
   </select>
 
+  <label class="ml-2">
+    <input bind:checked={$controlParams.showQuadtree} type="checkbox" />
+    Show quadtree
+  </label>
+
   <NumericSlider
     {...{
       label: "numberOfBoids",
